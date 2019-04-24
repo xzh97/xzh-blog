@@ -1,6 +1,6 @@
 <template>
-    <div class="home-wrapper">
-        I'm index!
+    <div class="header-wrapper">
+        I'm header component
     </div>
 </template>
 
