@@ -1,6 +1,5 @@
 <template>
     <div class="home-wrapper">
-        I'm index!
     </div>
 </template>
 
@@ -10,7 +9,11 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
-
+<style lang="scss" scoped>
+    .home-wrapper{
+        width: 100%;
+        height: 800px;
+        background: url('../../assets/images/bg3.jpg');
+    }
 </style>
 
