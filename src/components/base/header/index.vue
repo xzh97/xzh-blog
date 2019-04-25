@@ -1,9 +1,9 @@
 <template>
-    <div class="header-wrapper" :class="{'header-fixed':scrollTop > 20}">
+    <div class="header-wrapper" :class="{'header-fixed':isFixed }">
         <div class="header-left">
             <img class="logo" :src="imgs.logo" alt="">
         </div>
-        <div class="header-right" :style="navWidth">
+        <div class="header-right">
             <ul class="nav">
                 <li class="nav-item" v-for="item in navList" :key="item.key" @click="goTo(item.path)">{{item.title}}</li>
                 <li class="nav-item user-info" :key="'user'">
@@ -31,32 +31,25 @@ export default {
                 {
                     title:'学习笔记',
                     key:'blog',
-                    path:'/home/blog',
+                    path:'/blog/list',
                 },
                 {
                     title:'插件展示库',
                     key:'plugins',
-                    path:'/home/plugins',
+                    path:'/plugins',
                 },
                 {
                     title:'照片集',
                     key:'photos',
-                    path:'/home/photos',
+                    path:'/photos',
                 },
                 {
                     title:'吐槽说',
                     key:'tuCao',
-                    path:'/home/tuCao',
+                    path:'/tucao',
                 },
             ]
         }
-    },
-    computed:{
-        navWidth(){
-            let { navList } = this;
-            return { width:100 * (navList.length + 1) + 'px'}
-        }
-
     },
     mounted(){
         this.$nextTick( () => {
@@ -71,6 +64,12 @@ export default {
             　　this.scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
             }    
         })
+    },
+    computed:{
+        isFixed(){
+            let { scrollTop, $route } = this;
+            return scrollTop > 20 || $route.name !== 'home';
+        }
     },
     methods:{
         goTo(path){
@@ -91,11 +90,6 @@ export default {
     align-items: center;
     justify-content: space-between;
 
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100;
-
     .header-left{
         width: 60px;
         height: 60px;
@@ -105,16 +99,16 @@ export default {
         }
     }
     .header-right{
+        margin-right: 20px;
         height: 60px;
         .nav{
-            width: 100%;
             height: 100%;
 
             display: flex;
             align-items: center;
             justify-content: space-around;
             .nav-item{
-                width: 20%;
+                padding: 0 20px;
                 height: 100%;
                 line-height: 60px;
                 text-align: center;
@@ -129,6 +123,7 @@ export default {
                 color: #cccccc;
             }
             .user-info{
+                width:40px;
                 display: flex;
                 justify-content: space-around;
                 align-items: center;
@@ -152,6 +147,11 @@ export default {
     }
 }
 .header-fixed{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+
     background: #292b2c !important;
     box-shadow: 0px 2px 2px rgba(255, 255, 255, 0.2);
 }

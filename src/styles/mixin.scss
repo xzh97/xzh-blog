@@ -1,0 +1,17 @@
+/**
+* sass的常用的
+*/
+
+// 两端对齐
+@mixin fac(){
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+// 间隔对齐
+@mixin fbc(){
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

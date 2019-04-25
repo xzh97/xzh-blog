@@ -14,6 +14,7 @@ export default {
     .home-wrapper{
         width: 100%;
         height: 1080px;
+        margin-top: -80px;
         background: url('../../assets/images/bg3.jpg');
         color: #ffffff;
         p{

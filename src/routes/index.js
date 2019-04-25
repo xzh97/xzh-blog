@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import vueRouter from 'vue-router';
 
+import blogsRoute from './blogs/index';
+
 Vue.use(vueRouter);
 
 const home = () => import('../views/home/index.vue');
@@ -18,5 +20,6 @@ const routes = [
         name:'home'
     },
 ];
+routes.push(...blogsRoute);
 
 export default new vueRouter({routes});
