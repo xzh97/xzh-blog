@@ -1,28 +1,42 @@
 <template>
     <div class="header-wrapper" :class="{'header-fixed':scrollTop > 20}">
         <div class="header-left">
-            <img class="logo" :src="logo" alt="">
+            <img class="logo" :src="imgs.logo" alt="">
         </div>
         <div class="header-right" :style="navWidth">
             <ul class="nav">
                 <li class="nav-item" v-for="item in navList" :key="item.key" @click="goTo(item.path)">{{item.title}}</li>
+                <li class="nav-item user-info" :key="'user'">
+                    <div class="user-avatar">
+                        <img :src="imgs.defaultAvatar" alt="">
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
 </template>
 
 <script>
-import logoImg from '@/assets/images/logo.png'
+import logo from '@/assets/images/logo.png'
+import defaultAvatar from '@/assets/images/default_avatar.jpg'
 export default {
     data() {
         return {
-            logo:logoImg,
+            imgs:{
+                logo,
+                defaultAvatar,
+            },
             scrollTop:0, //是否挂在首页
             navList:[
                 {
-                    title:'博客',
+                    title:'学习笔记',
                     key:'blog',
                     path:'/home/blog',
+                },
+                {
+                    title:'插件展示库',
+                    key:'plugins',
+                    path:'/home/plugins',
                 },
                 {
                     title:'照片集',
@@ -34,18 +48,13 @@ export default {
                     key:'tuCao',
                     path:'/home/tuCao',
                 },
-                {
-                    title:'学习笔记',
-                    key:'learn',
-                    path:'/home/learn',
-                },
             ]
         }
     },
     computed:{
         navWidth(){
             let { navList } = this;
-            return { width:100 * navList.length + 'px'}
+            return { width:100 * (navList.length + 1) + 'px'}
         }
 
     },
@@ -85,6 +94,7 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 100;
 
     .header-left{
         width: 60px;
@@ -117,6 +127,26 @@ export default {
             }
             .nav-item:hover{
                 color: #cccccc;
+            }
+            .user-info{
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                .user-avatar{
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    box-sizing: content-box;
+                    img{
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 50%;
+                        display: block;
+                    }
+                }
+                .user-avatar:hover{
+                    border: 2px solid #f01414;
+                }
             }
         }
     }
