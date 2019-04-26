@@ -3,15 +3,28 @@
 */
 
 // 两端对齐
-@mixin fac(){
+@mixin fac{
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
 // 间隔对齐
-@mixin fbc(){
+@mixin fbc{
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+// 间隔对齐
+@mixin fsc{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+@mixin oneline{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
