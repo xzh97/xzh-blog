@@ -1,6 +1,6 @@
 <template>
-    <div class="header-wrapper" :class="{'header-fixed':isFixed }">
-        <div class="header-left">
+    <div class="header-wrapper">
+        <div class="header-left" @click='goIndex'>
             <img class="logo" :src="imgs.logo" alt="">
         </div>
         <div class="header-right">
@@ -51,29 +51,12 @@ export default {
             ]
         }
     },
-    mounted(){
-        this.$nextTick( () => {
-            window.onscroll = ()=> {
-                let bodyScrollTop = 0, documentScrollTop = 0;
-            　　if ( document.body ) {
-            　　　　bodyScrollTop = document.body.scrollTop;
-            　　}
-            　　if( document.documentElement ){
-            　　　　documentScrollTop = document.documentElement.scrollTop;
-            　　}
-            　　this.scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
-            }    
-        })
-    },
-    computed:{
-        isFixed(){
-            let { scrollTop, $route } = this;
-            return scrollTop > 20 || $route.name !== 'home';
-        }
-    },
     methods:{
         goTo(path){
             this.$router.push({path});
+        },
+        goIndex(){
+            this.$router.push({name:'home'});
         }
     }
 }
@@ -89,6 +72,9 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    background: #292b2c !important;
+    box-shadow: 0px 2px 2px rgba(255, 255, 255, 0.2);
 
     .header-left{
         width: 60px;
@@ -151,9 +137,6 @@ export default {
     top: 0;
     left: 0;
     z-index: 100;
-
-    background: #292b2c !important;
-    box-shadow: 0px 2px 2px rgba(255, 255, 255, 0.2);
 }
 </style>
 
