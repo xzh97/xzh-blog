@@ -36,11 +36,11 @@
                                 <span class="blog-type" :class="{'original':item.blogType === 'original',}">原</span>如何编写一个ajax？
                             </h4>
                             <p class="blog-desc">{{ item.description }}</p>
-                            <p class="blog-item-footer">
-                                <span class="blog-update-time">{{ item.lastUpdatedTime }}</span>
-                                <span class="blog-visitor">{{ item.visitor }}</span>
-                                <span class="blog-comment">{{ item.commentCount }}</span>
-                            </p>
+                            <div class="blog-item-footer">
+                                <p class="blog-date"><span>{{ item.lastUpdatedTimeFormat }}</span><span class="point"> | </span></p>
+                                <p class="blog-visitor"><span>阅读量：{{ item.visitor }}</span><span class="point"> | </span></p>
+                                <p class="blog-comment">评论：{{ item.commentCount }}</p>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -52,6 +52,8 @@
 <script>
 import Category from '../../../components/base/category/index';
 import Avatar from '../../../components/base/avatar/index';
+
+import util from '../../../utils/index';
 export default {
     name:'blog-list',
     data(){
@@ -114,9 +116,23 @@ export default {
                     value:'visits',
                 },
             ],
-            blogList:[
+            blogList:[],
+        }
+    },
+    created(){
+        this.getBlogList();
+    },
+    methods:{
+        //event
+        sortClickHandle(sortWay){
+            this.sortBy = sortWay.value;
+        },
+
+        //service
+        getBlogList(){
+            let data = [
                 {
-                    id:100001,
+                    id:'zh100001',
                     title:'如何编写一个ajax？',
                     blogType:'original',
                     description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
@@ -125,12 +141,9 @@ export default {
                     commentCount:0,
                     comments:[],
                 }, 
-            ],
-        }
-    },
-    methods:{
-        sortClickHandle(sortWay){
-            this.sortBy = sortWay.value;
+            ];
+            data.map(item => item.lastUpdatedTimeFormat = util.formatDate(item.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss'));
+            this.blogList = data;
         }
     },
     components:{
@@ -250,6 +263,13 @@ export default {
                                 font-size: 14px;
                                 line-height: 22px;
                                 white-space: normal;
+                            }
+                            .blog-item-footer{
+                                font-size: 14px;
+                                line-height: 22px;
+                                .blog-date{
+                                    color: #6b6b6b;
+                                }
                             }
                         }
                     }
