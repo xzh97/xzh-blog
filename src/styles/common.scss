@@ -49,3 +49,16 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+.clearfix::after{
+	content: '';
+	height:0;
+	visibility: hidden;
+	clear: both;
+}
+
+.oneline{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

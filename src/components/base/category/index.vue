@@ -3,7 +3,7 @@
         <h3 class="category-title">{{ title }}</h3>
         <div class="category-content">
             <ul class="category-list">
-                <li class="category-item" :key="item.value" v-for="item in categoryList">
+                <li class="category-item oneline" :key="item.value" v-for="item in categoryList">
                     <div class="item-left">{{ item.categoryName}}</div>
                     <div class="item-right">{{ item.articlesCount }}篇</div>
                 </li>
@@ -51,7 +51,6 @@ export default {
     }
     .category-item {
         @include fbc;
-        @include oneline;
         cursor: pointer;
         height: 32px;
         line-height: 32px;

@@ -16,15 +16,15 @@
     align-items: center;
 }
 
-// 间隔对齐
+// 从左边开头
 @mixin fsc{
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-@mixin oneline{
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+// 两端对齐 上下随缘
+@mixin fb{
+    display: flex;
+    justify-content: space-between;
 }

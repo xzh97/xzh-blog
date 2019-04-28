@@ -20,8 +20,8 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
-
+<style lang='scss'>
+@import './styles/common.scss';
 #app {
     width: 100%;
 }
