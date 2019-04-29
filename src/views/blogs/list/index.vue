@@ -47,6 +47,8 @@
                             </div>
                         </li>
                     </ul>
+                    <pagination :total-page='10'>
+                    </pagination>
                 </div>
             </div>   
         </div>
@@ -56,6 +58,7 @@
 <script>
 import Category from '../../../components/base/category/index';
 import Avatar from '../../../components/base/avatar/index';
+import Pagination from '../../../components/base/pagination/index';
 
 import util from '../../../utils/index';
 export default {
@@ -156,7 +159,7 @@ export default {
                     comments:[],
                 },
                 {
-                    id:100001,
+                    id:100003,
                     title:'如何编写一个ajax？(1)',
                     blogType:'original',
                     description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
@@ -166,7 +169,7 @@ export default {
                     comments:[],
                 }, 
                 {
-                    id:100002,
+                    id:100004,
                     title:'如何编写一个ajax？(2)',
                     blogType:'reproduced',
                     description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
@@ -176,7 +179,7 @@ export default {
                     comments:[],
                 },
                 {
-                    id:100001,
+                    id:100005,
                     title:'如何编写一个ajax？(1)',
                     blogType:'original',
                     description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
@@ -186,47 +189,7 @@ export default {
                     comments:[],
                 }, 
                 {
-                    id:100002,
-                    title:'如何编写一个ajax？(2)',
-                    blogType:'reproduced',
-                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
-                    lastUpdatedTime:1502475412000,
-                    visitor: 22,
-                    commentCount:0,
-                    comments:[],
-                },
-                {
-                    id:100001,
-                    title:'如何编写一个ajax？(1)',
-                    blogType:'original',
-                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
-                    lastUpdatedTime:1502275412000,
-                    visitor: 262,
-                    commentCount:0,
-                    comments:[],
-                }, 
-                {
-                    id:100002,
-                    title:'如何编写一个ajax？(2)',
-                    blogType:'reproduced',
-                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
-                    lastUpdatedTime:1502475412000,
-                    visitor: 22,
-                    commentCount:0,
-                    comments:[],
-                },
-                {
-                    id:100001,
-                    title:'如何编写一个ajax？(1)',
-                    blogType:'original',
-                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
-                    lastUpdatedTime:1502275412000,
-                    visitor: 262,
-                    commentCount:0,
-                    comments:[],
-                }, 
-                {
-                    id:100002,
+                    id:100006,
                     title:'如何编写一个ajax？(2)',
                     blogType:'reproduced',
                     description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
@@ -242,7 +205,8 @@ export default {
     },
     components:{
         Category,
-        Avatar
+        Avatar,
+        Pagination,
     }
 }
 </script>
@@ -261,7 +225,7 @@ export default {
 
         color: #ffffff;
         .blogs-inner{
-            width: 70%;
+            width: 80%;
             .header{
                 width: 100%;
                 height: 80px;
@@ -273,9 +237,10 @@ export default {
                 }
             }
             .content{
-                width: 100%;
                 @include fb;
+                width: 100%;
                 color: #4d4d4d;
+                padding-bottom: 40px;
                 .content-left{
                     width: 30%;
                     .blog-info, .blog-category{
@@ -298,14 +263,17 @@ export default {
                         padding: 0 16px;
                         @include fb;
                         .check-original-box {
+                            font-size: 16px;
+                            vertical-align: middle;
                             #check-original {
+                                margin: 0;
                                 margin-right: 8px;
+                                margin-top: -4px;
                                 width: 14px;
                                 height: 14px;
                                 cursor: pointer;
+                                vertical-align: middle;
                             }
-                            font-size: 16px;
-                            vertical-align: middle;
                         }
                         .sort-by{
                             dt,.sort-filter{
