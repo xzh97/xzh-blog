@@ -4,9 +4,10 @@ const util = {
         let d = new Date(date);
         if(d.toString() === 'Invalid Date'){
             if(typeof date === 'string'){
-                d = new Date(date.replace('/-/g','/'))
+                d = new Date(date.replace(/-/g,'/'))
             }
             else{
+                console.log(date);
                 return '请输入合法日期'
             }
         }

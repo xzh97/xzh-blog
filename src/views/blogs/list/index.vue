@@ -33,13 +33,17 @@
                     <ul class="content-list">
                         <li class="blog-item" :key="item.id" v-for="item in blogList">
                             <h4 class="blog-title">
-                                <span class="blog-type" :class="{'original':item.blogType === 'original',}">原</span>如何编写一个ajax？
+                                <span class="blog-type original"  v-if="item.blogType === 'original'">原</span>
+                                <span class="blog-type reproduced" v-else>转</span>
+                                {{ item.title }}
                             </h4>
                             <p class="blog-desc">{{ item.description }}</p>
                             <div class="blog-item-footer">
-                                <p class="blog-date"><span>{{ item.lastUpdatedTimeFormat }}</span><span class="point"> | </span></p>
-                                <p class="blog-visitor"><span>阅读量：{{ item.visitor }}</span><span class="point"> | </span></p>
-                                <p class="blog-comment">评论：{{ item.commentCount }}</p>
+                                <p class="blog-date">{{ item.lastUpdatedTimeFormat }}</p>
+                                <p class="point"></p>
+                                <p class="blog-read-num">阅读数 <span class="num">{{ item.visitor }}</span></p>
+                                <p class="point"></p>
+                                <p class="blog-comment">评论 <span class="num">{{ item.commentCount }}</span></p>
                             </div>
                         </li>
                     </ul>
@@ -132,8 +136,8 @@ export default {
         getBlogList(){
             let data = [
                 {
-                    id:'zh100001',
-                    title:'如何编写一个ajax？',
+                    id:100001,
+                    title:'如何编写一个ajax？(1)',
                     blogType:'original',
                     description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
                     lastUpdatedTime:1502275412000,
@@ -141,6 +145,96 @@ export default {
                     commentCount:0,
                     comments:[],
                 }, 
+                {
+                    id:100002,
+                    title:'如何编写一个ajax？(2)',
+                    blogType:'reproduced',
+                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
+                    lastUpdatedTime:1502475412000,
+                    visitor: 22,
+                    commentCount:0,
+                    comments:[],
+                },
+                {
+                    id:100001,
+                    title:'如何编写一个ajax？(1)',
+                    blogType:'original',
+                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
+                    lastUpdatedTime:1502275412000,
+                    visitor: 262,
+                    commentCount:0,
+                    comments:[],
+                }, 
+                {
+                    id:100002,
+                    title:'如何编写一个ajax？(2)',
+                    blogType:'reproduced',
+                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
+                    lastUpdatedTime:1502475412000,
+                    visitor: 22,
+                    commentCount:0,
+                    comments:[],
+                },
+                {
+                    id:100001,
+                    title:'如何编写一个ajax？(1)',
+                    blogType:'original',
+                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
+                    lastUpdatedTime:1502275412000,
+                    visitor: 262,
+                    commentCount:0,
+                    comments:[],
+                }, 
+                {
+                    id:100002,
+                    title:'如何编写一个ajax？(2)',
+                    blogType:'reproduced',
+                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
+                    lastUpdatedTime:1502475412000,
+                    visitor: 22,
+                    commentCount:0,
+                    comments:[],
+                },
+                {
+                    id:100001,
+                    title:'如何编写一个ajax？(1)',
+                    blogType:'original',
+                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
+                    lastUpdatedTime:1502275412000,
+                    visitor: 262,
+                    commentCount:0,
+                    comments:[],
+                }, 
+                {
+                    id:100002,
+                    title:'如何编写一个ajax？(2)',
+                    blogType:'reproduced',
+                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
+                    lastUpdatedTime:1502475412000,
+                    visitor: 22,
+                    commentCount:0,
+                    comments:[],
+                },
+                {
+                    id:100001,
+                    title:'如何编写一个ajax？(1)',
+                    blogType:'original',
+                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
+                    lastUpdatedTime:1502275412000,
+                    visitor: 262,
+                    commentCount:0,
+                    comments:[],
+                }, 
+                {
+                    id:100002,
+                    title:'如何编写一个ajax？(2)',
+                    blogType:'reproduced',
+                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
+                    lastUpdatedTime:1502475412000,
+                    visitor: 22,
+                    commentCount:0,
+                    comments:[],
+                },
             ];
             data.map(item => item.lastUpdatedTimeFormat = util.formatDate(item.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss'));
             this.blogList = data;
@@ -157,8 +251,10 @@ export default {
 @import '../../../styles/mixin.scss';
     .blogs-wrapper{
         width: 100%;
+        height: 100%;
         min-height: 1000px;
-        background: url('../../../assets/images/bg3.jpg') no-repeat;
+        background: url('../../../assets/images/bg3.jpg') repeat-y;
+        background-size: 100%;
 
         display: flex;
         justify-content: center;
@@ -233,9 +329,11 @@ export default {
                     .content-list{
                         .blog-item{
                             padding: 12px 24px;
+                            border-bottom: 1px solid #cccccc;
                             .blog-title{
                                 color: #4d4d4d;
                                 word-break: break-all;
+                                line-height: 24px;
                                 margin-bottom: 6px;
                                 .blog-type{
                                     display: inline-block;
@@ -258,19 +356,44 @@ export default {
                                     border: 1px solid #e7f4df;
                                 }
                             }
+                            .blog-title:hover{
+                                cursor: pointer;
+                                color: #FF7F50;
+                            }
                             .blog-desc{
                                 color: #999;
                                 font-size: 14px;
                                 line-height: 22px;
                                 white-space: normal;
                             }
+                            .blog-desc:hover{
+                                cursor: pointer;
+                            }
                             .blog-item-footer{
-                                font-size: 14px;
-                                line-height: 22px;
+                                @include fsc;
+                                .blog-date,.blog-read-num,.blog-comment{
+                                    font-size: 14px;
+                                    line-height: 22px;
+                                    color: #999;
+                                    .num{
+                                        font-size: 14px;
+                                        color: #3399ea;
+                                    }
+                                }
                                 .blog-date{
                                     color: #6b6b6b;
+
+                                }
+                                .point{
+                                    width: 1px;
+                                    height: 12px;
+                                    background: #e0e0e0;
+                                    margin: 6px 8px;
                                 }
                             }
+                        }
+                        .blog-item:hover{
+                            background: #fafafa;
                         }
                     }
                 }
