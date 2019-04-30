@@ -12,7 +12,8 @@
             </li>
             <li class="page next" v-if="hasNextPage" @click="handlePageChange('next')">下一页</li>
             <li class="page-to" v-if="isShowPageTo">
-                跳至<input class="page" type="text" v-model="pageTo">页 <button>跳转</button>
+                跳至<input class="page-to-input" type="text" v-model="pageTo">页 
+                <button class="page-to-btn" @click="goToPage">跳转</button>
             </li>
             <li class="placeholder"></li>
         </ul>
@@ -69,8 +70,33 @@ export default {
             else{
                 this.currentPage = page;
             }
+            this.$emit('page-change',this.currentPage)
+        },
+        goToPage(){
+            let { pageTo,totalPage } = this,
+                pages = Number(pageTo);
+            if(pages > totalPage){
+                return '请重新输入页码'
+            }
+            else{
+                this.currentPage = pages;
+                this.$emit('page-change',this.currentPage)
+            }
         }
     },
+    watch:{
+        currentPage(val){
+            if(val === 1){
+                this.hasPrevPage = false;
+            }
+            else if(val === this.totalPage){
+                this.hasNextPage = false;
+            }
+            else{
+                return;
+            }
+        }
+    }
 }
 </script>
 
@@ -108,8 +134,29 @@ export default {
             width: 160px;
             height: 100%;
         }
-        .pageTo{
+        .page-to{
             font-size: 12px;
+            .page-to-input{
+                width: 30px;
+                height: 100%;
+                outline: none;
+                border: 1px solid #cccccc;
+                border-radius: 4px;
+                text-indent: 4px;
+                margin: 0 5px;
+            }
+            .page-to-btn{
+                background: none;
+                border: 1px solid #cccccc;
+                border-radius: 4px;
+                outline: none;
+                cursor: pointer;
+                margin: 0 5px;
+            }
+            .page-to-btn:hover{
+                border-color: #d41919;
+                color: #d41919;
+            }
         }
     }
 }

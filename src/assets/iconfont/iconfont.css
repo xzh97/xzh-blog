@@ -1,0 +1,37 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1556596592995'); /* IE9 */
+  src: url('iconfont.eot?t=1556596592995#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAOAAAsAAAAACFQAAAMyAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDIgqDVIM4ATYCJAMUCwwABCAFhG0HeBtkB8gusG3Yk0AVAgrIxt36cQGMDvHwtd/rufv2fUQVKrIk0GUVVeDxgJbYuUyNYCEDwhb+XLNPLz3a9pAzcxZBESrE9GWbW5xsjhyRBbbAQn3hGDSxo/5A2dOURpLiNQJ8cCz1v0XzvlLoUSPaIpqi11oBNHtcVNHINtDUCfGGsSsv4mYCDbOyuE7Wt3agEJmxVyDucnUUhaT8ssyQNUOl5MQs3inV0vN0G2/9j481+yKEpCwYB565XudDlcu17xrxs//PLLoIsvHcYKdRYAckE5dLvYtwGN8BayiCbnsgFbk2LZ9+1/j/P2NKfCvr1DbgP7xCkokKo7gFjiJNPi2ZzSZYrmNTsFzPJrHcKH8hxSVowORzfMPYDepkIors1tCb6vXWrUc8fPy448mTzmfPup8+7e3ZXI/v2t7xeD6PO7u9GS8/V202oFzqUL7E3LS7y92s6bnY7fns2aijEzS2qdqMVbYneGc6xKiu4/O5i42z2VOu7SjWBjQxdFZWElx5y/3nj3vJNP/54yjjzw9veeiQyy4zywJzvx0YO3xxGJkbWIpaRxJ91WOTmL7aDi76cy+LwiG1HHJ2ni5c7Vp3VNBI3khQz43PNeSdi9tsLPZm/EnlPQj/Yzi+o/5vuBDcXrpbMhxx8HdIM4Pfn9/ZwPe/W/sCNQkm+6Gyln1ZVRi2MsuNtlQuLG2BeT1mDdPGryyHgbfj6Metiwk14xiSqhko1GxAZuwOKDUdgIqaI9CwXcPpTUMCFrmObZYAhJ4bSDq+QqHnDjJj30Bp4jNU9AJDw6UYXrBpU3DlhIBRCT4yNkM4tUxmOaQSlLaBOqGPiqTCJ3SBcHiI5OfkZVMNYIIY4xBnUi2QkhEmLIPUg9uBrlvEFtY4UJnjl9KuyM1lZW+UQy0DKU4QwCgJ+BBjZhAcZTExd3ZJyb1/G6CaoBslapoqol2A4OAbJ/LlyGuBbNCarZqu5TWOSaoCksQQjGAxEPVgO6DTWQi7fLtxgJJy+HtEbRVyzWGsrTZnfr3xjNdBg/EnykhRRI4yKvpX/EC1bMoF1SGbcV2PorrlQM4cye+mQRoRMzUqTG6qogUhAAA=') format('woff2'),
+  url('iconfont.woff?t=1556596592995') format('woff'),
+  url('iconfont.ttf?t=1556596592995') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1556596592995#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-check-circle-fill:before {
+  color: #1afa29;
+  content: "\e844";
+}
+
+.icon-close-circle-fill:before {
+  color: #d81e06;
+  content: "\e846";
+}
+
+.icon-info-circle-fill:before {
+  color: #1296db;
+  content: "\e845";
+}
+
+.icon-warning-circle-fill:before {
+  color:#f4ea2a;
+  content: "\e848";
+}
+

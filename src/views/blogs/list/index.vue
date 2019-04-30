@@ -59,8 +59,9 @@
 import Category from '../../../components/base/category/index';
 import Avatar from '../../../components/base/avatar/index';
 import Pagination from '../../../components/base/pagination/index';
+import Message from '../../../plugins/message/index.vue';
 
-import util from '../../../utils/index';
+import util from '../../../share/utils';
 export default {
     name:'blog-list',
     data(){
@@ -128,6 +129,8 @@ export default {
     },
     created(){
         this.getBlogList();
+        //this.$message({type:'success',text:'打开成功',duration: 3000});
+        this.$message('打开成功');
     },
     methods:{
         //event
@@ -207,6 +210,7 @@ export default {
         Category,
         Avatar,
         Pagination,
+        Message
     }
 }
 </script>
