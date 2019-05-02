@@ -31,7 +31,9 @@
                         </dl>
                     </div>
                     <ul class="content-list">
-                        <li class="blog-item" :key="item.id" v-for="item in blogList">
+                        <li class="blog-item" :key="item.id" v-for="item in blogList"
+                            @mouseleave="updateBlogEditBtn(item,'hide')"
+                            @mouseenter="updateBlogEditBtn(item,'show')">
                             <h4 class="blog-title">
                                 <span class="blog-type original"  v-if="item.blogType === 'original'">原</span>
                                 <span class="blog-type reproduced" v-else>转</span>
@@ -45,6 +47,11 @@
                                 <p class="point"></p>
                                 <p class="blog-comment">评论 <span class="num">{{ item.commentCount }}</span></p>
                             </div>
+                            <div class="blog-edit-btn-group" v-if="item.isShowBlogEditBtn">
+                                <button class="blog-edit-btn">编辑</button>
+                                <button class="blog-edit-btn">置顶</button>
+                                <button class="blog-edit-btn detele-btn">删除</button>
+                            </div>                        
                         </li>
                     </ul>
                     <pagination :total-page='10'>
@@ -137,6 +144,9 @@ export default {
         sortClickHandle(sortWay){
             this.sortBy = sortWay.value;
         },
+        updateBlogEditBtn(item,controlFlag){
+            item.isShowBlogEditBtn = controlFlag === 'show' ? true : false ;
+        },
 
         //service
         getBlogList(){
@@ -202,7 +212,10 @@ export default {
                     comments:[],
                 },
             ];
-            data.map(item => item.lastUpdatedTimeFormat = util.formatDate(item.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss'));
+            data.map(item => {
+                item.lastUpdatedTimeFormat = util.formatDate(item.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss');
+                item.isShowBlogEditBtn = false;
+            });
             this.blogList = data;
         }
     },
@@ -300,6 +313,7 @@ export default {
                     }
                     .content-list{
                         .blog-item{
+                            position: relative;
                             padding: 12px 24px;
                             border-bottom: 1px solid #cccccc;
                             .blog-title{
@@ -367,6 +381,22 @@ export default {
                         .blog-item:hover{
                             background: #fafafa;
                         }
+                        .blog-edit-btn-group{
+                            position: absolute;
+                            right: 16px;
+                            bottom: 12px;
+                            z-index: 12;
+                            .blog-edit-btn{
+                                background: none;
+                                cursor: pointer;
+                                color: #7b705e;
+                                border: 1px solid #7b705e;
+                                margin-right: 10px;
+                            }
+                            .detele-btn{
+                                color: #ca0c16;
+                            }
+                        } 
                     }
                 }
             }
