@@ -1,8 +1,7 @@
 <template>
     <div class="pagination-wrapper">
         <ul class="pagination">
-            <li class="placeholder"></li>
-            <li class="page prev" v-if="hasPrevPage" @click="handlePageChange('prev')">上一页</li>
+            <li class="page" v-if="totalPage > pageListLength" @click="setPageList(pageList[0] - pageListLength)"><<</li>
             <li class="page" :key="`page-${page}`" 
                 v-for="page in pageList"
                 :class="{'active':currentPage === page}"
@@ -10,12 +9,11 @@
                 >
                 <p class="font-size-12">{{ page }}</p>
             </li>
-            <li class="page next" v-if="hasNextPage" @click="handlePageChange('next')">下一页</li>
+            <li class="page" v-if="totalPage > pageListLength" @click="setPageList(pageList[pageList.length-1]+1)">>></li>
             <li class="page-to" v-if="isShowPageTo">
                 跳至<input class="page-to-input" type="text" v-model="pageTo">页 
                 <button class="page-to-btn" @click="goToPage">跳转</button>
             </li>
-            <li class="placeholder"></li>
         </ul>
     </div>
 </template>
@@ -28,55 +26,54 @@ export default {
             type: Number,
             default: 1,
         },
+        pageListLength:{ // 显示多少页数
+            type: Number,
+            default: 6,
+        },
+        isShowPageTo:{ // 是否显示直接跳转页
+            type: Boolean,
+            default: true,
+        }
     },
     data(){
         return {
             hasPrevPage:false,
             hasNextPage:false,
-            isShowPageTo:false,
             pageTo:'',
             pageList:[],
             currentPage:1,
         }
     },
     created(){
-        this.initData();
+        this.setPageList(1);
     },
     methods:{
-        initData(){
-            let { totalPage} = this;
-
-            if(totalPage > 5){
-                this.pageList.push(1,2,3,4,5);
-                this.isShowPageTo = true;
-            }
-            else{
-                for(let i=1; i< totalPage; i++){
-                    this.pageList.push(i);
-                }
+        //pagination无效问题是为啥， 点击事件里不走for循环
+        setPageList(key){
+            let { totalPage, pageListLength} = this;
+            let length = totalPage > pageListLength ? pageListLength : totalPage;
+            this.pageList = [];
+            for(let i= key; i <= length; i++){
+                console.log(i);
+                if(i <= totalPage) this.pageList.push(i);
             }
         },
         //event
         handlePageChange(page){
             console.log(page);
-            if(typeof page === 'string'){
-                if(page === 'prev'){
-                    this.currentPage -- ;
-                }
-                else{
-                    this.currentPage ++ ;
-                }
-            }
-            else{
-                this.currentPage = page;
-            }
+            this.currentPage = page;
             this.$emit('page-change',this.currentPage)
         },
         goToPage(){
+            console.log('enter gotoPage method')
             let { pageTo,totalPage } = this,
                 pages = Number(pageTo);
             if(pages > totalPage){
-                return '请重新输入页码'
+                let messageInfo = {
+                    text:'没有该页码，请重新输入！',
+                    type:'error'
+                }
+                return this.$message(messageInfo);
             }
             else{
                 this.currentPage = pages;
@@ -104,7 +101,10 @@ export default {
 @import '../../../styles/mixin';
 .pagination-wrapper{
     padding: 16px;
+    display: flex;
+    justify-content: center;
     .pagination{
+        width: 400px;
         background: #ffffff;
         color: #4f4f4f;
         height: 20px;
