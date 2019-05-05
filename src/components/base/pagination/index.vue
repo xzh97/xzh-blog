@@ -1,7 +1,7 @@
 <template>
     <div class="pagination-wrapper">
         <ul class="pagination">
-            <li class="page" v-if="totalPage > pageListLength" @click="setPageList(pageList[0] - pageListLength)"><<</li>
+            <li class="page" :class="{'disabled':!hasPrevPage}"  @click="setPageList('prev')"><<</li>
             <li class="page" :key="`page-${page}`" 
                 v-for="page in pageList"
                 :class="{'active':currentPage === page}"
@@ -9,7 +9,7 @@
                 >
                 <p class="font-size-12">{{ page }}</p>
             </li>
-            <li class="page" v-if="totalPage > pageListLength" @click="setPageList(pageList[pageList.length-1]+1)">>></li>
+            <li class="page" :class="{'disabled':!hasNextPage}" @click="setPageList('next')">>></li>
             <li class="page-to" v-if="isShowPageTo">
                 跳至<input class="page-to-input" type="text" v-model="pageTo">页 
                 <button class="page-to-btn" @click="goToPage">跳转</button>
@@ -26,9 +26,9 @@ export default {
             type: Number,
             default: 1,
         },
-        pageListLength:{ // 显示多少页数
+        pageSize:{ // 每页条数
             type: Number,
-            default: 6,
+            default: 5,
         },
         isShowPageTo:{ // 是否显示直接跳转页
             type: Boolean,
@@ -42,21 +42,40 @@ export default {
             pageTo:'',
             pageList:[],
             currentPage:1,
+            pageListMap:{}, //存放所有页码数组
+            pageListKey:1, //map对应的key
         }
     },
     created(){
-        this.setPageList(1);
+        this.initTotalPage();
     },
     methods:{
-        //pagination无效问题是为啥， 点击事件里不走for循环
-        setPageList(key){
-            let { totalPage, pageListLength} = this;
-            let length = totalPage > pageListLength ? pageListLength : totalPage;
-            this.pageList = [];
-            for(let i= key; i <= length; i++){
-                console.log(i);
-                if(i <= totalPage) this.pageList.push(i);
+        initTotalPage(){
+            let {totalPage, pageListMap, pageSize, pageListKey} = this;
+            for(let i=1; i<=totalPage; i++){
+                let key = `page${pageListKey}`;
+                if(Object.keys(pageListMap).indexOf(key) > -1){
+                    pageListMap[key].push(i);
+                }
+                else{
+                    pageListMap[key] = [];
+                    pageListMap[key].push(i);
+                }
+                if(pageListMap[key].length === pageSize) ++pageListKey;
             }
+            this.setPageList();
+        },
+        setPageList(key){
+            let { pageListMap, totalPage } = this;
+            if(key === 'prev' && this.hasPrevPage){
+                this.pageListKey --;
+            }
+            else if(key === 'next' && this.hasNextPage){
+                this.pageListKey ++;
+            }
+            this.pageList = pageListMap[`page${this.pageListKey}`];
+            this.hasPrevPage = this.pageListKey > 1 ? true : false;
+            this.hasNextPage = this.pageList.indexOf(totalPage) > -1 ? false : true;
         },
         //event
         handlePageChange(page){
@@ -80,19 +99,6 @@ export default {
                 this.$emit('page-change',this.currentPage)
             }
         }
-    },
-    watch:{
-        currentPage(val){
-            if(val === 1){
-                this.hasPrevPage = false;
-            }
-            else if(val === this.totalPage){
-                this.hasNextPage = false;
-            }
-            else{
-                return;
-            }
-        }
     }
 }
 </script>
@@ -104,12 +110,12 @@ export default {
     display: flex;
     justify-content: center;
     .pagination{
-        width: 400px;
         background: #ffffff;
         color: #4f4f4f;
         height: 20px;
-        @include fac;
+        @include fsc;
         .page{
+            margin-left: 4px;
             padding: 0 10px;
             font-size: 12px;
             box-sizing: border-box;
@@ -120,19 +126,32 @@ export default {
             .font-size-12{
                 font-size: 12px;
             }
+            &:hover{
+                border-color: #d41919;
+                color: #d41919;
+                cursor: pointer;
+            }
         }
-        .page:hover{
-            border-color: #d41919;
-            color: #d41919;
-            cursor: pointer;
+        .page:first-child{
+            margin-left:0; 
         }
+        // .page:hover{
+        //     border-color: #d41919;
+        //     color: #d41919;
+        //     cursor: pointer;
+        // }
         .page.active{
             border-color: #d41919;
             color: #d41919;
         }
-        .placeholder{
-            width: 160px;
-            height: 100%;
+        .disabled{
+            color: #eaeaea;
+            border: 1px solid #eaeaea;
+            &:hover{
+                color: #eaeaea;
+                border: 1px solid #eaeaea;
+                cursor: default;
+            }
         }
         .page-to{
             font-size: 12px;

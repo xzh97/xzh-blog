@@ -54,7 +54,7 @@
                             </div>                        
                         </li>
                     </ul>
-                    <pagination :total-page='10' :isShowPageTo='false'>
+                    <pagination :total-page='27' :isShowPageTo='false'>
                     </pagination>
                 </div>
             </div>   
