@@ -13,6 +13,9 @@
                 <div class="content-left">
                     <div class="blog-info">
                         <avatar></avatar>
+                        <div class="new-blog">
+                            <button @click='addNewBlog'>写笔记</button>
+                        </div>
                     </div>
                     <category v-for="item in blogCategorys" :key='item.title' :title='item.title' :categoryList='item.categoryList'></category>
                 </div>
@@ -54,7 +57,7 @@
                             </div>                        
                         </li>
                     </ul>
-                    <pagination :total-page='27' :isShowPageTo='false'>
+                    <pagination :total-page='27' :isShowPageTo='true'>
                     </pagination>
                 </div>
             </div>   
@@ -146,6 +149,9 @@ export default {
         },
         updateBlogEditBtn(item,controlFlag){
             item.isShowBlogEditBtn = controlFlag === 'show' ? true : false ;
+        },
+        addNewBlog(){
+            this.$router.push({name:'addNewBlog'})
         },
 
         //service
@@ -267,6 +273,17 @@ export default {
                     }
                     .blog-category{
                         margin-top: 20px;
+                    }
+                    .blog-info{
+                        .new-blog{
+                            width: 200px;
+                            margin: 30px auto 0;
+                            button{
+                                background: none;
+                                cursor: pointer;
+                            }
+                        }
+
                     }
                 }
                 .content-right{

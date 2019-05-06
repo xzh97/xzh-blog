@@ -8,6 +8,7 @@ import './assets/iconfont/iconfont.css';
 
 import directives from './share/directive';
 import message from './plugins/message/index';
+
 Vue.config.productionTip = false
 
 Vue.use(message);

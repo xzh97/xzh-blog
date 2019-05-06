@@ -155,6 +155,7 @@ export default {
         }
         .page-to{
             font-size: 12px;
+            margin-left: 8px;
             .page-to-input{
                 width: 30px;
                 height: 100%;

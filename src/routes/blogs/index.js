@@ -1,6 +1,6 @@
 const blogsList = () => import('@/views/blogs/list/index');
-const blogsDetail = () => import('@/views/blogs/list/index');
-const addBlog = () => import('@/views/blogs/list/index');
+const blogsDetail = () => import('@/views/blogs/detail/index');
+const addBlog = () => import('@/views/blogs/create/index');
 const routes = [
     {
         path:'/blog/list',
@@ -16,7 +16,7 @@ const routes = [
     },
     {
         path:'/blog/new',
-        name: 'addBlog',
+        name: 'addNewBlog',
         component:addBlog,
         meta:{},
     },
