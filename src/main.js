@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './routes/index';
 
 import './assets/iconfont/iconfont.css';
+import './styles/animate.css';
 
 import directives from './share/directive';
 import message from './plugins/message/index';

@@ -1,0 +1,15 @@
+/* slide-up */
+.slide-up-enter-active, .slide-up-leave-active {
+    transition: opacity .5s;
+}
+.slide-up-enter, .slide-up-leave-to {
+    opacity: 0;
+}
+
+/* fade */
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
