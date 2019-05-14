@@ -3,7 +3,6 @@ import App from './App.vue'
 
 import router from './routes/index';
 
-import './styles/common.scss';
 import './assets/iconfont/iconfont.css';
 
 import directives from './share/directive';

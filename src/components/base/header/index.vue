@@ -5,8 +5,8 @@
         </div>
         <div class="header-right">
             <ul class="nav">
-                <li class="nav-item" v-for="item in navList" :key="item.key" @click="goTo(item.path)">{{item.title}}</li>
-                <li class="nav-item user-info" :key="'user'">
+                <li class="nav-item one-line" v-for="item in navList" :key="item.key" @click="goTo(item.path)">{{item.title}}</li>
+                <li class="nav-item one-line user-info" :key="'user'">
                     <div class="user-avatar">
                         <img :src="imgs.defaultAvatar" alt="">
                     </div>
@@ -36,18 +36,18 @@ export default {
                 {
                     title:'插件展示库',
                     key:'plugins',
-                    path:'/plugins',
+                    path:'/plugins/index',
                 },
-                {
-                    title:'照片集',
-                    key:'photos',
-                    path:'/photos',
-                },
-                {
-                    title:'吐槽说',
-                    key:'tuCao',
-                    path:'/tucao',
-                },
+                // {
+                //     title:'照片集',
+                //     key:'photos',
+                //     path:'/photos',
+                // },
+                // {
+                //     title:'吐槽说',
+                //     key:'tuCao',
+                //     path:'/tucao',
+                // },
             ]
         }
     },
@@ -63,18 +63,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../../styles/mixin";
 .header-wrapper {
     width: 100%;
     height: 76px;
     padding: 8px 1vw;
-    color:#ffffff;
+    color:$text-color;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+   @include fbc;
 
-    background: #292b2c !important;
-    box-shadow: 0px 2px 2px rgba(255, 255, 255, 0.2);
+    background: #ffffff;
+    box-shadow: $box-shadow-base;
 
     .header-left{
         width: 60px;
@@ -90,29 +89,21 @@ export default {
         .nav{
             height: 100%;
 
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
+            @include fac;
             .nav-item{
                 padding: 0 20px;
                 height: 100%;
                 line-height: 60px;
                 text-align: center;
 
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
-
                 cursor: pointer;
             }
             .nav-item:hover{
-                color: #cccccc;
+                color: $link-color;
             }
             .user-info{
                 width:40px;
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
+                @include fac;
                 .user-avatar{
                     width: 32px;
                     height: 32px;

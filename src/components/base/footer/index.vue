@@ -11,16 +11,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../../styles/mixin';
 .footer-wrapper{
     width: 100%;
     height: 200px;
-    background: #292b2c;
+    background: #ffffff;
 
     display: flex;
     align-items: center;
     justify-content: center;
     .copy-right{
-        color: #ffffff;
+        color: $text-color;
     }
 }
 </style>

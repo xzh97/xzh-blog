@@ -2,6 +2,7 @@ import Vue from 'vue';
 import vueRouter from 'vue-router';
 
 import blogsRoute from './blogs/index';
+import pluginsRoute from './plugins/index';
 
 Vue.use(vueRouter);
 
@@ -21,5 +22,6 @@ const routes = [
     },
 ];
 routes.push(...blogsRoute);
+routes.push(...pluginsRoute);
 
 export default new vueRouter({routes});

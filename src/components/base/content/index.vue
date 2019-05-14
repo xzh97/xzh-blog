@@ -12,6 +12,6 @@ export default {
 
 <style lang="scss" scoped>
 .content-wrapper{
-    //margin-top: 76px;
+    padding: 40px 0 0;
 }
 </style>

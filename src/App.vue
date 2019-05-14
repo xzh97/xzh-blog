@@ -2,7 +2,7 @@
     <div id="app">
       <header-comp></header-comp>
       <content-comp></content-comp>
-      <footer-comp></footer-comp>
+      <!-- <footer-comp></footer-comp> -->
     </div>
 </template>
 
