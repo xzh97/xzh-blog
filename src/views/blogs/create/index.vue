@@ -41,7 +41,7 @@ export default {
             categroies:[
                 {
                     value:1,
-                    showValue:'vue',
+                    showValue:'vuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevue',
                     active:false,
                 },
                 {

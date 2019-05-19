@@ -2,12 +2,12 @@
     <div class="select-wrapper">
         <div class="select-box" @click.stop='showList'>
             <ul class="selected-list" v-if="mode !== 'radio'">
-                <li class="selected-item" :key='item.value' v-for="item in selectedList"><span>{{item.showValue}}</span><i class="iconfont icon-close" @click.stop.self="clearSelectedItem(item)"></i> </li>
+                <li class="selected-item" :key='item.value' v-for="item in selectedList"><span class="oneline selected-item-show">{{item.showValue}}</span><i class="iconfont icon-close" @click.stop.self="clearSelectedItem(item)"></i> </li>
             </ul>
             <p class="radio-selected" v-else>{{selectedList[0] ? selectedList[0].showValue : ""}}</p>
         </div>
         <ul class="select-list" v-if="isShowList">
-            <li class="select-item" 
+            <li class="select-item oneline" 
                 :key='item.value' 
                 v-for="item in list" 
                 @mouseenter='handleItemMouseEnter(item)'
@@ -138,14 +138,21 @@ export default {
             padding: 6px;
             @include fsc;
             .selected-item{
+                max-width: 80%;
+                box-sizing: border-box;
                 height: 100%;
                 line-height: 18px;
                 font-size: 12px;
                 background-color: #fafafa;
                 border: 1px solid #e8e8e8;
                 border-radius: 2px;
-                padding: 0 6px;
+                padding: 0 4px;
                 margin-left: 5px;
+                @include fsc;
+                .selected-item-show{
+                    display: inline-block;
+                    width: 100%;
+                }
             }
             .icon-close:hover{
                 cursor: pointer;
