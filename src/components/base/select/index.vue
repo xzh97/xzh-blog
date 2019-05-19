@@ -1,22 +1,22 @@
 <template>
     <div class="select-wrapper">
-        <div class="select-box" @click='showList'>
+        <div class="select-box" @click.stop='showList'>
             <ul class="selected-list" v-if="mode !== 'radio'">
-                <li class="selected-item" :key='item.value' v-for="item in selectedList">{{item.showValue}}</li>
+                <li class="selected-item" :key='item.value' v-for="item in selectedList"><span>{{item.showValue}}</span><i class="iconfont icon-close" @click.stop.self="clearSelectedItem(item)"></i> </li>
             </ul>
-            <p class="radio-selected" :key='item.value' v-for="item in selectedList" v-else>{{item.showValue}}</p>
+            <p class="radio-selected" v-else>{{selectedList[0] ? selectedList[0].showValue : ""}}</p>
         </div>
         <ul class="select-list" v-if="isShowList">
-                <li class="select-item" 
-                    :key='item.value' 
-                    v-for="item in list" 
-                    @mouseenter='handleItemMouseEnter(item)'
-                    @mouseleave='handleItemMouseLeave(item)'
-                    @click.stop='handleItemClick(item)'
-                    :class="{'select-item-active':item.active,'selected':selected.indexOf(item.value) > -1}">
-                    {{item.showValue}}
-                </li>
-            </ul>
+            <li class="select-item" 
+                :key='item.value' 
+                v-for="item in list" 
+                @mouseenter='handleItemMouseEnter(item)'
+                @mouseleave='handleItemMouseLeave(item)'
+                @click.stop='handleItemClick(item)'
+                :class="{'select-item-active':item.active,'selected':selected.indexOf(item.value) > -1}">
+                {{item.showValue}}
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -31,7 +31,7 @@
  * @param list 传列表，
  *
  * Created at     : 2019-05-06 15:34:02 
- * Last modified  : 2019-05-06 19:14:44
+ * Last modified  : 2019-05-19 11:16:19
  */
 export default {
     name:'xzh-select',
@@ -47,14 +47,17 @@ export default {
             },
         },
         defaultSelected:{
-            type:[Array,Number],
+            type:Array,
+            default(){
+                return []
+            }
         },
     },
     data(){
         return {
             isShowList:false,
-            selected:[] || defaultSelected.value,
-            selectedList:[] || [defaultSelected],
+            selected: [],
+            selectedList: [] ,
         }
     },
     methods:{
@@ -67,8 +70,10 @@ export default {
         handleItemMouseLeave(item){
             item.active = false;
         },
+        //选择1项或多项
         handleItemClick(item){
             let {mode} = this;
+            item.active = false;
             if(mode === 'radio'){
                 this.selected = [];
                 this.selectedList = [];
@@ -80,17 +85,38 @@ export default {
             }
             else{
                 let index = this.selected.indexOf(item.value);
-                if(index){
+                if(index > -1){
                     this.selected.splice(index,1);
-                    this.selectedList.push(index,1);
+                    this.selectedList.splice(index,1);
                 }
                 else{
                     this.selected.push(item.value);
                     this.selectedList.push(item);
                 }
             }
+            this.$emit('selected',this.selectedList);
+        },
+        //清除已选中项
+        clearSelectedItem(selectedItem){
+            this.selected = this.selected.filter(value => value !== selectedItem.value);
+            this.selectedList = this.selectedList.filter(item => item.value !== selectedItem.value);
         }
     },
+    created(){
+        let { selected, selectedList,defaultSelected } = this;
+        if(defaultSelected.length){
+            defaultSelected.forEach(element => {
+                selected.push(element.value);
+                selectedList.push(element);
+            });
+        }
+    },
+    mounted(){
+        let self = this;
+        window.addEventListener('click',()=>{
+            self.isShowList = false; 
+        })
+    }
 }
 </script>
 
@@ -112,15 +138,18 @@ export default {
             padding: 6px;
             @include fsc;
             .selected-item{
-                width: 40px;
                 height: 100%;
                 line-height: 18px;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
                 font-size: 12px;
-                background: #ccc;
-                margin-left: 10px;
+                background-color: #fafafa;
+                border: 1px solid #e8e8e8;
+                border-radius: 2px;
+                padding: 0 6px;
+                margin-left: 5px;
+            }
+            .icon-close:hover{
+                cursor: pointer;
+                color: #000;
             }
         }
         .radio-selected{

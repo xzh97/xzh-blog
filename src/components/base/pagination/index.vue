@@ -43,7 +43,7 @@ export default {
             pageList:[],
             currentPage:1,
             pageListMap:{}, //存放所有页码数组
-            pageListKey:1, //map对应的key
+            pageSelectedIndex:1, //map对应的key
         }
     },
     created(){
@@ -51,9 +51,9 @@ export default {
     },
     methods:{
         initTotalPage(){
-            let {totalPage, pageListMap, pageSize, pageListKey} = this;
+            let {totalPage, pageListMap, pageSize, pageSelectedIndex} = this;
             for(let i=1; i<=totalPage; i++){
-                let key = `page${pageListKey}`;
+                let key = `page${pageSelectedIndex}`;
                 if(Object.keys(pageListMap).indexOf(key) > -1){
                     pageListMap[key].push(i);
                 }
@@ -61,20 +61,20 @@ export default {
                     pageListMap[key] = [];
                     pageListMap[key].push(i);
                 }
-                if(pageListMap[key].length === pageSize) ++pageListKey;
+                if(pageListMap[key].length === pageSize) ++pageSelectedIndex;
             }
             this.setPageList();
         },
         setPageList(key){
             let { pageListMap, totalPage } = this;
             if(key === 'prev' && this.hasPrevPage){
-                this.pageListKey --;
+                this.pageSelectedIndex --;
             }
             else if(key === 'next' && this.hasNextPage){
-                this.pageListKey ++;
+                this.pageSelectedIndex ++;
             }
-            this.pageList = pageListMap[`page${this.pageListKey}`];
-            this.hasPrevPage = this.pageListKey > 1 ? true : false;
+            this.pageList = pageListMap[`page${this.pageSelectedIndex}`];
+            this.hasPrevPage = this.pageSelectedIndex > 1 ? true : false;
             this.hasNextPage = this.pageList.indexOf(totalPage) > -1 ? false : true;
         },
         //event

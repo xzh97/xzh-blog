@@ -13,8 +13,9 @@
         </div>
         <div class="blog-category">
             <div class="categories">
-                <xzh-select 
+                <xzh-select
                 :list='categroies'
+                @selected='handleselectedItems'
                 >
                 </xzh-select>
             </div>
@@ -40,12 +41,17 @@ export default {
             categroies:[
                 {
                     value:1,
-                    showValue:'vue学习笔记',
+                    showValue:'vue',
                     active:false,
                 },
                 {
                     value:2,
-                    showValue:'react学习笔记',
+                    showValue:'react',
+                    active:false,
+                },
+                {
+                    value:3,
+                    showValue:'angular',
                     active:false,
                 },
             ],
@@ -79,6 +85,9 @@ export default {
         },
         updateIsShowCategories(flag){
             this.isShowCategroies = flag;
+        },
+        handleselectedItems(selectedList){
+            //console.log(selectedList);
         }
     },
     mounted(){
@@ -98,6 +107,7 @@ export default {
     height: 100%;
     background: #ffffff;
     padding: 24px;
+    min-height: 1200px;
     .blog-title{
         height: 40px;
         line-height: 40px;
