@@ -13,19 +13,48 @@
         </div>
         <div class="blog-category">
             <div class="categories">
+                <div class="categroies-label">个人分类：</div>
                 <xzh-select
+                :mode="'multiple'"
                 :list='categroies'
                 @selected='handleselectedItems'
+                :box-style="{width:'400px'}"
                 >
                 </xzh-select>
             </div>
+            <div class="categories">
+                <div class="categroies-label">文章类型：</div>
+                <xzh-select
+                :list='articleType'
+                @selected='handleselectedItems'
+                :box-style="{width:'400px'}"
+                >
+                </xzh-select>
+            </div>
+            <div class="categories">
+                <div class="categroies-label">私人文章：</div>
+                <xzh-switch
+                v-model="isPrivate"
+                >
+                </xzh-switch>
+            </div>
+        </div>
+        <div class="blog-footer">
+            <xzh-button
+            :type="'primary'"
+            :size="'default'"
+            :loading='true'
+            @click="createBlog"
+            >发布博客</xzh-button>
         </div>
     </div>
 </template>
 
 <script>
 import { quillEditor } from 'vue-quill-editor';
-import xzhSelect from '../../../components/base/select/index'
+import xzhSelect from '../../../components/base/select/index';
+import xzhSwitch from '../../../components/base/switch/index';
+import xzhButton from '../../../components/base/button/index';
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
@@ -41,21 +70,33 @@ export default {
             categroies:[
                 {
                     value:1,
-                    showValue:'vuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevue',
-                    active:false,
+                    showValue:'vue',
                 },
                 {
                     value:2,
                     showValue:'react',
-                    active:false,
                 },
                 {
                     value:3,
                     showValue:'angular',
-                    active:false,
                 },
             ],
             isShowCategroies:false,
+            articleType: [
+                {
+                    value:1,
+                    showValue:'原创',
+                },
+                {
+                    value:2,
+                    showValue:'转载',
+                },
+                {
+                    value:3,
+                    showValue:'翻译',
+                },
+            ],
+            isPrivate: false, //私人文章
         }
     },
     computed:{
@@ -88,6 +129,9 @@ export default {
         },
         handleselectedItems(selectedList){
             //console.log(selectedList);
+        },
+        createBlog(){
+            console.log('111');
         }
     },
     mounted(){
@@ -95,7 +139,9 @@ export default {
     },
     components:{
         quillEditor,
-        xzhSelect
+        xzhSelect,
+        xzhSwitch,
+        xzhButton,
     }
 }
 </script>
@@ -126,8 +172,15 @@ export default {
     .blog-content,.blog-category{
         margin-top: 24px;
     }
-    .blog-category{
-        margin-top: 24px;
+
+    .categories{
+        @include fsc;
+        height: 32px;
+        margin-top: 10px;
+        .categroies-label{
+            margin-right: 6px;
+        }
     }
+    
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="select-wrapper">
+    <div class="select-wrapper" :style="boxStyle">
         <div class="select-box" @click.stop='showList'>
             <ul class="selected-list" v-if="mode !== 'radio'">
                 <li class="selected-item" :key='item.value' v-for="item in selectedList"><span class="oneline selected-item-show">{{item.showValue}}</span><i class="iconfont icon-close" @click.stop.self="clearSelectedItem(item)"></i> </li>
@@ -9,7 +9,7 @@
         <ul class="select-list" v-if="isShowList">
             <li class="select-item oneline" 
                 :key='item.value' 
-                v-for="item in list" 
+                v-for="item in dataList" 
                 @mouseenter='handleItemMouseEnter(item)'
                 @mouseleave='handleItemMouseLeave(item)'
                 @click.stop='handleItemClick(item)'
@@ -27,7 +27,7 @@
  * @summary 组件 props详细说明
  * @author xzh xzh19971005@163.com
  * 
- * @param mode 模式，单选或者多选  默认单选
+ * @param mode 模式，单选或者多选  默认单选 multiple 多选， radio 单
  * @param list 传列表，
  *
  * Created at     : 2019-05-06 15:34:02 
@@ -38,7 +38,7 @@ export default {
     props:{
         mode:{
             type:String,
-            default:'multiple',
+            default:'radio',
         },
         list:{
             type:Array,
@@ -52,12 +52,21 @@ export default {
                 return []
             }
         },
+        boxStyle:{
+            type:Object,
+            default(){
+                return {
+                    width: '200px',
+                }
+            }
+        }
     },
     data(){
         return {
             isShowList:false,
             selected: [],
             selectedList: [] ,
+            dataList:[],
         }
     },
     methods:{
@@ -103,13 +112,19 @@ export default {
         }
     },
     created(){
-        let { selected, selectedList,defaultSelected } = this;
+        let { dataList, list, selected, selectedList,defaultSelected } = this;
         if(defaultSelected.length){
             defaultSelected.forEach(element => {
                 selected.push(element.value);
                 selectedList.push(element);
             });
         }
+
+        //给传进来的列表  统一加一个active属性
+        list.forEach(item => {
+            dataList.push({...item,active:false});
+        })
+        
     },
     mounted(){
         let self = this;
@@ -177,6 +192,7 @@ export default {
         background: #ffffff;
         box-shadow:  0 0 5px rgba(127,127,127,.2);
         border-radius: 4px;
+        z-index: 100;
         cursor: pointer;
         .select-item{
             height: 24px;
@@ -187,6 +203,7 @@ export default {
         }
         .select-item-active{
             background: rgb(217, 236, 255);
+            color:#409EFF;
         }
         .selected{
             color:#409EFF;
