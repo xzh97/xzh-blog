@@ -1,0 +1,186 @@
+<template>
+    <div class="blogs-wrapper">
+        <div class="blogs-inner">
+            <header class="header">
+                <div class="header-left">
+                    <h4 class="header-title">xzh的学习笔记</h4>
+                </div>
+                <div class="header-right">
+                    <button>管理笔记</button>
+                </div>
+            </header>
+            <div class="content">
+                <sidebar></sidebar>
+                <div class="content-right">
+                    <div class="content-tips">
+                        <div class="blog-item" >
+                            <h4 class="blog-title">
+                                <span class="blog-type original"  v-if="blogData.blogType === 'original'">原</span>
+                                <span class="blog-type reproduced" v-else>转</span>
+                                {{ blogData.title }}
+                            </h4>
+                            <div class="blog-item-footer clearfix">
+                                <p class="blog-date">{{ blogData.lastUpdatedTime }}</p>
+                                <p class="blog-read-num">阅读数 <span class="num">{{ blogData.visitor }}</span></p>
+                                <p class="blog-comment">评论 <span class="num">{{ blogData.commentCount }}</span></p>
+                                <p class="float-right"><button class="blog-edit-btn" @click="editBlog">编辑</button></p>
+                            </div>                    
+                        </div>
+                    </div>
+                    <ul class="blog-content">
+                    
+                    </ul>
+                </div>
+            </div>   
+        </div>
+    </div>
+</template>
+
+<script>
+import Sidebar from '@/components/business/sidebar/index';
+import util from '@/share/utils';
+export default {
+    name:'blog-detail',
+    data(){
+        return {
+            blogData:{}
+        }
+    },
+    created(){
+        this.getBlogData();
+    },
+    methods:{
+        editBlog(){
+            this.$router.push({path:`/blog/update/${this.blogData.id}`})
+        },
+        //service
+        getBlogData(){
+            let data = {
+                    id:100001,
+                    title:'如何编写一个ajax？(1)',
+                    blogType:'original',
+                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
+                    lastUpdatedTime:1502275412000,
+                    visitor: 262,
+                    commentCount:0,
+                    comments:[],
+                };
+            data.lastUpdatedTime = util.formatDate(data.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss');
+            this.blogData = data;
+        }
+    },
+    components:{
+        Sidebar,
+    }
+}
+</script>
+
+<style lang='scss' scoped>
+@import '../../../styles/mixin.scss';
+    .blogs-wrapper{
+        width: 100%;
+        height: 100%;
+        min-height: 1000px;
+        background: url('../../../assets/images/bg3.jpg') repeat-y;
+        background-size: 100%;
+
+        display: flex;
+        justify-content: center;
+
+        color: #ffffff;
+        .blogs-inner{
+            width: 80%;
+            .header{
+                width: 100%;
+                height: 80px;
+                @include fbc;
+                .header-title{
+                    font-size: 24px;
+                    line-height: 30px;
+                    font-weight: 500;
+                }
+            }
+            .content{
+                @include fb;
+                width: 100%;
+                color: #4d4d4d;
+                padding-bottom: 40px;
+                
+                .content-right{
+                    width: 70%;
+                    background: #ffffff;
+                    margin-left: 20px; 
+                    .content-tips{
+                        padding: 0 16px;
+                        @include fb;
+                        .blog-item{
+                            width: 100%;
+                            position: relative;
+                            padding: 12px 0;
+                            border-bottom: 1px solid #cccccc; 
+                            .blog-title{
+                                color: #4d4d4d;
+                                font-size: 24px;
+                                font-weight: 600;
+                                word-break: break-all;
+                                line-height: 30px;
+                                margin-bottom: 6px;
+                                .blog-type{
+                                    display: inline-block;
+                                    width: 30px;
+                                    height: 30px;
+                                    line-height: 30px;
+                                    border-radius: 50%;
+                                    box-sizing: border-box;
+                                    font-weight: normal;
+                                    margin-right: 8px;
+                                    font-size: 16px;
+                                    text-align: center;
+                                }
+                                .original{
+                                    color:#ca0c16;
+                                    border: 1px solid #f4ced0;
+                                }
+                                .reproduced{
+                                    color: #86ca5e;
+                                    border: 1px solid #e7f4df;
+                                }
+                            }
+                            .blog-item-footer{
+                                @include fsc;
+                                margin-top: 16px;
+                                position:relative;
+                                .blog-date,.blog-read-num,.blog-comment{
+                                    font-size: 16px;
+                                    line-height: 22px;
+                                    color: #999;
+                                    margin-right: 10px;
+                                    .num{
+                                        font-size: 16px;
+                                        color: #3399ea;
+                                    }
+                                }
+                                .blog-date{
+                                    color: #6b6b6b;
+                                }
+                                .blog-edit-btn{
+                                    position: absolute;
+                                    right: 10px;
+                                    top: 50%;
+                                    transform: translate(0,-50%);
+                                    background: none;
+                                    cursor: pointer;
+                                    color: #7b705e;
+                                    border: 0;
+                                }
+                            }
+                        }
+                    }
+                    .blog-content{
+                       background: #ffffff;
+                    }
+                }
+            }
+        }
+    }
+</style>

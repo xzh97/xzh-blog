@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import HeaderComp from "./components/base/header/index";
-import FooterComp from './components/base/footer/index';
-import ContentComp from './components/base/content/index';
+import HeaderComp from "./components/business/header/index";
+import FooterComp from './components/business/footer/index';
+import ContentComp from './components/business/content/index';
 export default {
     name: "app",
     components: {

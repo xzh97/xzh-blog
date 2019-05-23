@@ -10,15 +10,7 @@
                 </div>
             </header>
             <div class="content">
-                <div class="content-left">
-                    <div class="blog-info">
-                        <avatar></avatar>
-                        <div class="new-blog">
-                            <button @click='addNewBlog'>写笔记</button>
-                        </div>
-                    </div>
-                    <category v-for="item in blogCategorys" :key='item.title' :title='item.title' :categoryList='item.categoryList'></category>
-                </div>
+                <sidebar></sidebar>
                 <div class="content-right">
                     <div class="content-tips">
                         <form class="original-only">
@@ -35,6 +27,7 @@
                     </div>
                     <ul class="content-list">
                         <li class="blog-item" :key="item.id" v-for="item in blogList"
+                            @click='goToBlogDetail(item)'
                             @mouseleave="updateBlogEditBtn(item,'hide')"
                             @mouseenter="updateBlogEditBtn(item,'show')">
                             <h4 class="blog-title">
@@ -51,7 +44,7 @@
                                 <p class="blog-comment">评论 <span class="num">{{ item.commentCount }}</span></p>
                             </div>
                             <div class="blog-edit-btn-group" v-if="item.isShowBlogEditBtn">
-                                <button class="blog-edit-btn">编辑</button>
+                                <button class="blog-edit-btn" @click.stop.self='editBlog(item)'>编辑</button>
                                 <button class="blog-edit-btn">置顶</button>
                                 <button class="blog-edit-btn detele-btn">删除</button>
                             </div>                        
@@ -66,58 +59,15 @@
 </template>
 
 <script>
-import Category from '../../../components/base/category/index';
-import Avatar from '../../../components/base/avatar/index';
-import Pagination from '../../../components/base/pagination/index';
-import Message from '../../../plugins/message/index.vue';
+import Pagination from '@/components/base/pagination/index';
+import Sidebar from '@/components/business/sidebar/index';
 
-import util from '../../../share/utils';
+import util from '@/share/utils';
 export default {
     name:'blog-list',
     data(){
         return {
-            blogCategorys:[
-                {
-                    title:'博客分类',
-                    categoryList:[
-                        {
-                            value:1,
-                            categoryName:'Vue学习笔记',
-                            articlesCount:10,
-                        },
-                        {
-                            value:2,
-                            categoryName:'React学习笔记',
-                            articlesCount:20,
-                        },
-                    ]
-                },
-                {
-                    title:'归档',
-                    categoryList:[
-                        {
-                            value:'2017-08',
-                            categoryName:'2017年8月',
-                            articlesCount:10,
-                        },
-                        {
-                            value:'2017-07',
-                            categoryName:'2017年7月',
-                            articlesCount:10,
-                        },
-                        {
-                            value:'2017-06',
-                            categoryName:'2017年6月',
-                            articlesCount:100,
-                        },
-                        {
-                            value:'2017-04',
-                            categoryName:'2017年4月',
-                            articlesCount:1,
-                        },
-                    ]
-                }
-            ],
+            
             isSeeOriginalOnly:false,
             sortBy:'default',
             sortByList:[
@@ -139,8 +89,6 @@ export default {
     },
     created(){
         this.getBlogList();
-        //this.$message({type:'success',text:'打开成功',duration: 3000});
-        this.$message('打开成功');
     },
     methods:{
         //event
@@ -149,9 +97,6 @@ export default {
         },
         updateBlogEditBtn(item,controlFlag){
             item.isShowBlogEditBtn = controlFlag === 'show' ? true : false ;
-        },
-        addNewBlog(){
-            this.$router.push({name:'addNewBlog'})
         },
 
         //service
@@ -217,19 +162,63 @@ export default {
                     commentCount:0,
                     comments:[],
                 },
+                {
+                    id:100007,
+                    title:'如何编写一个ajax？(1)',
+                    blogType:'original',
+                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
+                    lastUpdatedTime:1502275412000,
+                    visitor: 262,
+                    commentCount:0,
+                    comments:[],
+                }, 
+                {
+                    id:100008,
+                    title:'如何编写一个ajax？(2)',
+                    blogType:'reproduced',
+                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
+                    lastUpdatedTime:1502475412000,
+                    visitor: 22,
+                    commentCount:0,
+                    comments:[],
+                },
+                {
+                    id:100009,
+                    title:'如何编写一个ajax？(1)',
+                    blogType:'original',
+                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
+                    lastUpdatedTime:1502275412000,
+                    visitor: 262,
+                    commentCount:0,
+                    comments:[],
+                }, 
+                {
+                    id:100010 ,
+                    title:'如何编写一个ajax？(2)',
+                    blogType:'reproduced',
+                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
+                    lastUpdatedTime:1502475412000,
+                    visitor: 22,
+                    commentCount:0,
+                    comments:[],
+                },
             ];
             data.map(item => {
                 item.lastUpdatedTimeFormat = util.formatDate(item.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss');
                 item.isShowBlogEditBtn = false;
             });
             this.blogList = data;
-        }
+        },
+        goToBlogDetail(item){
+            this.$router.push({path:`/blog/detail/${item.id}`})
+        },
+        editBlog(item){
+            this.$router.push({path:`/blog/update/${item.id}`})
+        },
     },
     components:{
-        Category,
-        Avatar,
         Pagination,
-        Message
+        Sidebar
     }
 }
 </script>
@@ -257,6 +246,7 @@ export default {
                     font-size: 24px;
                     line-height: 30px;
                     font-weight: 500;
+                    color: #ffffff;
                 }
             }
             .content{
@@ -264,28 +254,7 @@ export default {
                 width: 100%;
                 color: #4d4d4d;
                 padding-bottom: 40px;
-                .content-left{
-                    width: 30%;
-                    .blog-info, .blog-category{
-                        width: 100%;
-                        height: 240px;
-                        background: #ffffff;
-                    }
-                    .blog-category{
-                        margin-top: 20px;
-                    }
-                    .blog-info{
-                        .new-blog{
-                            width: 200px;
-                            margin: 30px auto 0;
-                            button{
-                                background: none;
-                                cursor: pointer;
-                            }
-                        }
-
-                    }
-                }
+                
                 .content-right{
                     width: 70%;
                     background: #ffffff;

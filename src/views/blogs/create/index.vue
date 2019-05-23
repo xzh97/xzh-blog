@@ -43,8 +43,8 @@
             <xzh-button
             :type="'primary'"
             :size="'default'"
-            :loading='true'
-            @click="createBlog"
+            :loading='submitLoading'
+            @click="createNewBlog"
             >发布博客</xzh-button>
         </div>
     </div>
@@ -58,16 +58,17 @@ import xzhButton from '../../../components/base/button/index';
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
+import { setTimeout } from 'timers';
 
 export default {
     name:'newBlog',
     data(){
         return{
-            maxTitleLength:100,
-            title:'',
-            editorOption: {},
-            content:'',
-            categroies:[
+            maxTitleLength:100, //blog 标题最多字符数
+            title:'', //博客标题
+            editorOption: {}, //富文本参数
+            content:'', //富文本内容
+            categroies:[ // 个人分类
                 {
                     value:1,
                     showValue:'vue',
@@ -81,8 +82,7 @@ export default {
                     showValue:'angular',
                 },
             ],
-            isShowCategroies:false,
-            articleType: [
+            articleType: [ //文章类型
                 {
                     value:1,
                     showValue:'原创',
@@ -97,6 +97,7 @@ export default {
                 },
             ],
             isPrivate: false, //私人文章
+            submitLoading: false, //发布时 btn loading
         }
     },
     computed:{
@@ -124,13 +125,16 @@ export default {
             console.log('editor change!', editor, html, text)
 
         },
-        updateIsShowCategories(flag){
-            this.isShowCategroies = flag;
-        },
         handleselectedItems(selectedList){
             //console.log(selectedList);
         },
-        createBlog(){
+        createNewBlog(){
+            this.submitLoading = true;
+            setTimeout(()=>{
+                this.$message({ type:'success', text:'创建成功' });
+                this.submitLoading = false;
+                this.$router.push({name:'blogList'})
+            },2000)
             console.log('111');
         }
     },
