@@ -50,7 +50,7 @@
                             </div>                        
                         </li>
                     </ul>
-                    <pagination :total-page='27' :isShowPageTo='true'>
+                    <pagination :total-page='27' :isShowPageTo='true' @page-change='handlePageChange'>
                     </pagination>
                 </div>
             </div>   
@@ -103,12 +103,13 @@ export default {
 
         //service
         getBlogList(){
-            getBlogList().then(res =>  {
-                res.map(item => {
+            getBlogList().then(res => {
+                let data = res.data;
+                data.map(item => {
                     item.lastUpdatedTimeFormat = util.formatDate(item.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss');
                     item.isShowBlogEditBtn = false;
                 });
-                this.blogList = res;
+                this.blogList = data;
             })
         },
         goToBlogDetail(item){
@@ -117,6 +118,11 @@ export default {
         editBlog(item){
             this.$router.push({path:`/blog/update/${item.id}`})
         },
+
+        //emit
+        handlePageChange(page){
+            
+        }
     },
     components:{
         Pagination,

@@ -19,6 +19,9 @@
 </template>
 
 <script>
+/**
+ * @event page-change 页面变化
+ */
 export default {
     name:'pagination',
     props:{
