@@ -31,7 +31,7 @@
                             @mouseleave="updateBlogEditBtn(item,'hide')"
                             @mouseenter="updateBlogEditBtn(item,'show')">
                             <h4 class="blog-title">
-                                <span class="blog-type original"  v-if="item.blogType === 'original'">原</span>
+                                <span class="blog-type original"  v-if="item.type === '1'">原</span>
                                 <span class="blog-type reproduced" v-else>转</span>
                                 {{ item.title }}
                             </h4>
@@ -113,10 +113,10 @@ export default {
             })
         },
         goToBlogDetail(item){
-            this.$router.push({path:`/blog/detail/${item.id}`})
+            this.$router.push({path:`/blog/detail/${item.blogOID}`})
         },
         editBlog(item){
-            this.$router.push({path:`/blog/update/${item.id}`})
+            this.$router.push({path:`/blog/update/${item.blogOID}`})
         },
 
         //emit

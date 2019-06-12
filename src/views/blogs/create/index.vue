@@ -17,7 +17,7 @@
                 <xzh-select
                 :mode="'multiple'"
                 :list='categroies'
-                @selected='handleselectedItems'
+                @selected='handleselectedCategroy'
                 :box-style="{width:'400px'}"
                 >
                 </xzh-select>
@@ -26,7 +26,7 @@
                 <div class="categroies-label">文章类型：</div>
                 <xzh-select
                 :list='articleType'
-                @selected='handleselectedItems'
+                @selected='handleselectedType'
                 :box-style="{width:'400px'}"
                 >
                 </xzh-select>
@@ -58,7 +58,8 @@ import xzhButton from '../../../components/base/button/index';
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
-import { setTimeout } from 'timers';
+
+import {createNewBlog} from '@/api/blog';
 
 export default {
     name:'newBlog',
@@ -98,6 +99,8 @@ export default {
             ],
             isPrivate: false, //私人文章
             submitLoading: false, //发布时 btn loading
+            blogCategroy:[], //博客所属分类
+            blogType:{}, //博客所属类型
         }
     },
     computed:{
@@ -125,17 +128,33 @@ export default {
             console.log('editor change!', editor, html, text)
 
         },
-        handleselectedItems(selectedList){
-            //console.log(selectedList);
+        handleselectedCategroy(selectedList){
+            console.log(selectedList);
+            this.blogCategroy = selectedList
+        },
+        handleselectedType(selectedList){
+            console.log(selectedList);
+            this.blogType = selectedList[0]
         },
         createNewBlog(){
             this.submitLoading = true;
-            setTimeout(()=>{
-                this.$message({ type:'success', text:'创建成功' });
-                this.submitLoading = false;
-                this.$router.push({name:'blogList'})
-            },2000)
-            console.log('111');
+            let data = {
+                title:this.title,
+                content:this.content,
+                type:this.blogType.value,
+                categroy:this.blogCategroy,
+                private:this.isPrivate
+            };
+            createNewBlog(data).then(res => {
+                console.log(res);
+            }).catch(err => {
+                console.log(err);
+            });
+            // setTimeout(()=>{
+            //     this.$message({ type:'success', text:'创建成功' });
+            //     this.submitLoading = false;
+            //     this.$router.push({name:'blogList'})
+            // },2000)
         }
     },
     mounted(){

@@ -10,7 +10,7 @@
  * */
 
 let xhr;
-export default function ajax({url, method='GET', async=true, params={},data = null }){
+export default function ajax({url, method='GET', async=true, params={},data = {} }){
     return new Promise((resolve,reject) => {
         if(window.XMLHttpRequest) {
             xhr = new XMLHttpRequest();
@@ -26,7 +26,7 @@ export default function ajax({url, method='GET', async=true, params={},data = nu
     
         xhr.open(method,reqUrl,async);
     
-        xhr.send(data)
+        xhr.send(JSON.stringify(data));
     
         xhr.onreadystatechange = () => {
                 if(xhr.readyState == '4'){
