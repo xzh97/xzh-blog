@@ -9,7 +9,7 @@ const routes = [
         meta:{},
     },
     {
-        path:'/blog/detail/:blogId',
+        path:'/blog/detail/:blogOID',
         name: 'blogDetail',
         component:blogsDetail,
         meta:{},
@@ -21,7 +21,7 @@ const routes = [
         meta:{},
     },
     {
-        path:'/blog/update/:blogId',
+        path:'/blog/update/:blogOID',
         name: 'updateNewBlog',
         component:addBlog,
         meta:{},

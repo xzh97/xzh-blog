@@ -15,21 +15,20 @@
                     <div class="content-tips">
                         <div class="blog-item" >
                             <h4 class="blog-title">
-                                <span class="blog-type original"  v-if="blogData.blogType === 'original'">原</span>
+                                <span class="blog-type original"  v-if="blogData.type == '1'">原</span>
                                 <span class="blog-type reproduced" v-else>转</span>
                                 {{ blogData.title }}
                             </h4>
                             <div class="blog-item-footer clearfix">
-                                <p class="blog-date">{{ blogData.lastUpdatedTime }}</p>
+                                <p class="blog-date">{{ blogData.createTime }}</p>
                                 <p class="blog-read-num">阅读数 <span class="num">{{ blogData.visitor }}</span></p>
                                 <p class="blog-comment">评论 <span class="num">{{ blogData.commentCount }}</span></p>
                                 <p class="float-right"><button class="blog-edit-btn" @click="editBlog">编辑</button></p>
                             </div>                    
                         </div>
                     </div>
-                    <ul class="blog-content">
-                    
-                    </ul>
+                    <div class="blog-content" v-html="blogData.content">
+                    </div>
                 </div>
             </div>   
         </div>
@@ -39,6 +38,8 @@
 <script>
 import Sidebar from '@/components/business/sidebar/index';
 import util from '@/share/utils';
+
+import {getBlogDetail} from '@/api/blog'
 export default {
     name:'blog-detail',
     data(){
@@ -51,22 +52,20 @@ export default {
     },
     methods:{
         editBlog(){
-            this.$router.push({path:`/blog/update/${this.blogData.id}`})
+            let {blogOID} = this.$route.params;
+            this.$router.push({path:`/blog/update/${blogOID}`})
         },
         //service
         getBlogData(){
-            let data = {
-                    id:100001,
-                    title:'如何编写一个ajax？(1)',
-                    blogType:'original',
-                    description:'那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？那么我们如何才能编写一个普遍使用的ajax呢？',
-                    lastUpdatedTime:1502275412000,
-                    visitor: 262,
-                    commentCount:0,
-                    comments:[],
-                };
-            data.lastUpdatedTime = util.formatDate(data.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss');
-            this.blogData = data;
+            let {blogOID} = this.$route.params;
+            getBlogDetail(blogOID).then(res => {
+                res.createTime = util.formatDate(res.createTime,'yyyy-MM-dd hh:mm:ss');
+                this.blogData = res;
+            }).catch(err => {
+                console.log(err);
+                this.$message({type:'error',text:err.errMsg})
+            })
+            
         }
     },
     components:{
@@ -177,7 +176,10 @@ export default {
                         }
                     }
                     .blog-content{
-                       background: #ffffff;
+                        padding: 0 16px;
+                        background: #ffffff;
+                        margin-top: 20px;
+                       
                     }
                 }
             }

@@ -26,7 +26,7 @@
                         </dl>
                     </div>
                     <ul class="content-list">
-                        <li class="blog-item" :key="item.id" v-for="item in blogList"
+                        <li class="blog-item" :key="item.blogOID" v-for="item in blogList"
                             @click='goToBlogDetail(item)'
                             @mouseleave="updateBlogEditBtn(item,'hide')"
                             @mouseenter="updateBlogEditBtn(item,'show')">
@@ -37,9 +37,9 @@
                             </h4>
                             <p class="blog-desc">{{ item.description }}</p>
                             <div class="blog-item-footer">
-                                <p class="blog-date">{{ item.lastUpdatedTimeFormat }}</p>
+                                <p class="blog-date">{{ item.createTime }}</p>
                                 <p class="point"></p>
-                                <p class="blog-read-num">阅读数 <span class="num">{{ item.visitor }}</span></p>
+                                <p class="blog-read-num">阅读数 <span class="num">{{ item.readNumber }}</span></p>
                                 <p class="point"></p>
                                 <p class="blog-comment">评论 <span class="num">{{ item.commentCount }}</span></p>
                             </div>
@@ -50,7 +50,7 @@
                             </div>                        
                         </li>
                     </ul>
-                    <pagination :total-page='27' :isShowPageTo='true' @page-change='handlePageChange'>
+                    <pagination :total-page='totalPage' :page-size='size' :isShowPageTo='true' @page-change='handlePageChange'>
                     </pagination>
                 </div>
             </div>   
@@ -87,6 +87,9 @@ export default {
                 },
             ],
             blogList:[],
+            page:1,
+            size:10,
+            totalPage:1,
         }
     },
     created(){
@@ -103,13 +106,14 @@ export default {
 
         //service
         getBlogList(){
-            getBlogList().then(res => {
+            getBlogList(this.page,this.size).then(res => {
                 let data = res.data;
                 data.map(item => {
-                    item.lastUpdatedTimeFormat = util.formatDate(item.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss');
+                    item.createTime = util.formatDate(item.createTime,'yyyy-MM-dd hh:mm:ss');
                     item.isShowBlogEditBtn = false;
                 });
                 this.blogList = data;
+                this.totalPage = res.totalPage;
             })
         },
         goToBlogDetail(item){
@@ -121,7 +125,8 @@ export default {
 
         //emit
         handlePageChange(page){
-            
+            this.page = page;
+            this.getBlogList();
         }
     },
     components:{
