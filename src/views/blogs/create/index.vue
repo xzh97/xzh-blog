@@ -26,6 +26,8 @@
                 <div class="categroies-label">文章类型：</div>
                 <xzh-select
                 :list='articleType'
+                :show-clear='true'
+                :selected='selectedBlogType'
                 @selected='handleselectedType'
                 :box-style="{width:'400px'}"
                 >
@@ -44,7 +46,7 @@
             :type="'primary'"
             :size="'default'"
             :loading='submitLoading'
-            @click="createNewBlog"
+            @click="submitBlog"
             >发布博客</xzh-button>
         </div>
     </div>
@@ -59,7 +61,7 @@ import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
 
-import {createNewBlog} from '@/api/blog';
+import {createNewBlog, getBlogDetail} from '@/api/blog';
 
 export default {
     name:'newBlog',
@@ -73,34 +75,42 @@ export default {
                 {
                     value:1,
                     showValue:'vue',
+                    active: false,
                 },
                 {
                     value:2,
                     showValue:'react',
+                    active: false,
                 },
                 {
                     value:3,
                     showValue:'angular',
+                    active: false,
                 },
             ],
             articleType: [ //文章类型
                 {
                     value:1,
                     showValue:'原创',
+                    active: false,
                 },
                 {
                     value:2,
                     showValue:'转载',
+                    active: false,
                 },
                 {
                     value:3,
                     showValue:'翻译',
+                    active: false,
                 },
             ],
             isPrivate: false, //私人文章
             submitLoading: false, //发布时 btn loading
             blogCategroy:[], //博客所属分类
             blogType:{}, //博客所属类型
+            selectedBlogType:[], //默认选中的博客类型
+            mode:'create',
         }
     },
     computed:{
@@ -134,9 +144,9 @@ export default {
         },
         handleselectedType(selectedList){
             console.log(selectedList);
-            this.blogType = selectedList[0]
+            this.blogType = selectedList[0];
         },
-        createNewBlog(){
+        submitBlog(){
             this.submitLoading = true;
             let data = {
                 title:this.title,
@@ -145,16 +155,38 @@ export default {
                 categroy:this.blogCategroy,
                 private:this.isPrivate
             };
-            createNewBlog(data).then(res => {
+            if(mode === 'create'){
+                createNewBlog(data).then(res => {
+                    console.log(res);
+                }).catch(err => {
+                    console.log(err);
+                });
+            }
+            else{
+                updateBlog(data).then(res => {
+                    console.log(res);
+                }).catch(err => {
+                    console.log(err);
+                });
+            }
+            
+        },
+        updateMode(){
+            getBlogDetail(this.$route.params.blogOID).then(res => {
                 console.log(res);
+                this.title = res.title;
+                this.content = res.content;
+                this.isPrivate = Boolean(res.private);
+                this.selectedBlogType = this.articleType.filter(type => type.value == res.type);
             }).catch(err => {
                 console.log(err);
-            });
-            // setTimeout(()=>{
-            //     this.$message({ type:'success', text:'创建成功' });
-            //     this.submitLoading = false;
-            //     this.$router.push({name:'blogList'})
-            // },2000)
+            })
+        }
+    },
+    created(){
+        if(this.$route.params.blogOID){
+            this.mode = 'update';
+            this.updateMode()
         }
     },
     mounted(){

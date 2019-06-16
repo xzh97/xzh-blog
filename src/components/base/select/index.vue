@@ -4,16 +4,17 @@
             <ul class="selected-list" v-if="mode !== 'radio'">
                 <li class="selected-item" :key='item.value' v-for="item in selectedList"><span class="oneline selected-item-show">{{item.showValue}}</span><i class="iconfont icon-close" @click.stop.self="clearSelectedItem(item)"></i> </li>
             </ul>
-            <p class="radio-selected" v-else>{{selectedList[0] ? selectedList[0].showValue : ""}}</p>
+            <p class="radio-selected" v-else>
+                <span>{{selectedList[0] ? selectedList[0].showValue : ""}}</span>
+                <i v-if="showClear && selectedList.length" class="iconfont icon-close clear" @click.stop='clearSelectedItem'></i> 
+            </p>
         </div>
         <ul class="select-list" v-if="isShowList">
             <li class="select-item oneline" 
                 :key='item.value' 
-                v-for="item in dataList" 
-                @mouseenter='handleItemMouseEnter(item)'
-                @mouseleave='handleItemMouseLeave(item)'
+                v-for="item in dataList"
                 @click.stop='handleItemClick(item)'
-                :class="{'select-item-active':item.active,'selected':selected.indexOf(item.value) > -1}">
+                :class="{'selected':item.active}">
                 {{item.showValue}}
             </li>
         </ul>
@@ -31,7 +32,7 @@
  * @param list 传列表，
  *
  * Created at     : 2019-05-06 15:34:02 
- * Last modified  : 2019-05-19 11:16:19
+ * Last modified  : 2019-06-15 13:30:03
  */
 export default {
     name:'xzh-select',
@@ -46,7 +47,7 @@ export default {
                 return []
             },
         },
-        defaultSelected:{
+        selected:{
             type:Array,
             default(){
                 return []
@@ -59,12 +60,15 @@ export default {
                     width: '200px',
                 }
             }
+        },
+        showClear:{
+            type: Boolean,
+            default: false,
         }
     },
     data(){
         return {
             isShowList:false,
-            selected: [],
             selectedList: [] ,
             dataList:[],
         }
@@ -73,33 +77,38 @@ export default {
         showList(){
             this.isShowList = true;
         },
-        handleItemMouseEnter(item){
-            item.active = true;
-        },
-        handleItemMouseLeave(item){
-            item.active = false;
-        },
         //选择1项或多项
         handleItemClick(item){
             let {mode} = this;
-            item.active = false;
             if(mode === 'radio'){
-                this.selected = [];
+                this.dataList.map(data => {
+                    data.active = item.value === data.value ? true : false;
+                })
+                
                 this.selectedList = [];
 
-                this.selected.push(item.value);
                 this.selectedList.push(item);
                 
                 this.isShowList = false;
             }
             else{
-                let index = this.selected.indexOf(item.value);
-                if(index > -1){
-                    this.selected.splice(index,1);
-                    this.selectedList.splice(index,1);
+                //todo 调整多选时的情况
+                let isSelected = false;
+                this.dataList.map(data => {
+                    data.active = item.value === data.value ? !data.active : data.active;
+                })
+                if(this.selectedList.length){
+                    this.selectedList.map((data,index) => {
+                        if(item.value === data.value){ //已选中 第二次选择视为取消选中
+                            console.log('取消选中',index + 1);
+                            this.selectedList = this.selectedList.splice(index + 1, 1);
+                            isSelected = true;
+                        }
+                    })
+                    if(isSelected) return;
+                    this.selectedList.push(item);
                 }
                 else{
-                    this.selected.push(item.value);
                     this.selectedList.push(item);
                 }
             }
@@ -107,30 +116,40 @@ export default {
         },
         //清除已选中项
         clearSelectedItem(selectedItem){
-            this.selected = this.selected.filter(value => value !== selectedItem.value);
-            this.selectedList = this.selectedList.filter(item => item.value !== selectedItem.value);
-        }
+            let { mode } = this;
+            if(mode === 'multiple'){
+                this.selectedList = this.selectedList.filter(item => item.value !== selectedItem.value);
+                this.dataList.map(item => {if(item.value === selectedItem.value) item.active = false;})
+            }
+            else{
+                this.selectedList = [];
+            }  
+        },
     },
     created(){
-        let { dataList, list, selected, selectedList,defaultSelected } = this;
-        if(defaultSelected.length){
-            defaultSelected.forEach(element => {
-                selected.push(element.value);
-                selectedList.push(element);
-            });
-        }
+        console.log('created');
+        let { dataList, list, selectedList } = this;
 
-        //给传进来的列表  统一加一个active属性
         list.forEach(item => {
-            dataList.push({...item,active:false});
+            dataList.push({...item});
         })
-        
+
+        if(this.selected.length){
+            this.handleItemClick(...this.selected)
+        }
     },
     mounted(){
+        //点击其他地方 关闭选择框
         let self = this;
         window.addEventListener('click',()=>{
+            console.log('window.click');
             self.isShowList = false; 
         })
+    },
+    watch:{
+        selected(newVal){
+            this.handleItemClick(...newVal);
+        }
     }
 }
 </script>
@@ -179,6 +198,16 @@ export default {
             padding-left: 6px;
             line-height: 32px;
             color: rgba(0,0,0,.65);
+            .clear{
+                text-align: right;
+                color:#cccccc;
+                float: right;
+                margin-right: 8px;
+            }
+            .clear:hover{
+                color: #aaaaaa;
+                cursor: pointer;
+            }
         }
     }
     .select-list{
@@ -201,9 +230,9 @@ export default {
             font-size: 14px;
             padding: 0 10px;
         }
-        .select-item-active{
-            background: rgb(217, 236, 255);
+        .select-item:hover{
             color:#409EFF;
+            background: rgb(217, 236, 255);
         }
         .selected{
             color:#409EFF;
