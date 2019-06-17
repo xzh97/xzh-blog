@@ -1,4 +1,9 @@
 const util = {
+    /**
+     * @description 日期格式化
+     * @param {} date 
+     * @param {*} format 
+     */
     formatDate(date,format = 'yyyy-MM-dd'){
         if(!date) return '';
         let d = new Date(date);
@@ -33,4 +38,5 @@ const util = {
         }
     }
 }
+
 export default util;

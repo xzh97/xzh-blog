@@ -28,6 +28,7 @@
                         </div>
                     </div>
                     <div class="blog-content" v-html="blogData.content">
+                        {{blogData.content}}
                     </div>
                 </div>
             </div>   
@@ -179,7 +180,6 @@ export default {
                         padding: 0 16px;
                         background: #ffffff;
                         margin-top: 20px;
-                       
                     }
                 }
             }

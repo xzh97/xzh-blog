@@ -94,23 +94,15 @@ export default {
             else{
                 //todo 调整多选时的情况
                 let isSelected = false;
+                let result = []; //存放结果
+
                 this.dataList.map(data => {
                     data.active = item.value === data.value ? !data.active : data.active;
+                    if(data.active){
+                        result.push(data);
+                    }
                 })
-                if(this.selectedList.length){
-                    this.selectedList.map((data,index) => {
-                        if(item.value === data.value){ //已选中 第二次选择视为取消选中
-                            console.log('取消选中',index + 1);
-                            this.selectedList = this.selectedList.splice(index + 1, 1);
-                            isSelected = true;
-                        }
-                    })
-                    if(isSelected) return;
-                    this.selectedList.push(item);
-                }
-                else{
-                    this.selectedList.push(item);
-                }
+                this.selectedList = result;
             }
             this.$emit('selected',this.selectedList);
         },

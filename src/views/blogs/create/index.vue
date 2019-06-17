@@ -17,6 +17,7 @@
                 <xzh-select
                 :mode="'multiple'"
                 :list='categroies'
+                :selected='selectedBlogCategroy'
                 @selected='handleselectedCategroy'
                 :box-style="{width:'400px'}"
                 >
@@ -47,21 +48,24 @@
             :size="'default'"
             :loading='submitLoading'
             @click="submitBlog"
-            >发布博客</xzh-button>
+            >
+            <span>{{mode === 'create' ? '发布文章' : '更新文章'}}</span>
+            </xzh-button>
         </div>
     </div>
 </template>
 
 <script>
 import { quillEditor } from 'vue-quill-editor';
-import xzhSelect from '../../../components/base/select/index';
-import xzhSwitch from '../../../components/base/switch/index';
-import xzhButton from '../../../components/base/button/index';
+import xzhSelect from '@/components/base/select/index';
+import xzhSwitch from '@/components/base/switch/index';
+import xzhButton from '@/components/base/button/index';
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
 
-import {createNewBlog, getBlogDetail} from '@/api/blog';
+import {createNewBlog, getBlogDetail, updateBlog} from '@/api/blog';
+import util from '@/share/utils'
 
 export default {
     name:'newBlog',
@@ -109,8 +113,10 @@ export default {
             submitLoading: false, //发布时 btn loading
             blogCategroy:[], //博客所属分类
             blogType:{}, //博客所属类型
-            selectedBlogType:[], //默认选中的博客类型
+            selectedBlogType:[], //已选中的博客类型 updateMode用
+            selectedBlogCategroy:[],//已选中的博客分类 updateMode用
             mode:'create',
+            blogDetailData:{}
         }
     },
     computed:{
@@ -139,11 +145,11 @@ export default {
 
         },
         handleselectedCategroy(selectedList){
-            console.log(selectedList);
+            //console.log(selectedList);
             this.blogCategroy = selectedList
         },
         handleselectedType(selectedList){
-            console.log(selectedList);
+            //console.log(selectedList);
             this.blogType = selectedList[0];
         },
         submitBlog(){
@@ -153,9 +159,9 @@ export default {
                 content:this.content,
                 type:this.blogType.value,
                 categroy:this.blogCategroy,
-                private:this.isPrivate
+                private:Number(this.isPrivate)
             };
-            if(mode === 'create'){
+            if(this.mode === 'create'){
                 createNewBlog(data).then(res => {
                     console.log(res);
                 }).catch(err => {
@@ -163,6 +169,8 @@ export default {
                 });
             }
             else{
+                data.blogOID = this.blogDetailData.blogOID;
+                data.lastUpdatedTime = util.formatDate(new Date(),'yyyy-MM-dd hh:mm:ss');
                 updateBlog(data).then(res => {
                     console.log(res);
                 }).catch(err => {
@@ -174,10 +182,12 @@ export default {
         updateMode(){
             getBlogDetail(this.$route.params.blogOID).then(res => {
                 console.log(res);
+                this.blogDetailData = res;
                 this.title = res.title;
                 this.content = res.content;
                 this.isPrivate = Boolean(res.private);
                 this.selectedBlogType = this.articleType.filter(type => type.value == res.type);
+                this.selectedBlogCategroy = this.categroies.filter(categroy => categroy.value == res.categroy)
             }).catch(err => {
                 console.log(err);
             })
