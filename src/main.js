@@ -5,6 +5,7 @@ import router from './routes/index';
 
 import './assets/iconfont/iconfont.css';
 import './styles/animate.css';
+import './styles/common.scss'
 
 import directives from './share/directive';
 import message from './plugins/message/index';

@@ -20,15 +20,14 @@
                                 {{ blogData.title }}
                             </h4>
                             <div class="blog-item-footer clearfix">
-                                <p class="blog-date">{{ blogData.createTime }}</p>
-                                <p class="blog-read-num">阅读数 <span class="num">{{ blogData.visitor }}</span></p>
+                                <p class="blog-date">{{ blogData.lastUpdatedTime }}</p>
+                                <p class="blog-read-num">阅读数 <span class="num">{{ blogData.readNumber }}</span></p>
                                 <p class="blog-comment">评论 <span class="num">{{ blogData.commentCount }}</span></p>
                                 <p class="float-right"><button class="blog-edit-btn" @click="editBlog">编辑</button></p>
                             </div>                    
                         </div>
                     </div>
-                    <div class="blog-content" v-html="blogData.content">
-                        {{blogData.content}}
+                    <div class="blog-content quill-editor-content" v-html="blogData.content">
                     </div>
                 </div>
             </div>   
@@ -60,7 +59,7 @@ export default {
         getBlogData(){
             let {blogOID} = this.$route.params;
             getBlogDetail(blogOID).then(res => {
-                res.createTime = util.formatDate(res.createTime,'yyyy-MM-dd hh:mm:ss');
+                res.lastUpdatedTime = util.formatDate(res.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss');
                 this.blogData = res;
             }).catch(err => {
                 console.log(err);
@@ -177,9 +176,13 @@ export default {
                         }
                     }
                     .blog-content{
-                        padding: 0 16px;
+                        padding: 20px 16px;
                         background: #ffffff;
-                        margin-top: 20px;
+                        font-size: 16px;
+                    }
+                    .blog-content >>> p{
+                        font-size: 16px;
+                        line-height: 20px;
                     }
                 }
             }

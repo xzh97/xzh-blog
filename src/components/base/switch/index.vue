@@ -14,7 +14,7 @@
  * @author xzh xzh19971005@163.com
  *
  * Created at     : 2019-05-20 21:19:57 
- * Last modified  : 2019-05-20 23:19:08
+ * Last modified  : 2019-06-18 23:31:08
  */
 export default {
     name: "xzh-switch",
@@ -46,6 +46,9 @@ export default {
         toggleValue(){
             this.checkedValue = !this.checkedValue;
         }
+    },
+    created(){
+        this.checkedValue = this.value;
     },
     watch:{
         checkedValue(val){

@@ -231,7 +231,6 @@ export default {
             border: none;
             background: none;
             font-size: 16px;
-            padding-left: 16px;
         }
     }
     .blog-content,.blog-category{

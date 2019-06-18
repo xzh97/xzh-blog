@@ -20,9 +20,14 @@ export default {
 };
 </script>
 
-<style lang='scss'>
-@import './styles/common.scss';
+<style lang='css'>
 #app {
     width: 100%;
+}
+/* 富文本内容展示 的基本样式 */
+.quill-editor-content p{
+    font-size: 16px;
+    line-height: 26px;
+    margin-bottom: 8px;
 }
 </style>
