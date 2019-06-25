@@ -46,7 +46,7 @@
                             <div class="blog-edit-btn-group" v-if="item.isShowBlogEditBtn">
                                 <button class="blog-edit-btn" @click.stop.self='editBlog(item)'>编辑</button>
                                 <button class="blog-edit-btn">置顶</button>
-                                <button class="blog-edit-btn detele-btn">删除</button>
+                                <button class="blog-edit-btn detele-btn" @click.stop='deleteBlog(item)'>删除</button>
                             </div>                        
                         </li>
                     </ul>
@@ -62,7 +62,7 @@
 import Pagination from '@/components/base/pagination/index';
 import Sidebar from '@/components/business/sidebar/index';
 
-import {getBlogList} from "@/api/blog";
+import {getBlogList,deleteBlog} from "@/api/blog";
 
 import util from '@/share/utils';
 export default {
@@ -89,11 +89,10 @@ export default {
             blogList:[],
             page:1,
             size:10,
-            totalPage:1,
-        }
+            totalPage:1,        }
     },
     created(){
-        this.getBlogList();
+        setTimeout(this.getBlogList(),300);
     },
     methods:{
         //event
@@ -107,20 +106,32 @@ export default {
         //service
         getBlogList(){
             getBlogList(this.page,this.size).then(res => {
+                console.log('getbloglist',res.data);
                 let data = res.data;
                 data.map(item => {
-                    item.createTime = util.formatDate(item.createTime,'yyyy-MM-dd hh:mm:ss');
+                    item.createTime = util.dateFormat(item.createTime,'yyyy-MM-dd hh:mm:ss');
                     item.isShowBlogEditBtn = false;
                 });
                 this.blogList = data;
                 this.totalPage = res.totalPage;
             })
+            
         },
         goToBlogDetail(item){
             this.$router.push({path:`/blog/detail/${item.blogOID}`})
         },
         editBlog(item){
             this.$router.push({path:`/blog/update/${item.blogOID}`})
+        },
+        deleteBlog(item){
+            deleteBlog(item.blogOID).then(res => {
+                console.log(res);
+                this.$message({type:'success',text:res.errMsg})
+                this.getBlogList();
+            }).catch(err => {
+                console.log(err);
+                this.$message({type:'error',text:err.errMsg})
+            })
         },
 
         //emit
@@ -132,7 +143,7 @@ export default {
     components:{
         Pagination,
         Sidebar
-    }
+    },
 }
 </script>
 

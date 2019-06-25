@@ -5,7 +5,7 @@
  * @author xzh xzh19971005@163.com
  *
  * Created at     : 2019-04-23 15:48:22
- * Last modified  : 2019-06-18 22:08:31
+ * Last modified  : 2019-06-25 22:54:05
  */
 import config from '../config/index';
 import ajax from '../share/ajax';
@@ -42,4 +42,57 @@ export const updateBlog = (data) => {
         data
     });
 }
+
+//删除文章
+export const deleteBlog = (blogOID) => {
+    return ajax({
+        url:`${config.apiUrl}/api/blog/delete/${blogOID}`,
+        method:'DELETE',
+    });
+}
+
+
+//获取文章分类列表
+export const getCategories = () => {
+    return ajax({
+        url:`${config.apiUrl}/api/blog/category/list`,
+        method:'GET'
+    });
+}
+
+//获取分类详情
+export const getCategoryDetail = (categoryOID) => {
+    return ajax({
+        url:`${config.apiUrl}/api/blog/category/detail/${categoryOID}`,
+        method:'GET'
+    });
+}
+
+//新建文章分类
+export const createCategory = (data) => {
+    return ajax({
+        url:`${config.apiUrl}/api/blog/category/create`,
+        method:'POST',
+        data
+    });
+}
+
+//更新文章分类
+export const updateCategory = (data) => {
+    return ajax({
+        url:`${config.apiUrl}/api/blog/category/update`,
+        method:'PUT',
+        data
+    });
+}
+
+//更新文章分类
+export const deleteCategory = (categoryOID) => {
+    return ajax({
+        url:`${config.apiUrl}/api/blog/category/delete/${categoryOID}`,
+        method:'DELETE',
+    });
+}
+
+
 

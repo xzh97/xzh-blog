@@ -40,7 +40,7 @@ export default {
         z-index: 100;
         background: #fff;
         border-radius: 4px;
-        box-shadow:  0 0 4px rgba(255,255,255,.2);
+        box-shadow:  0 0 6px rgba(127,127,127,.2);
         .message-text{
             font-size: 16px;
             color: #666;

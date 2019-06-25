@@ -13,10 +13,10 @@
         </div>
         <div class="blog-category">
             <div class="categories">
-                <div class="categroies-label">个人分类：</div>
+                <div class="categories-label">个人分类：</div>
                 <xzh-select
                 :mode="'multiple'"
-                :list='categroies'
+                :list='categories'
                 :selected='selectedBlogCategroy'
                 @selected='handleselectedCategroy'
                 :box-style="{width:'400px'}"
@@ -24,7 +24,7 @@
                 </xzh-select>
             </div>
             <div class="categories">
-                <div class="categroies-label">文章类型：</div>
+                <div class="categories-label">文章类型：</div>
                 <xzh-select
                 :list='articleType'
                 :show-clear='true'
@@ -35,7 +35,7 @@
                 </xzh-select>
             </div>
             <div class="categories">
-                <div class="categroies-label">私人文章：</div>
+                <div class="categories-label">私人文章：</div>
                 <xzh-switch
                 v-model="isPrivate"
                 >
@@ -47,7 +47,7 @@
             :type="'primary'"
             :size="'default'"
             :loading='submitLoading'
-            @click="submitBlog"
+            @click="submitHandle"
             >
             <span>{{mode === 'create' ? '发布文章' : '更新文章'}}</span>
             </xzh-button>
@@ -64,7 +64,7 @@ import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
 
-import {createNewBlog, getBlogDetail, updateBlog} from '@/api/blog';
+import {createNewBlog, getBlogDetail, updateBlog, getCategories} from '@/api/blog';
 import util from '@/share/utils'
 
 export default {
@@ -75,7 +75,7 @@ export default {
             title:'', //博客标题
             editorOption: {}, //富文本参数
             content:'', //富文本内容
-            categroies:[ // 个人分类
+            categories:[ // 个人分类
                 {
                     value:1,
                     showValue:'vue',
@@ -111,7 +111,7 @@ export default {
             ],
             isPrivate: false, //私人文章
             submitLoading: false, //发布时 btn loading
-            blogCategroy:[], //博客所属分类
+            blogCategory:[], //博客所属分类
             blogType:{}, //博客所属类型
             selectedBlogType:[], //已选中的博客类型 updateMode用
             selectedBlogCategroy:[],//已选中的博客分类 updateMode用
@@ -146,38 +146,76 @@ export default {
         },
         handleselectedCategroy(selectedList){
             //console.log(selectedList);
-            this.blogCategroy = selectedList
+            this.blogCategory = selectedList
         },
         handleselectedType(selectedList){
             //console.log(selectedList);
             this.blogType = selectedList[0];
         },
-        submitBlog(){
-            this.submitLoading = true;
+        checkSubmitData(data){
+            let errFlag = false;
+            let errMsg = '';
+            if(!data.title){
+                errFlag = true;
+                errMsg = '请输入文章标题';
+            }
+            else if(!data.content){
+                errFlag = true;
+                errMsg = '请输入文章内容';
+            }
+            else if(!data.type){
+                errFlag = true;
+                errMsg = '请选择文章类型';
+            }
+            else if(!data.category.length){
+                errFlag = true;
+                errMsg = '请选择至少一个分类';
+            }
+            return {
+                errFlag,
+                errMsg
+            }
+        },
+        submitHandle(){ 
             let data = {
                 title:this.title,
                 content:this.content,
                 type:this.blogType.value,
-                categroy:this.blogCategroy,
+                category:this.blogCategory,
                 private:Number(this.isPrivate)
             };
-            if(this.mode === 'create'){
-                createNewBlog(data).then(res => {
-                    console.log(res);
-                }).catch(err => {
-                    console.log(err);
-                });
+            let checkResult = this.checkSubmitData(data);
+            if(checkResult.errFlag){
+                this.$message({type:'error',text:checkResult.errMsg})
+                return;
             }
             else{
-                data.blogOID = this.blogDetailData.blogOID;
-                data.lastUpdatedTime = util.formatDate(new Date(),'yyyy-MM-dd hh:mm:ss');
-                updateBlog(data).then(res => {
-                    console.log(res);
-                }).catch(err => {
-                    console.log(err);
-                });
-            }
-            
+                this.submitLoading = true;
+                if(this.mode === 'create'){
+                    createNewBlog(data).then(res => {
+                        console.log(res);
+                        this.$message({type:'success',text:res.errMsg})
+                        this.submitLoading = false;
+                    }).catch(err => {
+                        console.log(err);
+                        this.$message({type:'error',text:err.errMsg})
+                        this.submitLoading = false;
+                    });
+                }
+                else{
+                    data.blogOID = this.blogDetailData.blogOID;
+                    data.lastUpdatedTime = util.dateFormat(new Date(),'yyyy-MM-dd hh:mm:ss');
+                    updateBlog(data).then(res => {
+                        console.log(res);
+                        this.$message({type:'success',text:res.errMsg})
+                        this.submitLoading = false;
+                    }).catch(err => {
+                        console.log(err);
+                        this.$message({type:'error',text:err.errMsg})
+                        this.submitLoading = false;
+                    });
+                }
+            } 
         },
         updateMode(){
             getBlogDetail(this.$route.params.blogOID).then(res => {
@@ -187,13 +225,21 @@ export default {
                 this.content = res.content;
                 this.isPrivate = Boolean(res.private);
                 this.selectedBlogType = this.articleType.filter(type => type.value == res.type);
-                this.selectedBlogCategroy = this.categroies.filter(categroy => categroy.value == res.categroy)
+                this.selectedBlogCategroy = this.categories.filter(categroy => categroy.value == res.categroy)
             }).catch(err => {
                 console.log(err);
             })
-        }
+        },
+        getCategories(){
+            getCategories().then(res => {
+                this.categories = res.data.map(item => item.active = false);
+            }).catch(err => {
+                this.$message({type:'error',text:res.errMsg});
+            })
+        },
     },
     created(){
+        this.getCategories();
         if(this.$route.params.blogOID){
             this.mode = 'update';
             this.updateMode()
@@ -241,7 +287,7 @@ export default {
         @include fsc;
         height: 32px;
         margin-top: 10px;
-        .categroies-label{
+        .categories-label{
             margin-right: 6px;
         }
     }

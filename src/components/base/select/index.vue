@@ -1,5 +1,5 @@
 <template>
-    <div class="select-wrapper" :style="boxStyle">
+    <div class="select-wrapper" tabindex="1" :style="boxStyle" @blur="isShowList = false">
         <div class="select-box" @click.stop='showList'>
             <ul class="selected-list" v-if="mode !== 'radio'">
                 <li class="selected-item" :key='item.value' v-for="item in selectedList"><span class="oneline selected-item-show">{{item.showValue}}</span><i class="iconfont icon-close" @click.stop.self="clearSelectedItem(item)"></i> </li>
@@ -32,7 +32,7 @@
  * @param list 传列表，
  *
  * Created at     : 2019-05-06 15:34:02 
- * Last modified  : 2019-06-15 13:30:03
+ * Last modified  : 2019-06-25 23:23:29
  */
 export default {
     name:'xzh-select',
@@ -130,14 +130,6 @@ export default {
             this.handleItemClick(...this.selected)
         }
     },
-    mounted(){
-        //点击其他地方 关闭选择框
-        let self = this;
-        window.addEventListener('click',()=>{
-            console.log('window.click');
-            self.isShowList = false; 
-        })
-    },
     watch:{
         selected(newVal){
             this.handleItemClick(...newVal);
@@ -151,6 +143,7 @@ export default {
 .select-wrapper{
     width: 200px;
     position: relative;
+    outline: none;
     .select-box{
         width: 100%;
         height: 32px;

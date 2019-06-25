@@ -4,7 +4,7 @@ const util = {
      * @param {} date 
      * @param {*} format 
      */
-    formatDate(date,format = 'yyyy-MM-dd'){
+    dateFormat(date,format = 'yyyy-MM-dd'){
         if(!date) return '';
         let d = new Date(date);
         if(d.toString() === 'Invalid Date'){

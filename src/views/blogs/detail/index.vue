@@ -59,7 +59,7 @@ export default {
         getBlogData(){
             let {blogOID} = this.$route.params;
             getBlogDetail(blogOID).then(res => {
-                res.lastUpdatedTime = util.formatDate(res.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss');
+                res.lastUpdatedTime = util.dateFormat(res.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss');
                 this.blogData = res;
             }).catch(err => {
                 console.log(err);
