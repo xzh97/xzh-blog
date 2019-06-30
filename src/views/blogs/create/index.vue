@@ -14,32 +14,52 @@
         <div class="blog-category">
             <div class="categories">
                 <div class="categories-label">个人分类：</div>
-                <xzh-select
+                <!-- <xzh-select
                 :mode="'multiple'"
                 :list='categories'
                 :selected='selectedBlogCategroy'
                 @selected='handleselectedCategroy'
                 :box-style="{width:'400px'}"
                 >
-                </xzh-select>
+                </xzh-select> -->
+                <a-select
+                    :mode="'multiple'"
+                    :defaultValue="blogCategory"
+                    style="width: 200px"
+                    @change="handleselectedCategroy"
+                >
+                <a-select-option v-for="item in categories" :key="item.categoryOID" :value="item.categoryOID">
+                    {{item.name}}
+                </a-select-option>
+                </a-select>
             </div>
             <div class="categories">
                 <div class="categories-label">文章类型：</div>
-                <xzh-select
+                <!-- <xzh-select
                 :list='articleType'
                 :show-clear='true'
                 :selected='selectedBlogType'
                 @selected='handleselectedType'
                 :box-style="{width:'400px'}"
                 >
-                </xzh-select>
+                </xzh-select> -->
+                <a-select
+                    :defaultValue="blogType.value || 1"
+                    style="width: 200px"
+                    @change="handleselectedType"
+                >
+                <a-select-option v-for="item in articleType" :key="item.value" :value="item.value">
+                    {{item.showValue}}
+                </a-select-option>
+                </a-select>
             </div>
             <div class="categories">
                 <div class="categories-label">私人文章：</div>
-                <xzh-switch
+                <!-- <xzh-switch
                 v-model="isPrivate"
                 >
-                </xzh-switch>
+                </xzh-switch> -->
+                <a-switch v-model="isPrivate"></a-switch>
             </div>
         </div>
         <div class="blog-footer">
@@ -76,21 +96,6 @@ export default {
             editorOption: {}, //富文本参数
             content:'', //富文本内容
             categories:[ // 个人分类
-                {
-                    value:1,
-                    showValue:'vue',
-                    active: false,
-                },
-                {
-                    value:2,
-                    showValue:'react',
-                    active: false,
-                },
-                {
-                    value:3,
-                    showValue:'angular',
-                    active: false,
-                },
             ],
             articleType: [ //文章类型
                 {
@@ -113,8 +118,6 @@ export default {
             submitLoading: false, //发布时 btn loading
             blogCategory:[], //博客所属分类
             blogType:{}, //博客所属类型
-            selectedBlogType:[], //已选中的博客类型 updateMode用
-            selectedBlogCategroy:[],//已选中的博客分类 updateMode用
             mode:'create',
             blogDetailData:{}
         }
@@ -148,9 +151,9 @@ export default {
             //console.log(selectedList);
             this.blogCategory = selectedList
         },
-        handleselectedType(selectedList){
-            //console.log(selectedList);
-            this.blogType = selectedList[0];
+        handleselectedType(selected){
+            console.log(selected);
+            this.blogType = selected;
         },
         checkSubmitData(data){
             let errFlag = false;
@@ -196,6 +199,7 @@ export default {
                         console.log(res);
                         this.$message({type:'success',text:res.errMsg})
                         this.submitLoading = false;
+                        this.$router.push({name:'blogList'});
                     }).catch(err => {
                         console.log(err);
                         this.$message({type:'error',text:err.errMsg})
@@ -209,6 +213,7 @@ export default {
                         console.log(res);
                         this.$message({type:'success',text:res.errMsg})
                         this.submitLoading = false;
+                        this.$router.push({name:'blogList'});
                     }).catch(err => {
                         console.log(err);
                         this.$message({type:'error',text:err.errMsg})
@@ -224,15 +229,15 @@ export default {
                 this.title = res.title;
                 this.content = res.content;
                 this.isPrivate = Boolean(res.private);
-                this.selectedBlogType = this.articleType.filter(type => type.value == res.type);
-                this.selectedBlogCategroy = this.categories.filter(categroy => categroy.value == res.categroy)
+                this.blogType = this.articleType.filter(type => type.value == res.type)[0];
+                this.blogCategroy = this.categories.filter(categroy => categroy.value == res.categroy)
             }).catch(err => {
                 console.log(err);
             })
         },
         getCategories(){
             getCategories().then(res => {
-                this.categories = res.data.map(item => item.active = false);
+                this.categories = res.data;
             }).catch(err => {
                 this.$message({type:'error',text:res.errMsg});
             })
