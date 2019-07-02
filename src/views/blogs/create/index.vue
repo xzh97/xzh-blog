@@ -23,12 +23,11 @@
                 >
                 </xzh-select> -->
                 <a-select
-                    :mode="'multiple'"
-                    :defaultValue="blogCategory"
+                    :value="blogCategory"
                     style="width: 200px"
                     @change="handleselectedCategroy"
                 >
-                <a-select-option v-for="item in categories" :key="item.categoryOID" :value="item.categoryOID">
+                <a-select-option v-for="item in categories" :key="item.name" :value="item.categoryOID">
                     {{item.name}}
                 </a-select-option>
                 </a-select>
@@ -44,7 +43,8 @@
                 >
                 </xzh-select> -->
                 <a-select
-                    :defaultValue="blogType.value || 1"
+                    :defaultValue="1"
+                    :value='blogType'
                     style="width: 200px"
                     @change="handleselectedType"
                 >
@@ -63,15 +63,15 @@
             </div>
         </div>
         <div class="blog-footer">
-            <xzh-button
+            <a-button
             :type="'primary'"
-            :size="'default'"
             :loading='submitLoading'
             @click="submitHandle"
             >
-            <span>{{mode === 'create' ? '发布文章' : '更新文章'}}</span>
-            </xzh-button>
+                {{mode === 'create' ? '发布文章' : '更新文章'}}
+            </a-button>
         </div>
+        
     </div>
 </template>
 
@@ -86,7 +86,7 @@ import 'quill/dist/quill.bubble.css';
 
 import {createNewBlog, getBlogDetail, updateBlog, getCategories} from '@/api/blog';
 import util from '@/share/utils'
-
+//todo 把個人分類這裡弄完 今天不想弄了 07-01
 export default {
     name:'newBlog',
     data(){
@@ -116,8 +116,8 @@ export default {
             ],
             isPrivate: false, //私人文章
             submitLoading: false, //发布时 btn loading
-            blogCategory:[], //博客所属分类
-            blogType:{}, //博客所属类型
+            blogCategory:'', //博客所属分类
+            blogType:1, //博客所属类型
             mode:'create',
             blogDetailData:{}
         }
@@ -129,7 +129,7 @@ export default {
         },
         editor() {
             return this.$refs.blogQuillEditor.quill
-        }
+        },
     },
     methods:{
         handleTitle(){
@@ -144,12 +144,11 @@ export default {
             }
         },
         onEditorChange({editor, text, html}){
-            console.log('editor change!', editor, html, text)
-
+            //console.log('editor change!', editor, html, text)
         },
-        handleselectedCategroy(selectedList){
-            //console.log(selectedList);
-            this.blogCategory = selectedList
+        handleselectedCategroy(selected){
+            console.log(selected);
+            this.blogCategory = selected
         },
         handleselectedType(selected){
             console.log(selected);
@@ -170,7 +169,7 @@ export default {
                 errFlag = true;
                 errMsg = '请选择文章类型';
             }
-            else if(!data.category.length){
+            else if(!data.category){
                 errFlag = true;
                 errMsg = '请选择至少一个分类';
             }
@@ -183,7 +182,7 @@ export default {
             let data = {
                 title:this.title,
                 content:this.content,
-                type:this.blogType.value,
+                type:this.blogType,
                 category:this.blogCategory,
                 private:Number(this.isPrivate)
             };
@@ -229,8 +228,8 @@ export default {
                 this.title = res.title;
                 this.content = res.content;
                 this.isPrivate = Boolean(res.private);
-                this.blogType = this.articleType.filter(type => type.value == res.type)[0];
-                this.blogCategroy = this.categories.filter(categroy => categroy.value == res.categroy)
+                this.blogType = res.type;
+                this.blogCategory = res.category[0].categoryOID;
             }).catch(err => {
                 console.log(err);
             })
@@ -295,6 +294,9 @@ export default {
         .categories-label{
             margin-right: 6px;
         }
+    }
+    .blog-footer{
+        margin-top: 20px;
     }
     
 }

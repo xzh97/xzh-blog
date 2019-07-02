@@ -31,7 +31,7 @@
                             @mouseleave="updateBlogEditBtn(item,'hide')"
                             @mouseenter="updateBlogEditBtn(item,'show')">
                             <h4 class="blog-title">
-                                <span class="blog-type original"  v-if="item.type === '1'">原</span>
+                                <span class="blog-type original"  v-if="item.type === 1">原</span>
                                 <span class="blog-type reproduced" v-else>转</span>
                                 {{ item.title }}
                             </h4>
