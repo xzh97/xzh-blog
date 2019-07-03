@@ -3,7 +3,7 @@ import App from './App.vue'
 
 import router from './routes/index';
 
-import './assets/iconfont/iconfont.css';
+//import './assets/iconfont/iconfont.css';
 import './styles/animate.css';
 import './styles/common.scss'
 import {Button, Select, Switch} from 'ant-design-vue';

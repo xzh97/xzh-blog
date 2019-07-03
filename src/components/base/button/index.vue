@@ -2,7 +2,7 @@
     <button class="xzh-btn oneline"
     :class="[
         type ? 'btn-' + type : '',
-        size ?　'btn-size-' + size : '',
+        size ? 'btn-size-' + size : '',
         ghost ? 'btn-' + type + '-ghost' : '',
         {
             'btn-loading': loading,
@@ -15,7 +15,7 @@
     @click='handleClick'
     :disabled="disabled || loading "
     >
-        <i v-if="loading" class="iconfont icon-sync loading"></i>
+        <i v-if="loading" class="iconfont icon-loading loading"></i>
         <span><slot></slot></span>
     </button>
 </template>
