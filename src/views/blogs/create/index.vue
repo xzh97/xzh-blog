@@ -18,14 +18,15 @@
                 :mode="'multiple'"
                 :list='categories'
                 :selected='selectedBlogCategroy'
-                @selected='handleselectedCategroy'
+                @selected='handleSelectedCategory'
                 :box-style="{width:'400px'}"
                 >
                 </xzh-select> -->
                 <a-select
+                    key="category"
                     :value="blogCategory"
                     style="width: 200px"
-                    @change="handleselectedCategroy"
+                    @change="handleSelectedCategory"
                 >
                 <a-select-option v-for="item in categories" :key="item.name" :value="item.categoryOID">
                     {{item.name}}
@@ -34,31 +35,19 @@
             </div>
             <div class="categories">
                 <div class="categories-label">文章类型：</div>
-                <!-- <xzh-select
-                :list='articleType'
-                :show-clear='true'
-                :selected='selectedBlogType'
-                @selected='handleselectedType'
-                :box-style="{width:'400px'}"
-                >
-                </xzh-select> -->
                 <a-select
-                    :defaultValue="1"
+                    defaultValue='1'
                     :value='blogType'
                     style="width: 200px"
-                    @change="handleselectedType"
+                    @change="handleSelectedType"
                 >
-                <a-select-option v-for="item in articleType" :key="item.value" :value="item.value">
-                    {{item.showValue}}
-                </a-select-option>
+                    <a-select-option v-for="item in articleType" :key="item.name" :value="item.value">
+                        {{item.name}}
+                    </a-select-option>
                 </a-select>
             </div>
             <div class="categories">
                 <div class="categories-label">私人文章：</div>
-                <!-- <xzh-switch
-                v-model="isPrivate"
-                >
-                </xzh-switch> -->
                 <a-switch v-model="isPrivate"></a-switch>
             </div>
         </div>
@@ -86,7 +75,6 @@ import 'quill/dist/quill.bubble.css';
 
 import {createNewBlog, getBlogDetail, updateBlog, getCategories} from '@/api/blog';
 import util from '@/share/utils'
-//todo 把個人分類這裡弄完 今天不想弄了 07-01
 export default {
     name:'newBlog',
     data(){
@@ -100,18 +88,15 @@ export default {
             articleType: [ //文章类型
                 {
                     value:1,
-                    showValue:'原创',
-                    active: false,
+                    name:'原创',
                 },
                 {
                     value:2,
-                    showValue:'转载',
-                    active: false,
+                    name:'转载',
                 },
                 {
                     value:3,
-                    showValue:'翻译',
-                    active: false,
+                    name:'翻译',
                 },
             ],
             isPrivate: false, //私人文章
@@ -146,11 +131,11 @@ export default {
         onEditorChange({editor, text, html}){
             //console.log('editor change!', editor, html, text)
         },
-        handleselectedCategroy(selected){
+        handleSelectedCategory(selected){
             console.log(selected);
             this.blogCategory = selected
         },
-        handleselectedType(selected){
+        handleSelectedType(selected){
             console.log(selected);
             this.blogType = selected;
         },
@@ -171,7 +156,7 @@ export default {
             }
             else if(!data.category){
                 errFlag = true;
-                errMsg = '请选择至少一个分类';
+                errMsg = '请选择个人分类';
             }
             return {
                 errFlag,
@@ -238,7 +223,7 @@ export default {
             getCategories().then(res => {
                 this.categories = res.data;
             }).catch(err => {
-                this.$message({type:'error',text:res.errMsg});
+                this.$message({type:'error',text:err.errMsg});
             })
         },
     },
