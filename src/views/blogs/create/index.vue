@@ -14,21 +14,12 @@
         <div class="blog-category">
             <div class="categories">
                 <div class="categories-label">个人分类：</div>
-                <!-- <xzh-select
-                :mode="'multiple'"
-                :list='categories'
-                :selected='selectedBlogCategroy'
-                @selected='handleSelectedCategory'
-                :box-style="{width:'400px'}"
-                >
-                </xzh-select> -->
                 <a-select
-                    key="category"
-                    :value="blogCategory"
+                    v-model="blogCategory"
                     style="width: 200px"
                     @change="handleSelectedCategory"
                 >
-                <a-select-option v-for="item in categories" :key="item.name" :value="item.categoryOID">
+                <a-select-option v-for="item in categories" :key="item.categoryOID" :value="item.categoryOID">
                     {{item.name}}
                 </a-select-option>
                 </a-select>
@@ -37,11 +28,11 @@
                 <div class="categories-label">文章类型：</div>
                 <a-select
                     defaultValue='1'
-                    :value='blogType'
+                    v-model='blogType'
                     style="width: 200px"
                     @change="handleSelectedType"
                 >
-                    <a-select-option v-for="item in articleType" :key="item.name" :value="item.value">
+                    <a-select-option v-for="item in articleType" :key="item.value" :value="item.value">
                         {{item.name}}
                     </a-select-option>
                 </a-select>
@@ -60,28 +51,82 @@
                 {{mode === 'create' ? '发布文章' : '更新文章'}}
             </a-button>
         </div>
-        
+        <a-modal v-model="isShowImageModal" :title="'选择图片'" :onOk="handleOk" :onCancel='handleCancel'>
+            <template slot="footer">
+                <a-button key="back" @click="handleCancel">取消</a-button>
+                <a-button key="submit" type="primary" :loading="uploadImageLoading" @click="handleOk">
+                确认
+                </a-button>
+            </template>
+            <div class="clearfix">
+                <a-upload
+                    action="http://localhost:3000/api/upload"
+                    listType="picture-card"
+                    :fileList="fileList"
+                    multiple
+                    @preview="handlePreview"
+                    @change="handleChange"
+                    accept='image/*'
+                    >
+                    <div v-if="fileList.length < 3">
+                        <a-icon type="plus" />
+                        <div class="ant-upload-text">Upload</div>
+                    </div>
+                </a-upload>
+                <a-modal :visible="previewVisible" :footer="null" @cancel="handlePreviewCancel">
+                    <img alt="example" style="width: 100%" :src="previewImage" />
+                </a-modal>
+            </div>
+        </a-modal>
     </div>
 </template>
 
 <script>
 import { quillEditor } from 'vue-quill-editor';
-import xzhSelect from '@/components/base/select/index';
-import xzhSwitch from '@/components/base/switch/index';
-import xzhButton from '@/components/base/button/index';
+// import xzhSelect from '@/components/base/select/index';
+// import xzhSwitch from '@/components/base/switch/index';
+// import xzhButton from '@/components/base/button/index';
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
 
 import {createNewBlog, getBlogDetail, updateBlog, getCategories} from '@/api/blog';
-import util from '@/share/utils'
+import util from '@/share/utils';
+const toolbarOptions = [
+    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    ['blockquote', 'code-block'],
+    
+    [{'header': 1}, {'header': 2}],               // custom button values
+    [{'list': 'ordered'}, {'list': 'bullet'}],
+    [{'script': 'sub'}, {'script': 'super'}],      // superscript/subscript
+    [{'indent': '-1'}, {'indent': '+1'}],          // outdent/indent
+    [{'direction': 'rtl'}],                         // text direction
+    
+    [{'size': ['small', false, 'large', 'huge']}],  // custom dropdown
+    [{'header': [1, 2, 3, 4, 5, 6, false]}],
+    
+    [{'color': []}, {'background': []}],          // dropdown with defaults from theme
+    [{'font': []}],
+    [{'align': []}],
+    ['link', 'image', 'video'],
+    ['clean']                                         // remove formatting button
+]
 export default {
     name:'newBlog',
     data(){
         return{
             maxTitleLength:100, //blog 标题最多字符数
             title:'', //博客标题
-            editorOption: {}, //富文本参数
+            editorOption: {
+                modules: {
+                    toolbar: {
+                        container:toolbarOptions,
+                        handlers:{
+                            'image':value => this.openImageModal(value)
+                        }
+                    }
+                },
+            }, //富文本参数
             content:'', //富文本内容
             categories:[ // 个人分类
             ],
@@ -104,7 +149,14 @@ export default {
             blogCategory:'', //博客所属分类
             blogType:1, //博客所属类型
             mode:'create',
-            blogDetailData:{}
+            blogDetailData:{},
+            isShowImageModal:false, //控制选择图片的地方
+            uploadImageLoading:false,
+
+            previewVisible: false,
+            previewImage: '',
+            fileList: [
+            ],
         }
     },
     computed:{
@@ -226,6 +278,36 @@ export default {
                 this.$message({type:'error',text:err.errMsg});
             })
         },
+
+        openImageModal(value){
+            this.isShowImageModal = value;
+        },
+        handleOk(){
+            this.isShowImageModal = false;
+            this.uploadImageLoading = true;
+            this.fileList.forEach(file => {
+                console.log(file);
+                this.content += `<p><img src='http://localhost:3000${file.response.fileUrl}' alt=''/></p>`;
+            })
+            setTimeout(() => {
+                this.uploadImageLoading = false;
+            }, 1000);
+        },
+        handleCancel(){
+            this.isShowImageModal = false;
+        },
+
+        handlePreviewCancel () {
+            this.previewVisible = false
+        },
+        handlePreview (file) {
+            this.previewImage = file.url || file.thumbUrl
+            this.previewVisible = true
+        },
+        handleChange (file) {
+            console.log(file);
+            this.fileList = file.fileList
+        },
     },
     created(){
         this.getCategories();
@@ -239,9 +321,9 @@ export default {
     },
     components:{
         quillEditor,
-        xzhSelect,
-        xzhSwitch,
-        xzhButton,
+        // xzhSelect,
+        // xzhSwitch,
+        // xzhButton,
     }
 }
 </script>
