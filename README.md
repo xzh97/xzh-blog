@@ -13,6 +13,7 @@
 ## 博客 灵感
 1. antd vue按需加载之后， select下的option，radio下的group都需要按照这个方式在main下引入一次才行  不然不能用 ，了解一下原理
 2. 工作上碰到的问题 及解决方案 （ ex：1.去年碰到的点击账本直接进入详情，详情回退直接回退到首页 列表页不显示问题， contentLoaded的问题， 原因: 首屏引入的amap等第三方文件太大，还没加载完就点击账本，导致vue-router崩溃；）
+3. 每月总结一次
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
