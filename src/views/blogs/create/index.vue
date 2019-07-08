@@ -26,7 +26,7 @@
                 </a-select>
             </div>
 
-            <div class="categories">
+            <!-- <div class="categories">
                 <div class="categories-label">文章类型：</div>
                 <a-select
                     defaultValue='1'
@@ -38,7 +38,7 @@
                         {{item.label}}
                     </a-select-option>
                 </a-select>
-            </div>
+            </div> -->
 
             <div class="categories">
                 <div class="categories-label">文章类型：</div>
@@ -125,7 +125,7 @@ export default {
         return{
             maxTitleLength:100, //blog 标题最多字符数
             title:'', //博客标题
-            editorOption: {
+            editorOption: {//富文本参数
                 modules: {
                     toolbar: {
                         container:toolbarOptions,
@@ -134,11 +134,12 @@ export default {
                         }
                     }
                 },
-            }, //富文本参数
+            }, 
             content:'', //富文本内容
-            categories:[ // 个人分类
-            ],
-            articleType: [ //文章类型
+            // 个人分类
+            categories:[ ],
+            //文章类型
+            articleType: [ 
                 {
                     value:1,
                     key:'original',
