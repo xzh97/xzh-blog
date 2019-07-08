@@ -11,32 +11,40 @@
             @change="onEditorChange($event)">
             </quill-editor>
         </div>
+
         <div class="blog-category">
             <div class="categories">
                 <div class="categories-label">个人分类：</div>
                 <a-select
                     v-model="blogCategory"
                     style="width: 200px"
-                    @change="handleSelectedCategory"
+                    @change="handleCategoryChange"
                 >
-                <a-select-option v-for="item in categories" :key="item.categoryOID" :value="item.categoryOID">
-                    {{item.name}}
-                </a-select-option>
+                    <a-select-option v-for="item in categories" :key="item.categoryOID" :value="item.categoryOID">
+                        {{item.name}}
+                    </a-select-option>
                 </a-select>
             </div>
+
             <div class="categories">
                 <div class="categories-label">文章类型：</div>
                 <a-select
                     defaultValue='1'
                     v-model='blogType'
                     style="width: 200px"
-                    @change="handleSelectedType"
+                    @change="handleTypeChange2"
                 >
-                    <a-select-option v-for="item in articleType" :key="item.value" :value="item.value">
-                        {{item.name}}
+                    <a-select-option v-for="item in articleType" :key="item.key" :value="item.value">
+                        {{item.label}}
                     </a-select-option>
                 </a-select>
             </div>
+
+            <div class="categories">
+                <div class="categories-label">文章类型：</div>
+                <a-radio-group :options="articleType" @change="handleTypeChange" :defaultValue="1" />
+            </div>
+
             <div class="categories">
                 <div class="categories-label">私人文章：</div>
                 <a-switch v-model="isPrivate"></a-switch>
@@ -133,15 +141,18 @@ export default {
             articleType: [ //文章类型
                 {
                     value:1,
-                    name:'原创',
+                    key:'original',
+                    label:'原创',
                 },
                 {
                     value:2,
-                    name:'转载',
+                    key:'reproduce',
+                    label:'转载',
                 },
                 {
                     value:3,
-                    name:'翻译',
+                    key:'translate',
+                    label:'翻译',
                 },
             ],
             isPrivate: false, //私人文章
@@ -155,8 +166,7 @@ export default {
 
             previewVisible: false,
             previewImage: '',
-            fileList: [
-            ],
+            fileList: [],
         }
     },
     computed:{
@@ -183,13 +193,16 @@ export default {
         onEditorChange({editor, text, html}){
             //console.log('editor change!', editor, html, text)
         },
-        handleSelectedCategory(selected){
+        handleCategoryChange(selected){
             console.log(selected);
             this.blogCategory = selected
         },
-        handleSelectedType(selected){
-            console.log(selected);
-            this.blogType = selected;
+        handleTypeChange(e){
+            console.log(e);
+            this.blogType = e.target.value;
+        },
+        handleTypeChange2(type){
+            console.log(type)
         },
         checkSubmitData(data){
             let errFlag = false;
