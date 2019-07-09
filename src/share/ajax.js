@@ -18,14 +18,22 @@ export default function ajax({url, method='GET', async=true, params,data,header 
         }else{// IE 56
             xhr = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        let symbol = '', reqParam = '';
+        let reqParam = '';
         if(params){
-            symbol = url.indexOf('?') > -1 ? '&&' : '?'; //url参数
-            for (let key in params){
-                reqParam+=`${key}=${params[key]}`
-            }
+            let paramKeys = Object.keys(params);
+            paramKeys.forEach( (key,index) => {
+                if(index === 0){
+                    reqParam+=`?${key}=${params[key]}&`
+                }
+                else if(index === paramKeys.length - 1){
+                    reqParam+=`${key}=${params[key]}`
+                }
+                else{
+                    reqParam+=`${key}=${params[key]}&`
+                }
+            })
         }
-        let reqUrl = method === 'GET' ? `${url}${symbol}${reqParam}` : url;
+        let reqUrl = method === 'GET' ? `${url}${reqParam}` : url;
         data === method === 'GET' ?　null : data;
     
         xhr.open(method,reqUrl,async);

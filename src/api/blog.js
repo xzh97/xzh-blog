@@ -5,15 +5,16 @@
  * @author xzh xzh19971005@163.com
  *
  * Created at     : 2019-04-23 15:48:22
- * Last modified  : 2019-06-25 22:54:05
+ * Last modified  : 2019-07-09 22:01:04
  */
 import config from '../config/index';
 import ajax from '../share/ajax';
 //获取文章列表
-export const getBlogList = (page,size) => {
+export const getBlogList = (params) => {
     return ajax({
-        url:`${config.apiUrl}/api/blog/list?page=${page}&&size=${size}`,
-        method:'GET'
+        url:`${config.apiUrl}/api/blog/list`,
+        method:'GET',
+        params
     });
 }
 

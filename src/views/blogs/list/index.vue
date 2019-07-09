@@ -5,10 +5,11 @@
                 <div class="header-left">
                     <h4 class="header-title">xzh的学习笔记</h4>
                 </div>
-                <div class="header-right">
+                <!-- <div class="header-right">
                     <button>管理笔记</button>
-                </div>
+                </div> -->
             </header>
+            <!-- todo 07-10 把只看原创改一下，  和后台对接口 -->
             <div class="content">
                 <sidebar></sidebar>
                 <div class="content-right">
@@ -79,11 +80,11 @@ export default {
                 },
                 {
                     title:'按更新时间',
-                    value:'updateTime',
+                    value:'ascending',
                 },
                 {
-                    title:'按访问量',
-                    value:'visits',
+                    title:'按浏览量',
+                    value:'pageviews',
                 },
             ],
             blogList:[],
@@ -98,6 +99,7 @@ export default {
         //event
         sortClickHandle(sortWay){
             this.sortBy = sortWay.value;
+            this.getBlogList();
         },
         updateBlogEditBtn(item,controlFlag){
             item.isShowBlogEditBtn = controlFlag === 'show' ? true : false ;
@@ -105,7 +107,15 @@ export default {
 
         //service
         getBlogList(){
-            getBlogList(this.page,this.size).then(res => {
+            let params = {
+                page:this.page,
+                size:this.size,
+                sortBy:this.sortBy,
+            }
+            if(this.isSeeOriginalOnly){
+                params.originalOnly = true;
+            }
+            getBlogList(params).then(res => {
                 console.log('getbloglist',res.data);
                 let data = res.data;
                 data.map(item => {

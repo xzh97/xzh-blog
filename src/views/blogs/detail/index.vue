@@ -5,9 +5,9 @@
                 <div class="header-left">
                     <h4 class="header-title">xzh的学习笔记</h4>
                 </div>
-                <div class="header-right">
-                    <button>管理笔记</button>
-                </div>
+                <!-- <div class="header-right">
+                    <a-button>管理笔记</a-button>
+                </div> -->
             </header>
             <div class="content">
                 <sidebar></sidebar>
@@ -23,7 +23,7 @@
                                 <p class="blog-date">{{ blogData.lastUpdatedTime }}</p>
                                 <p class="blog-read-num">阅读数 <span class="num">{{ blogData.readNumber }}</span></p>
                                 <p class="blog-comment">评论 <span class="num">{{ blogData.commentCount }}</span></p>
-                                <p class="float-right"><button class="blog-edit-btn" @click="editBlog">编辑</button></p>
+                                <p class="float-right"><a-button size='small' class="blog-edit-btn" @click="editBlog">编辑</a-button></p>
                             </div>                    
                         </div>
                     </div>
@@ -97,6 +97,7 @@ export default {
                     font-size: 24px;
                     line-height: 30px;
                     font-weight: 500;
+                    color:#ffffff;
                 }
             }
             .content{
@@ -167,10 +168,6 @@ export default {
                                     right: 10px;
                                     top: 50%;
                                     transform: translate(0,-50%);
-                                    background: none;
-                                    cursor: pointer;
-                                    color: #7b705e;
-                                    border: 0;
                                 }
                             }
                         }
