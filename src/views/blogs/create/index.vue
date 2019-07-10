@@ -119,6 +119,10 @@ const toolbarOptions = [
     ['link', 'image', 'video'],
     ['clean']                                         // remove formatting button
 ]
+let methodMap = {
+    'create':createNewBlog,
+    'update':updateBlog,
+}
 export default {
     name:'newBlog',
     data(){
@@ -244,32 +248,45 @@ export default {
             }
             else{
                 this.submitLoading = true;
-                if(this.mode === 'create'){
-                    createNewBlog(data).then(res => {
-                        console.log(res);
-                        this.$message({type:'success',text:res.errMsg})
-                        this.submitLoading = false;
-                        this.$router.push({name:'blogList'});
-                    }).catch(err => {
-                        console.log(err);
-                        this.$message({type:'error',text:err.errMsg})
-                        this.submitLoading = false;
-                    });
-                }
-                else{
+                if(this.mode === 'update'){
                     data.blogOID = this.blogDetailData.blogOID;
                     data.lastUpdatedTime = util.dateFormat(new Date(),'yyyy-MM-dd hh:mm:ss');
-                    updateBlog(data).then(res => {
-                        console.log(res);
-                        this.$message({type:'success',text:res.errMsg})
-                        this.submitLoading = false;
-                        this.$router.push({name:'blogList'});
-                    }).catch(err => {
-                        console.log(err);
-                        this.$message({type:'error',text:err.errMsg})
-                        this.submitLoading = false;
-                    });
                 }
+                methodMap[this.mode](data).then(res => {
+                    console.log(res);
+                    this.$message({type:'success',text:res.errMsg})
+                    this.submitLoading = false;
+                    this.$router.push({name:'blogList'});
+                }).catch(err => {
+                    console.log(err);
+                    this.$message({type:'error',text:err.errMsg})
+                    this.submitLoading = false;
+                });
+                // if(this.mode === 'create'){
+                //     createNewBlog(data).then(res => {
+                //         console.log(res);
+                //         this.$message({type:'success',text:res.errMsg})
+                //         this.submitLoading = false;
+                //         this.$router.push({name:'blogList'});
+                //     }).catch(err => {
+                //         console.log(err);
+                //         this.$message({type:'error',text:err.errMsg})
+                //         this.submitLoading = false;
+                //     });
+                // }
+                // else{
+                    
+                //     updateBlog(data).then(res => {
+                //         console.log(res);
+                //         this.$message({type:'success',text:res.errMsg})
+                //         this.submitLoading = false;
+                //         this.$router.push({name:'blogList'});
+                //     }).catch(err => {
+                //         console.log(err);
+                //         this.$message({type:'error',text:err.errMsg})
+                //         this.submitLoading = false;
+                //     });
+                // }
             } 
         },
         updateMode(){

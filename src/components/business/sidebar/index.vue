@@ -22,6 +22,7 @@ import Category from '@/components/business/category/index';
 import Avatar from '@/components/base/avatar/index';
 
 import {getCategories, createCategory, updateCategory, deleteCategory} from '@/api/blog';
+import {sessionStorageMethods} from '@/share/storage';
 import util from '@/share/utils';
 /**
  * //todo 归档 暂时不做
@@ -54,7 +55,8 @@ import util from '@/share/utils';
 export default {
     data(){
         return {
-            blogCategories:{}
+            blogCategories:{},
+            isCategoryListChange:false,
         }
     },
     created(){
@@ -64,23 +66,42 @@ export default {
         addNewBlog(){
             this.$router.push({name:'addNewBlog'})
         },
-        getCategories(){
-            getCategories().then(res => {
-                console.log('getBlogCategories',res.data);
-                let item = {
-                    title:'博客分类',
-                    editable:true,
-                    categoryList:res.data,
-                };
-                this.blogCategories = item
-            }).catch(err => {
-                this.$message({type:'error',text:err.errMsg})
-            })
+        getCategories(flag){
+            //优先级 flag > sessionStorage > initData
+            const getData = () => {
+                getCategories().then(res => {
+                    this.handleCategory(res.data);
+                    sessionStorageMethods.setItem('blogCategories',JSON.stringify(res.data))
+                }).catch(err => {
+                    this.$message({type:'error',text:err.errMsg})
+                })
+            }
+            if(flag){
+                getData();
+            }
+            else{
+                let blogCategories = JSON.parse(sessionStorageMethods.getItem('blogCategories'));
+                if(blogCategories){ //取缓存
+                    this.handleCategory(blogCategories);
+                }
+                else{
+                    getData();
+                }
+            }
+        },
+        handleCategory(data){
+            console.log('handleCategory',data);
+            let item = {
+                title:'博客分类',
+                editable:true,
+                categoryList:data,
+            };
+            this.blogCategories = item;
         },
         addNewCategory(data){
             createCategory(data).then(res => {
                 this.$message({type:'success',text:res.errMsg});
-                this.getCategories();
+                this.getCategories(true);
             }).catch(err => {
                 this.$message({type:'error',text:err.errMsg});
             })
@@ -88,7 +109,7 @@ export default {
         updateCategory(data){
             updateCategory(data).then(res => {
                 this.$message({type:'success',text:res.errMsg});
-                this.getCategories();
+                this.getCategories(true);
             }).catch(err => {
                 this.$message({type:'error',text:err.errMsg});
             })
@@ -96,7 +117,7 @@ export default {
         deleteCategory(categoryOID){
             deleteCategory(categoryOID).then(res => {
                 this.$message({type:'success',text:res.errMsg});
-                this.getCategories();
+                this.getCategories(true);
             }).catch(err => {
                 this.$message({type:'error',text:err.errMsg});
             })

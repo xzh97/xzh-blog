@@ -5,11 +5,11 @@
                 <div class="header-left">
                     <h4 class="header-title">xzh的学习笔记</h4>
                 </div>
-                <!-- <div class="header-right">
-                    <button>管理笔记</button>
-                </div> -->
+                <div class="header-right">
+                    <a-button type='primary'>笔记</a-button>
+                </div>
             </header>
-            <!-- todo 07-10 把只看原创改一下，  和后台对接口 -->
+            <!-- todo 07-11 把只看原创改一下，  和后台对接口 -->
             <div class="content">
                 <sidebar></sidebar>
                 <div class="content-right">
@@ -70,7 +70,6 @@ export default {
     name:'blog-list',
     data(){
         return {
-            
             isSeeOriginalOnly:false,
             sortBy:'default',
             sortByList:[
@@ -90,10 +89,11 @@ export default {
             blogList:[],
             page:1,
             size:10,
-            totalPage:1,        }
+            totalPage:1,        
+        }
     },
     created(){
-        setTimeout(this.getBlogList(),300);
+        this.getBlogList();
     },
     methods:{
         //event
@@ -163,7 +163,7 @@ export default {
         width: 100%;
         height: 100%;
         min-height: 1000px;
-        background: url('../../../assets/images/bg3.jpg') repeat-y;
+        background: url('../../../assets/images/bg1.jpg') repeat-y;
         background-size: 100%;
 
         display: flex;
