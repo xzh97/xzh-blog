@@ -6,7 +6,7 @@
                     <h4 class="header-title">xzh的学习笔记</h4>
                 </div>
                 <div class="header-right">
-                    <a-button type='primary'>笔记</a-button>
+                    <a-button type='primary' @click="addNewBlog" >写笔记</a-button>
                 </div>
             </header>
             <!-- todo 07-11 把只看原创改一下，  和后台对接口 -->
@@ -14,9 +14,9 @@
                 <sidebar></sidebar>
                 <div class="content-right">
                     <div class="content-tips">
-                        <form class="original-only">
-                            <label class="check-original-box" for="check-original"><input v-model="isSeeOriginalOnly" type="checkbox" name="blogTypeCheck" id="check-original">只看原创</label>
-                        </form>
+                        <div class="original-only">
+                            <label class="check-original-box" for="check-original"><input v-model="isSeeOriginalOnly" type="checkbox" name="blogTypeCheck" id="check-original" @change="getBlogList">只看原创</label>
+                        </div>
                         <dl class="sort-by clearfix">
                             <dt>排序方式:</dt>
                             <dd class="sort-filter" v-for="item in sortByList" :key="item.title" 
@@ -103,6 +103,9 @@ export default {
         },
         updateBlogEditBtn(item,controlFlag){
             item.isShowBlogEditBtn = controlFlag === 'show' ? true : false ;
+        },
+        addNewBlog(){
+            this.$router.push({name:'addNewBlog'})
         },
 
         //service

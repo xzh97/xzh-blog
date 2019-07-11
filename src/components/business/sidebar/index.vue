@@ -2,9 +2,6 @@
     <div class="content-left">
         <div class="blog-info">
             <avatar></avatar>
-            <div class="new-blog">
-                <button @click='addNewBlog'>写笔记</button>
-            </div>
         </div>
         <category :key='blogCategories.title' 
                   :title='blogCategories.title' 
@@ -80,7 +77,7 @@ export default {
                 getData();
             }
             else{
-                let blogCategories = JSON.parse(sessionStorageMethods.getItem('blogCategories'));
+                let blogCategories = JSON.parse(sessionStorageMethods.getItem('blogCategories')) || [];
                 if(blogCategories.length){ //取缓存
                     this.handleCategory(blogCategories);
                 }
