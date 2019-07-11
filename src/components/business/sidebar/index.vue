@@ -81,7 +81,7 @@ export default {
             }
             else{
                 let blogCategories = JSON.parse(sessionStorageMethods.getItem('blogCategories'));
-                if(blogCategories){ //取缓存
+                if(blogCategories.length){ //取缓存
                     this.handleCategory(blogCategories);
                 }
                 else{
