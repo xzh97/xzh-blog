@@ -30,21 +30,37 @@
                     <div class="blog-content quill-editor-content" v-html="blogData.content">
                     </div>
                 </div>
-            </div>   
+            </div>
+            <div class="comments">
+                <a-comment>
+                    <span slot="actions">回复</span>
+                    <a slot="author">漩涡🌀</a>
+                    <a-avatar
+                        slot="avatar"
+                        :src="imgs.defaultAvatar"
+                        alt="漩涡🌀"
+                    />
+                    <p slot="content">送我最美那朵水花，可以吗？</p>
+                </a-comment>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import Sidebar from '@/components/business/sidebar/index';
-import util from '@/share/utils';
+import defaultAvatar from '@/assets/images/default_avatar.jpg';
 
+import util from '@/share/utils';
 import {getBlogDetail} from '@/api/blog'
 export default {
     name:'blog-detail',
     data(){
         return {
-            blogData:{}
+            blogData:{},
+            imgs:{
+                defaultAvatar,
+            }
         }
     },
     created(){
@@ -182,6 +198,10 @@ export default {
                         line-height: 20px;
                     }
                 }
+            }
+            .comments{
+                background: #ffffff;
+                padding: 0 20px;
             }
         }
     }
