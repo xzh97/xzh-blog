@@ -35,6 +35,7 @@
                 <a-comment>
                     <span slot="actions">回复</span>
                     <a slot="author">漩涡🌀</a>
+                    <span slot="datetime" style="padding: 0 0 0 8px;cursor: auto;">1分钟前</span>
                     <a-avatar
                         slot="avatar"
                         :src="imgs.defaultAvatar"
