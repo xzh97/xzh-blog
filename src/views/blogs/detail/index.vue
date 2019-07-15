@@ -109,7 +109,7 @@ export default {
                 res.lastUpdatedTime = util.dateFormat(res.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss');
                 this.blogData = res;
                 this.blogData.comments.forEach(comment => {
-                    comment.createTime = util.dateFormat(comment.createTime);
+                    comment.createTime = util.dateFormat(comment.createTime,'yyyy-MM-dd hh:mm:ss');
                     comment.children = comment.children || [];
                 })
             }).catch(err => {
@@ -169,9 +169,11 @@ export default {
                 postData.parentOID = '';
             }
             addNewComment(postData).then(res => {
-
+                console.log(res);
+                this.$message({type:'success',text:res.errMsg})
             }).catch(err => {
-
+                console.log(err);
+                this.$message({type:'error',text:err.errMsg})
             })
         }
     },
