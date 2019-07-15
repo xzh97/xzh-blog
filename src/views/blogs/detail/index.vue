@@ -31,39 +31,44 @@
                     </div>
                 </div>
             </div>
-            <div class="comments">
-                <a-comment>
+            <div class="comment-area">
+                <div class="comment-item">
+                    <input v-model="commentAuthor" type="text" class="item-input comment-author">
+                    <span class="item-title">名字(必填)</span>
+                </div>
+                <div class="comment-item">
+                    <input v-model="commentEmail" type="email" class="item-input comment-email">
+                    <span class="item-title">电子邮箱(不会被公开)(必填)</span>
+                </div>
+                <div class="comment-item">
+                    <textarea v-model="commentContent" class="comment-content" rows="4"></textarea>
+                </div>
+                <div class="comment-item">
+                    <a-button type="primary" @click="addComment">发表评论</a-button>
+                </div>
+            </div>
+            <div class="comments-list">
+                <a-comment v-for="comment in blogData.comments" :key="comment.commentOID">
                     <span slot="actions">回复</span>
-                    <a slot="author">漩涡🌀</a>
-                    <span slot="datetime" style="padding: 0 0 0 8px;cursor: auto;">1分钟前</span>
+                    <a slot="author">{{comment.author}}</a>
+                    <span slot="datetime" style="padding: 0 0 0 8px;cursor: auto;">{{comment.createTime}}</span>
                     <a-avatar
                         slot="avatar"
                         :src="imgs.defaultAvatar"
-                        alt="漩涡🌀"
+                        :alt="comment.author"
                     />
-                    <p slot="content">送我最美那朵水花，可以吗？</p>
-                    <a-comment>
+                    <p slot="content">{{comment.content}}</p>
+                    <a-comment v-for="childComment in comment.children" :key="childComment.commentOID">
                         <span slot="actions">回复</span>
-                        <a slot="author">漩涡🌀</a>
-                        <span slot="datetime" style="padding: 0 0 0 8px;cursor: auto;">1分钟前</span>
+                        <a slot="author">{{childComment.author}}</a>
+                        <span slot="datetime" style="padding: 0 0 0 8px;cursor: auto;">{{childComment.createTime}}</span>
                         <a-avatar
                             slot="avatar"
                             :src="imgs.defaultAvatar"
-                            alt="漩涡🌀"
+                            :alt="childComment.author"
                         />
-                        <p slot="content">送我最美那朵水花，可以吗？</p>
+                        <p slot="content">{{childComment.content}}</p>
                     </a-comment>
-                </a-comment>
-                <a-comment>
-                    <span slot="actions">回复</span>
-                    <a slot="author">漩涡🌀</a>
-                    <span slot="datetime" style="padding: 0 0 0 8px;cursor: auto;">1分钟前</span>
-                    <a-avatar
-                        slot="avatar"
-                        :src="imgs.defaultAvatar"
-                        alt="漩涡🌀"
-                    />
-                    <p slot="content">送我最美那朵水花，可以吗？</p>
                 </a-comment>
             </div>
         </div>
@@ -75,7 +80,7 @@ import Sidebar from '@/components/business/sidebar/index';
 import defaultAvatar from '@/assets/images/default_avatar.jpg';
 
 import util from '@/share/utils';
-import {getBlogDetail} from '@/api/blog'
+import {getBlogDetail, addNewComment} from '@/api/blog'
 export default {
     name:'blog-detail',
     data(){
@@ -83,7 +88,10 @@ export default {
             blogData:{},
             imgs:{
                 defaultAvatar,
-            }
+            },
+            commentContent:'',
+            commentAuthor:'',
+            commentEmail:'',
         }
     },
     created(){
@@ -100,11 +108,71 @@ export default {
             getBlogDetail(blogOID).then(res => {
                 res.lastUpdatedTime = util.dateFormat(res.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss');
                 this.blogData = res;
+                this.blogData.comments.forEach(comment => {
+                    comment.createTime = util.dateFormat(comment.createTime);
+                    comment.children = comment.children || [];
+                })
             }).catch(err => {
                 console.log(err);
                 this.$message({type:'error',text:err.errMsg})
             })
             
+        },
+        checkComment(){
+            let {commentContent, commentAuthor, commentEmail} = this;
+            let error = {
+                errMsg:'',
+                errFlag: false,
+            };
+            if(!commentAuthor){
+                error.errFlag = true;
+                error.errMsg = '名称未填写';
+                return error;
+            }
+
+            if(!commentEmail){
+                error.errFlag = true;
+                error.errMsg = '电子邮箱未填写';
+                return error;
+            }
+            else{
+                let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+                if(!reg.test(commentEmail)){
+                    error.errFlag = true;
+                    error.errMsg = '请填写正确的电子邮箱';
+                    return error;
+                }
+            }
+
+            if(!commentContent){
+                error.errFlag = true;
+                error.errMsg = '内容未填写';
+                return error;
+            }
+            return error;
+
+        },
+        addComment(isReply){
+            let result = this.checkComment();
+            if(result.errFlag){
+                this.$message({type:error,text:result.errMsg});
+                return;
+            }
+            let {commentContent, commentAuthor, commentEmail} = this;
+            let postData = {
+                content:commentContent,
+                blogOID:this.$route.params.blogOID,
+                author:commentAuthor,
+                email:commentEmail
+            };
+            if(isReply){
+                postData.parentOID = '';
+            }
+            addNewComment(postData).then(res => {
+
+            }).catch(err => {
+
+            })
         }
     },
     components:{
@@ -114,7 +182,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-@import '../../../styles/mixin.scss';
+@import '@/styles/mixin.scss';
     .blogs-wrapper{
         width: 100%;
         height: 100%;
@@ -125,7 +193,6 @@ export default {
         display: flex;
         justify-content: center;
 
-        color: #ffffff;
         .blogs-inner{
             width: 80%;
             .header{
@@ -143,7 +210,7 @@ export default {
                 @include fb;
                 width: 100%;
                 color: #4d4d4d;
-                padding-bottom: 40px;
+                padding-bottom: 20px;
                 
                 .content-right{
                     width: 70%;
@@ -221,8 +288,44 @@ export default {
                         line-height: 20px;
                     }
                 }
+
             }
-            .comments{
+            .comment-area{
+                padding: 10px 20px;
+                margin: 1px 0;
+                background: #ffffff;
+                .comment-item{
+                    min-height: 32px;
+                    margin-top: 19px;
+                    .item-title{
+                        font-size: 12px;
+                        margin-left: 10px;
+                    }
+                    .item-input{
+                        outline: none;
+                        background: none;
+                        border: 1px solid #d9d9d9;
+                        vertical-align: middle;
+                        height: 30px;
+                        line-height: 30px;
+                        font-size: 16px;
+                        padding-left: 8px;
+                    }
+                    .comment-content{
+                        width: 50%;
+                        padding: 5px 10px;
+                        vertical-align: middle;
+                        line-height: 24px;
+                        color:$text-color;
+                        border-radius: 4px;
+                        border: 1px solid #d9d9d9;
+                        outline: none;
+                        margin-bottom: 10px;
+                    }
+                }
+
+            }
+            .comments-list{
                 background: #ffffff;
                 padding: 0 20px;
             }

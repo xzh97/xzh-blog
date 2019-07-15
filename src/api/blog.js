@@ -95,5 +95,15 @@ export const deleteCategory = (categoryOID) => {
     });
 }
 
+//添加文章评论
+export const addNewComment = (data) => {
+    return ajax({
+        url:`${config.apiUrl}/api/blog/comment/add`,
+        method:'POST',
+    });
+}
+
+
+
 
 
