@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="comments-list">
-                <a-comment v-for="comment in blogData.comments" :key="comment.commentOID">
+                <a-comment v-for="comment in blogData.comments" :key="comment.commentOid">
                     <span slot="actions">回复</span>
                     <a slot="author">{{comment.author}}</a>
                     <span slot="datetime" style="padding: 0 0 0 8px;cursor: auto;">{{comment.createTime}}</span>
@@ -58,7 +58,7 @@
                         :alt="comment.author"
                     />
                     <p slot="content">{{comment.content}}</p>
-                    <a-comment v-for="childComment in comment.children" :key="childComment.commentOID">
+                    <a-comment v-for="childComment in comment.children" :key="childComment.commentOid">
                         <span slot="actions">回复</span>
                         <a slot="author">{{childComment.author}}</a>
                         <span slot="datetime" style="padding: 0 0 0 8px;cursor: auto;">{{childComment.createTime}}</span>
@@ -99,13 +99,13 @@ export default {
     },
     methods:{
         editBlog(){
-            let {blogOID} = this.$route.params;
-            this.$router.push({path:`/blog/update/${blogOID}`})
+            let {blogOid} = this.$route.params;
+            this.$router.push({path:`/blog/update/${blogOid}`})
         },
         //service
         getBlogData(){
-            let {blogOID} = this.$route.params;
-            getBlogDetail(blogOID).then(res => {
+            let {blogOid} = this.$route.params;
+            getBlogDetail(blogOid).then(res => {
                 res.lastUpdatedTime = util.dateFormat(res.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss');
                 this.blogData = res;
                 this.blogData.comments.forEach(comment => {
@@ -161,12 +161,12 @@ export default {
             let {commentContent, commentAuthor, commentEmail} = this;
             let postData = {
                 content:commentContent,
-                blogOID:this.$route.params.blogOID,
+                blogOid:this.$route.params.blogOid,
                 author:commentAuthor,
                 email:commentEmail
             };
             if(isReply){
-                postData.parentOID = '';
+                postData.parentOid = '';
             }
             addNewComment(postData).then(res => {
                 console.log(res);

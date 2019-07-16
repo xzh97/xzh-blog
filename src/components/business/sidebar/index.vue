@@ -111,8 +111,8 @@ export default {
                 this.$message({type:'error',text:err.errMsg});
             })
         },
-        deleteCategory(categoryOID){
-            deleteCategory(categoryOID).then(res => {
+        deleteCategory(categoryOid){
+            deleteCategory(categoryOid).then(res => {
                 this.$message({type:'success',text:res.errMsg});
                 this.getCategories(true);
             }).catch(err => {

@@ -20,7 +20,7 @@
                     style="width: 200px"
                     @change="handleCategoryChange"
                 >
-                    <a-select-option v-for="item in categories" :key="item.categoryOID" :value="item.categoryOID">
+                    <a-select-option v-for="item in categories" :key="item.categoryOid" :value="item.categoryOid">
                         {{item.name}}
                     </a-select-option>
                 </a-select>
@@ -141,7 +141,7 @@ export default {
             }, 
             content:'', //富文本内容
             // 个人分类
-            categories:[ ],
+            categories:[],
             //文章类型
             articleType: [ 
                 {
@@ -249,7 +249,7 @@ export default {
             else{
                 this.submitLoading = true;
                 if(this.mode === 'update'){
-                    data.blogOID = this.blogDetailData.blogOID;
+                    data.blogOid = this.blogDetailData.blogOid;
                     data.lastUpdatedTime = util.dateFormat(new Date(),'yyyy-MM-dd hh:mm:ss');
                 }
                 methodMap[this.mode](data).then(res => {
@@ -290,21 +290,21 @@ export default {
             } 
         },
         updateMode(){
-            getBlogDetail(this.$route.params.blogOID).then(res => {
+            getBlogDetail(this.$route.params.blogOid).then(res => {
                 console.log(res);
                 this.blogDetailData = res;
                 this.title = res.title;
                 this.content = res.content;
                 this.isPrivate = Boolean(res.private);
                 this.blogType = res.type;
-                this.blogCategory = res.category[0].categoryOID;
+                this.blogCategory = res.category[0].categoryOid;
             }).catch(err => {
                 console.log(err);
             })
         },
         getCategories(){
             getCategories().then(res => {
-                this.categories = res.data;
+                this.categories = res;
             }).catch(err => {
                 this.$message({type:'error',text:err.errMsg});
             })
@@ -342,7 +342,7 @@ export default {
     },
     created(){
         this.getCategories();
-        if(this.$route.params.blogOID){
+        if(this.$route.params.blogOid){
             this.mode = 'update';
             this.updateMode()
         }

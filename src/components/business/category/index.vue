@@ -11,7 +11,7 @@
                     </p>
                     
                 </li>
-                <li class="category-item oneline" :key="item.categoryOID" v-for="item in categoryList">
+                <li class="category-item oneline" :key="item.categoryOid" v-for="item in categoryList">
                     <div class="item-left">{{ item.name}}</div>
                     <div class="item-right" v-if="mode === 'read'">{{ item.count }}篇</div>
                     <div class="item-right" v-else>
@@ -87,7 +87,7 @@ export default {
             this.updateCategory = category;
         },
         onDelete(category){
-            this.$emit('on-delete',category.categoryOID);
+            this.$emit('on-delete',category.categoryOid);
         }
     },
     components:{

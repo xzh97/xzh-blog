@@ -9,7 +9,6 @@
                     <a-button type='primary' @click="addNewBlog" >写笔记</a-button>
                 </div>
             </header>
-            <!-- todo 07-11 把只看原创改一下，  和后台对接口 -->
             <div class="content">
                 <sidebar></sidebar>
                 <div class="content-right">
@@ -27,7 +26,7 @@
                         </dl>
                     </div>
                     <ul class="content-list">
-                        <li class="blog-item" :key="item.blogOID" v-for="item in blogList"
+                        <li class="blog-item" :key="item.blogOid" v-for="item in blogList"
                             @click='goToBlogDetail(item)'
                             @mouseleave="updateBlogEditBtn(item,'hide')"
                             @mouseenter="updateBlogEditBtn(item,'show')">
@@ -74,11 +73,11 @@ export default {
             sortBy:'default',
             sortByList:[
                 {
-                    title:'默认',
+                    title:'按时间降序',
                     value:'default',
                 },
                 {
-                    title:'按更新时间',
+                    title:'按更新升序',
                     value:'ascending',
                 },
                 {
@@ -116,7 +115,7 @@ export default {
                 sortBy:this.sortBy,
             }
             if(this.isSeeOriginalOnly){
-                params.originalOnly = true;
+                params.type = 1;
             }
             getBlogList(params).then(res => {
                 console.log('getbloglist',res.data);
@@ -131,13 +130,13 @@ export default {
             
         },
         goToBlogDetail(item){
-            this.$router.push({path:`/blog/detail/${item.blogOID}`})
+            this.$router.push({path:`/blog/detail/${item.blogOid}`})
         },
         editBlog(item){
-            this.$router.push({path:`/blog/update/${item.blogOID}`})
+            this.$router.push({path:`/blog/update/${item.blogOid}`})
         },
         deleteBlog(item){
-            deleteBlog(item.blogOID).then(res => {
+            deleteBlog(item.blogOid).then(res => {
                 console.log(res);
                 this.$message({type:'success',text:res.errMsg})
                 this.getBlogList();
