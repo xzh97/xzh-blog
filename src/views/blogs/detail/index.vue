@@ -155,7 +155,7 @@ export default {
         addComment(isReply){
             let result = this.checkComment();
             if(result.errFlag){
-                this.$message({type:error,text:result.errMsg});
+                this.$message({type:'error',text:result.errMsg});
                 return;
             }
             let {commentContent, commentAuthor, commentEmail} = this;
@@ -170,7 +170,8 @@ export default {
             }
             addNewComment(postData).then(res => {
                 console.log(res);
-                this.$message({type:'success',text:res.errMsg})
+                this.$message({type:'success',text:res.errMsg});
+                this.getBlogData();
             }).catch(err => {
                 console.log(err);
                 this.$message({type:'error',text:err.errMsg})

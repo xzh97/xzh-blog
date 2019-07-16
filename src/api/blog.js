@@ -5,7 +5,7 @@
  * @author xzh xzh19971005@163.com
  *
  * Created at     : 2019-04-23 15:48:22
- * Last modified  : 2019-07-09 22:01:04
+ * Last modified  : 2019-07-15 22:05:03
  */
 import config from '../config/index';
 import ajax from '../share/ajax';
@@ -100,6 +100,7 @@ export const addNewComment = (data) => {
     return ajax({
         url:`${config.apiUrl}/api/blog/comment/add`,
         method:'POST',
+        data
     });
 }
 
