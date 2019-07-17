@@ -67,8 +67,9 @@ export default {
             //优先级 flag > sessionStorage > initData
             const getData = () => {
                 getCategories().then(res => {
-                    this.handleCategory(res.data);
-                    sessionStorageMethods.setItem('blogCategories',JSON.stringify(res.data))
+                    console.log(res);
+                    this.handleCategory(res);
+                    sessionStorageMethods.setItem('blogCategories',JSON.stringify(res))
                 }).catch(err => {
                     this.$message({type:'error',text:err.errMsg})
                 })
@@ -77,7 +78,12 @@ export default {
                 getData();
             }
             else{
-                let blogCategories = JSON.parse(sessionStorageMethods.getItem('blogCategories')) || [];
+                let sessionItem = sessionStorageMethods.getItem('blogCategories');
+                let blogCategories = [];
+                if(sessionItem !== 'undefined' && sessionItem !== 'null'){
+                    blogCategories = JSON.parse(sessionItem);
+                }
+
                 if(blogCategories.length){ //取缓存
                     this.handleCategory(blogCategories);
                 }

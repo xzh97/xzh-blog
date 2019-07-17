@@ -31,7 +31,8 @@
                     </div>
                 </div>
             </div>
-            <div class="comment-area">
+            <div class="comment-area" ref="commentArea">
+                <h4 class="comment-title">发表评论</h4>
                 <div class="comment-item">
                     <input v-model="commentAuthor" type="text" class="item-input comment-author">
                     <span class="item-title">名字(必填)</span>
@@ -49,7 +50,7 @@
             </div>
             <div class="comments-list">
                 <a-comment v-for="comment in blogData.comments" :key="comment.commentOid">
-                    <span slot="actions">回复</span>
+                    <span slot="actions" @click="replyComment">回复</span>
                     <a slot="author">{{comment.author}}</a>
                     <span slot="datetime" style="padding: 0 0 0 8px;cursor: auto;">{{comment.createTime}}</span>
                     <a-avatar
@@ -92,6 +93,7 @@ export default {
             commentContent:'',
             commentAuthor:'',
             commentEmail:'',
+            isReply:false, //是否是回复
         }
     },
     created(){
@@ -152,13 +154,17 @@ export default {
             return error;
 
         },
-        addComment(isReply){
+        replyComment(){
+            this.isReply = true;
+            this.$refs.commentArea.scrollIntoView();
+        },
+        addComment(commentOid){
             let result = this.checkComment();
             if(result.errFlag){
                 this.$message({type:'error',text:result.errMsg});
                 return;
             }
-            let {commentContent, commentAuthor, commentEmail} = this;
+            let {commentContent, commentAuthor, commentEmail, isReply} = this;
             let postData = {
                 content:commentContent,
                 blogOid:this.$route.params.blogOid,
@@ -166,12 +172,15 @@ export default {
                 email:commentEmail
             };
             if(isReply){
-                postData.parentOid = '';
+                postData.parentOid = commentOid;
             }
             addNewComment(postData).then(res => {
                 console.log(res);
                 this.$message({type:'success',text:res.errMsg});
                 this.getBlogData();
+                this.commentContent = '';
+                this.commentAuthor = '';
+                this.commentEmail='';
             }).catch(err => {
                 console.log(err);
                 this.$message({type:'error',text:err.errMsg})
@@ -297,6 +306,10 @@ export default {
                 padding: 10px 20px;
                 margin: 1px 0;
                 background: #ffffff;
+                .comment-title{
+                    font-size: 24px;
+                    color: $text-color;
+                }
                 .comment-item{
                     min-height: 32px;
                     margin-top: 19px;
@@ -325,6 +338,10 @@ export default {
                         outline: none;
                         margin-bottom: 10px;
                     }
+                    .comment-content:hover{
+                        border: 1px solid #1890ff;
+                    }
+
                 }
 
             }
