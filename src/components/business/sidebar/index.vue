@@ -84,7 +84,7 @@ export default {
                     blogCategories = JSON.parse(sessionItem);
                 }
 
-                if(blogCategories.length){ //取缓存
+                if(blogCategories && blogCategories.length){ //取缓存
                     this.handleCategory(blogCategories);
                 }
                 else{
@@ -102,6 +102,10 @@ export default {
             this.blogCategories = item;
         },
         addNewCategory(data){
+            if(!data.name){
+                //this.$message({type:'warning',text:'请输入分类名称'})
+                return;
+            }
             createCategory(data).then(res => {
                 this.$message({type:'success',text:res.errMsg});
                 this.getCategories(true);

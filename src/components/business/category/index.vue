@@ -73,7 +73,11 @@ export default {
                 data = Object.assign({},this.updateCategory,data);
                 this.$emit('on-update',data);
             }   
-            else{
+            else{ 
+                if(!data.name) {
+                    this.$message({type:'warning',text:'请输入分类名称'});
+                    return;
+                }
                 this.$emit('on-save',data);
             }
             
