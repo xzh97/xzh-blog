@@ -17,6 +17,5 @@
 2. 工作上碰到的问题 及解决方案 （ ex：1.去年碰到的点击账本直接进入详情，详情回退直接回退到首页 列表页不显示问题， contentLoaded的问题， 原因: 首屏引入的amap等第三方文件太大，还没加载完就点击账本，导致vue-router崩溃；）
 3. 每月总结一次
 4. 之前做这个项目的时候 ajax.js里的 全局xhr变量导致的ajax请求结果混乱
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+5. 突然回想了一下  发现以前学的很多东西都忘记了。 找个时间把之前的东西整理一下 按照 html,css,js,框架，node，webpack，优化方面。
+6. 

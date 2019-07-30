@@ -42,7 +42,7 @@
                     <span class="item-title">电子邮箱(不会被公开)(必填)</span>
                 </div>
                 <div class="comment-item">
-                    <textarea v-model="commentContent" class="comment-content" rows="4"></textarea>
+                    <textarea v-model="commentContent" :placeholder="commentPlaceholder" class="comment-content" rows="4"></textarea>
                 </div>
                 <div class="comment-item">
                     <a-button type="primary" @click="addComment">发表评论</a-button>
@@ -50,7 +50,7 @@
             </div>
             <div class="comments-list">
                 <a-comment v-for="comment in blogData.comments" :key="comment.commentOid">
-                    <span slot="actions" @click="replyComment">回复</span>
+                    <span slot="actions" @click="replyComment(comment,false)">回复</span>
                     <a slot="author">{{comment.author}}</a>
                     <span slot="datetime" style="padding: 0 0 0 8px;cursor: auto;">{{comment.createTime}}</span>
                     <a-avatar
@@ -60,7 +60,7 @@
                     />
                     <p slot="content">{{comment.content}}</p>
                     <a-comment v-for="childComment in comment.children" :key="childComment.commentOid">
-                        <span slot="actions">回复</span>
+                        <span slot="actions" @click="replyComment(childComment,true)">回复</span>
                         <a slot="author">{{childComment.author}}</a>
                         <span slot="datetime" style="padding: 0 0 0 8px;cursor: auto;">{{childComment.createTime}}</span>
                         <a-avatar
@@ -94,6 +94,8 @@ export default {
             commentAuthor:'',
             commentEmail:'',
             isReply:false, //是否是回复
+            commentPlaceholder:'留下你的评论吧',
+            replyCommentOid:''
         }
     },
     created(){
@@ -112,7 +114,7 @@ export default {
                 this.blogData = res;
                 this.blogData.comments.forEach(comment => {
                     comment.createTime = util.dateFormat(comment.createTime,'yyyy-MM-dd hh:mm:ss');
-                    comment.children = comment.children || [];
+                    comment.children.length && comment.children.map(item => item.createTime = util.dateFormat(item.createTime,'yyyy-MM-dd hh:mm:ss'));
                 })
             }).catch(err => {
                 console.log(err);
@@ -154,11 +156,18 @@ export default {
             return error;
 
         },
-        replyComment(){
+        /**
+         * @param {Object} comment 回复的评论信息
+         * @param {Boolean} isChild 是否为回复子评论
+         */
+        replyComment(comment,isChild){
             this.isReply = true;
             this.$refs.commentArea.scrollIntoView();
+            this.commentPlaceholder = `回复 @${comment.author}:`;
+            this.replyCommentOid = comment.parentOid || comment.commentOid;
+
         },
-        addComment(commentOid){
+        addComment(){
             let result = this.checkComment();
             if(result.errFlag){
                 this.$message({type:'error',text:result.errMsg});
@@ -171,16 +180,20 @@ export default {
                 author:commentAuthor,
                 email:commentEmail
             };
-            if(isReply){
-                postData.parentOid = commentOid;
-            }
+            postData.parentOid = this.replyCommentOid;
             addNewComment(postData).then(res => {
                 console.log(res);
                 this.$message({type:'success',text:res.errMsg});
                 this.getBlogData();
+
+                //评论信息
                 this.commentContent = '';
                 this.commentAuthor = '';
                 this.commentEmail='';
+
+                //回复信息
+                this.isReply = false;
+                this.replyCommentOid = '';
             }).catch(err => {
                 console.log(err);
                 this.$message({type:'error',text:err.errMsg})
