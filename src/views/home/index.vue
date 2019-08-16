@@ -9,15 +9,14 @@
 
 <script>
 export default {
-
+    name:'home',
 }
 </script>
 
 <style lang="scss" scoped>
     .home-wrapper{
         width: 100%;
-        height: 1080px;
-        background: url('../../assets/images/bg3.jpg');
+        height: 500px;
         color: #ffffff;
         p{
             padding-top: 100px;
@@ -28,6 +27,9 @@ export default {
             display: inline-block;
             animation: rotate .8s infinite;
         }
+    }
+    .home-wrapper:after {
+        background: url('../../assets/images/bg3.jpg') no-repeat;
     }
     @keyframes rotate {
         0% { }

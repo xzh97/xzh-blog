@@ -63,7 +63,7 @@ export default {
         addNewBlog(){
             this.$router.push({name:'addNewBlog'})
         },
-        getCategories(flag){
+        getCategories(flag = true){ //暂时先取接口
             //优先级 flag > sessionStorage > initData
             const getData = () => {
                 getCategories().then(res => {
