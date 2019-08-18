@@ -20,9 +20,15 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: $font-size-base;
-    //color: $text-color;
+    color: $text-color;
 	font-weight: normal;
 	vertical-align: baseline;
+	font-family: 'Josefin Sans Light', -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "'Hiragino Sans GB", STHeiti, 
+	"Microsoft Yahei", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", Arial, Verdana, sans-serif;
+}
+h1, h2, h3, h4, h5, h6{
+	color: $title-color;
+	margin: 15px 0;
 }
 div{
     box-sizing: border-box;
@@ -50,7 +56,13 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
+hr {
+	margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+    
 .clearfix::after{
 	content: '';
 	height:0;
