@@ -33,6 +33,8 @@
 <script>
 import { getBlogList, getCategories } from '@/api/blog';
 import utils from '@/share/utils';
+
+import Pagination from '@/components/base/pagination-v2/index';
 export default {
     name:'home',
     data(){
@@ -61,6 +63,9 @@ export default {
         getCategories().then(res => {
             this.categoryList = res;
         })
+    },
+    components:{
+        Pagination,
     }
 }
 </script>
