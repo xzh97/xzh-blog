@@ -2,7 +2,7 @@
     <div class="home-wrapper">
         <div class="logo">
             <h1 class="logo-text">将你我连同人间浸没</h1>
-            <p class="description">且随疾风前行</p>
+            <p class="description">何须仰望他人，自己亦是风景</p>
             <div class="search-anything">
                 <input class="search-area" type="text" placeholder="Search anything here~">
             </div>
@@ -22,7 +22,7 @@
 
         <ul class="category-list">
             <h4>(ฅ´ω`ฅ)</h4>
-            <li class="category-item" :key='category.categoryOid' v-for="(category,index) in categoryList">
+            <li class="category-item" v-for="(category,index) in categoryList" :key='category.categoryOid'>
                 <span class="category-name">ฅ{{category.name}}ฅ</span>
                 <span v-if="index !== categoryList.length - 1"  class="dot">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
             </li>

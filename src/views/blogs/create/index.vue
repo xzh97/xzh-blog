@@ -116,8 +116,8 @@ const toolbarOptions = [
     [{'color': []}, {'background': []}],          // dropdown with defaults from theme
     [{'font': []}],
     [{'align': []}],
-    ['link', 'image', 'video'],
-    ['clean']                                         // remove formatting button
+    ['link', 'image', /*'video'*/],
+    /*['clean']*/                                         // remove formatting button
 ]
 let methodMap = {
     'create':createNewBlog,
