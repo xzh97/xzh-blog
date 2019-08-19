@@ -66,8 +66,9 @@ table {
 hr {
 	margin-top: 20px;
     margin-bottom: 20px;
-    border: 0;
-    border-top: 1px solid #eee;
+	border: 0;
+	height: 1px;
+	background: #bac1c8;
 }
     
 .clearfix::after{

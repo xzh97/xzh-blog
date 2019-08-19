@@ -9,24 +9,23 @@
             <hr>
         </div>
         
-        <ul class="blog-list">
+        <div class="blog-list">
             <h4>记事</h4>
-            <li class="blog-item" v-for='blog in blogList' :key='blog.blogOid'>
-                <div class="blog-item-left create-time">{{blog.createTime}}</div>
-                <div class="blog-item-right">
-                    <p class="title">{{blog.title}}</p>
-                    <p class="blog-description">{{blog.description}}</p>
-                </div>
-            </li>
-        </ul>
+            <dl class="blog-item" v-for='blog in blogList' :key='blog.blogOid'>
+                <dt class="create-time">{{blog.createTime}}</dt>
+                <dd class="title">{{blog.title}}</dd>
+                <dd class="blog-description">{{blog.description}}</dd>
+            </dl>
+        </div>
 
-        <ul class="category-list">
+        <dl class="category-list">
             <h4>(ฅ´ω`ฅ)</h4>
-            <li class="category-item" v-for="(category,index) in categoryList" :key='category.categoryOid'>
-                <span class="category-name">ฅ{{category.name}}ฅ</span>
+            <dt class="category">Category</dt>
+            <dd class="category-item" v-for="(category,index) in categoryList" :key='category.categoryOid'>
+                <span class="category-name">&{{category.name}}</span>
                 <span v-if="index !== categoryList.length - 1"  class="dot">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
-            </li>
-        </ul>
+            </dd>
+        </dl>
     </div>
 </template>
 
@@ -46,6 +45,8 @@ export default {
             hasNextPage:false,
             hasPrevPage:false,
         }
+    },
+    computed:{
     },
     methods:{
         
@@ -73,8 +74,6 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/mixin.scss';
     .home-wrapper {
-        width: 60%;
-        margin: 0 auto;
         .logo-text {
             font-size: 30px;
             font-weight: 600;
@@ -111,36 +110,32 @@ export default {
         }
         .blog-list {
             width: 100%;
-            
             .blog-item {
-                @include fbc;
-                align-items: baseline;
                 text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
                 font-weight: 400;
                 line-height: 1.7;
                 margin-bottom: 30px;
-                .blog-item-left {
-                    width: 14%; 
-                    text-align: right;
-                }
+                font-size: 18px;
                 .create-time{
+                    float: left;
+                    clear: left;
                     color:#34495e;
                 }
-                .blog-item-right {
-                    width: 84%; 
-                    text-align: left;
+                .title {
                     cursor: pointer;
-                    .title{
-                        color: $title-color;
-                        font-size: 20px;
-                    }
+                    color: $title-color;
                 }
-                .blog-item-right:hover {
+            
+                .blog-item:hover {
                     color: #34495e;
                 }
             }
         }
         .category-list {
+            .category{
+                display: inline-block;
+                margin-right: 20px;
+            }
             .category-item {
                 display: inline-block;
                 height: 30px;
@@ -161,17 +156,7 @@ export default {
             }
         }
     }
-    .home-wrapper::after {
-        content:'';
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        opacity: .1;
-        background-image: url('../../assets/images/bg3.jpg');
-    }
+    
     
 </style>
 

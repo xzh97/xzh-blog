@@ -1,6 +1,9 @@
 <template>
     <div class="footer-wrapper">
-        <p class="copy-right">© 2017 Wired UI Kit. A FREE Bootstrap 4 UI Kit by Wired Dots Designed by @attacomsian / More </p>
+        <hr>
+        <p class="copy-right">豫ICP备15033156号-1 / 豫公网安备 41081102000052号</p>
+        <p class="copy-right" style="margin-top:20px;">© 2014 - 2019 猫与向日葵. Using Typecho & Moricolor. / Sitemap</p>
+        
     </div>
 </template>
 
@@ -13,13 +16,16 @@ export default {
 <style lang="scss" scoped>
 @import '../../../styles/mixin';
 .footer-wrapper{
+    hr {
+        height: 1px;
+        
+        margin-top: 0;
+    }
     width: 100%;
-    height: 200px;
-    background: #ffffff;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 20px;
+    font-size: 15px;
+    color: #bac1c8;
+    text-align: center;
     .copy-right{
         color: $text-color;
     }
