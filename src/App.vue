@@ -22,7 +22,6 @@ export default {
 @import "styles/media.scss";
 #app {
     margin: 0 auto;
-    
 }
 #app::after {
     content:'';

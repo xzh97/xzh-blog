@@ -92,7 +92,7 @@ export default {
                 border-radius: $border-radius-base;
                 border: 2px solid #dddddd;
                 background: rgba(254, 252, 250, 0.6);
-                padding: 6px 10px;
+                //padding: 6px 10px;
                 font-size: 14px;
             }
             .search-area:hover {

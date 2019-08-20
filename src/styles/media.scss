@@ -2,4 +2,33 @@
     #app {
         width: 750px;
     }
+    .blog-list {
+        .create-time {
+            width: 180px;
+            text-align: right;
+        }
+        .title, .blog-description {
+            margin-left: 200px;
+        }
+    }
+    .category-list {
+        .category {
+            width: 180px;
+            text-align: right;
+            margin-right: 20px;
+        }
+    }
+}
+@media screen and (max-width: 767px){
+    #app {
+        padding: 0 20px;
+    }
+    .create-time {
+        width: 100%;
+    }
+    .category-list {
+        .category {
+            margin-right: 10px;
+        }
+    }
 }
