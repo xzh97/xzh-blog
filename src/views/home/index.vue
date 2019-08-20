@@ -1,7 +1,7 @@
 <template>
     <div class="home-wrapper">
         <div class="logo">
-            <h1 class="logo-text">将你我连同人间浸没</h1>
+            <h1 class="logo-text">Soft</h1>
             <p class="description">何须仰望他人，自己亦是风景</p>
             <div class="search-anything">
                 <input class="search-area" type="text" placeholder="Search anything here~">
@@ -16,6 +16,7 @@
                 <dd class="title">{{blog.title}}</dd>
                 <dd class="blog-description">{{blog.description}}</dd>
             </dl>
+            <pagination align='right' :has-next-page="hasNextPage" :has-prev-page="hasPrevPage"></pagination>
         </div>
 
         <dl class="category-list">
@@ -124,6 +125,9 @@ export default {
                 .title {
                     cursor: pointer;
                     color: $title-color;
+                }
+                .blog-description {
+                    font-size: 15px;
                 }
             
                 .blog-item:hover {
