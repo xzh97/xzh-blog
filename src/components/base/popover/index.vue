@@ -1,21 +1,26 @@
 <template>
-    <div class="popover-wrapper">
-        <div v-if="value" :class="['popover-inner',placementClass]" :style="activeStyle">
-            <div class="arrow"></div>
-            <div v-if="title" class="popover-title">{{ title }}</div>
-            <slot>{{ content }}</slot>
+    <div>
+        <div v-body :class="['popover-wrapper',placementClass]" v-if="value" :style="activeStyle">
+            <div class="popover-inner" >
+                <div class="arrow"></div>
+                <div v-if="title" class="popover-title">{{ title }}</div>
+                <slot>
+                    <div class="popover-content">{{ content }}</div>
+                </slot>
+            </div>      
         </div>
-        <slot name="reference"></slot>  
+        <slot name='element'></slot>
     </div>
 </template>
 
 <script>
+import {getTriggerDom} from './index.js';
 export default {
     name:'popover',
     props:{
-        value:{
+        visible:{
             type:Boolean
-        },
+        }, 
         placement:{
             type:String,
             default:'top-left'
@@ -31,6 +36,7 @@ export default {
     },
     data(){
         return {
+            value:false,
         }
     },
     computed:{
@@ -45,23 +51,52 @@ export default {
             }
         }
     },
+    created(){
+        this.value = this.visible
+    },
+    mounted(){
+        this.$nextTick(() => {
+            getTriggerDom(this)
+        })
+    },
+    watch:{
+        visible(val){
+            console.log(val);
+            this.value = val;
+            this.$emit('visibleChange',this.value)
+        }
+    }
 }
 </script>
 
 <style lang='scss' scoped>
 .popover-wrapper{
+    font-size: $font-size-base;
+    color:$text-color;
+    position:absolute;
+    top: 0;
+    left: 0;
+    z-index: 1030;
+    margin: 0;
+    padding: 0;
+    border-radius: $border-radius-base;
+    background: #ffffff;
+    box-shadow: $box-shadow-base;
     .popover-inner{
-        font-size: $font-size-base;
-        color:rgba(0, 0, 0, 0.65);
-        position:absolute;
-        top: 0;
-        left: 0;
-        z-index: 1030;
-        margin: 0;
-        padding: 10px;
-        border-radius: $border-radius-base;
-        background: #ffffff;
-        box-shadow: $box-shadow-base;
-    } 
+        font-size: 16px;
+        line-height: 20px;
+        color: $title-color;
+
+        .popover-title{
+            box-sizing: border-box; 
+            border-bottom: 1px solid $border-color-base;
+            padding-bottom: 6px;
+            vertical-align: middle;
+        }
+        .popover-content{
+            padding: 10px 8px;
+            font-size: 14px;
+        }
+    }   
 }
 </style>

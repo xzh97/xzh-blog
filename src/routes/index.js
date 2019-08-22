@@ -6,7 +6,8 @@ import pluginsRoute from './plugins/index';
 
 Vue.use(vueRouter);
 
-const home = () => import('../views/home/index.vue');
+const home = () => import('@/views/home/index');
+const demo = () => import('@/views/demo/index');
 
 const routes = [
     {
@@ -20,6 +21,11 @@ const routes = [
         component: home,
         name:'home'
     },
+    {
+        path: '/demo',
+        component: demo,
+        name:'demo'
+    }
 ];
 routes.push(...blogsRoute);
 routes.push(...pluginsRoute);
