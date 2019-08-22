@@ -36,6 +36,14 @@ const util = {
         function addZero(num){
             return num < 10 ? `0${num}` : num;
         }
+    },
+    /**
+     * @param obj 传入对象
+     * @param attr 获取属性
+     */
+    getStyle: (obj = {},attr) => {
+        if(!attr) return;
+        return obj.currentStyle ?　obj.currentStyle[attr] :　window.getComputedStyle(obj,null)[attr];
     }
 }
 

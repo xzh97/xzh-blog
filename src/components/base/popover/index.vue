@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div v-body :class="['popover-wrapper',placementClass]" v-if="value" :style="activeStyle">
+        <div :class="['popover-wrapper',placementClass]" v-show='value' :style="activeStyle">
             <div class="popover-inner" >
-                <div class="arrow"></div>
+                <!-- <div :class="['arrow',placementClass]"></div> -->
                 <div v-if="title" class="popover-title">{{ title }}</div>
                 <slot>
                     <div class="popover-content">{{ content }}</div>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {getTriggerDom} from './index.js';
+import {getDom,computeStyle} from './index.js';
 export default {
     name:'popover',
     props:{
@@ -37,6 +37,8 @@ export default {
     data(){
         return {
             value:false,
+            popDom:null,
+            triDom:null,
         }
     },
     computed:{
@@ -56,13 +58,17 @@ export default {
     },
     mounted(){
         this.$nextTick(() => {
-            getTriggerDom(this)
+            let {popDom,triDom} = getDom(this);
+            this.popDom = popDom;
+            this.triDom = triDom;
+            computeStyle(this.popDom,this.triDom);
         })
     },
     watch:{
         visible(val){
             console.log(val);
             this.value = val;
+            if(val) computeStyle(this.popDom,this.triDom, false);
             this.$emit('visibleChange',this.value)
         }
     }
