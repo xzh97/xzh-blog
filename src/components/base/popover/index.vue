@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div :class="['popover-wrapper',placementClass]" v-show='value' :style="activeStyle">
+        <div :class="['popover-wrapper',placementClass]" v-show='visible' :style="activeStyle">
             <div class="popover-inner" >
                 <!-- <div :class="['arrow',placementClass]"></div> -->
                 <div v-if="title" class="popover-title">{{ title }}</div>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {getDom,computeStyle} from './index.js';
+import {init} from './palcement.js';
 export default {
     name:'popover',
     props:{
@@ -37,8 +37,6 @@ export default {
     data(){
         return {
             value:false,
-            popDom:null,
-            triDom:null,
         }
     },
     computed:{
@@ -58,17 +56,14 @@ export default {
     },
     mounted(){
         this.$nextTick(() => {
-            let {popDom,triDom} = getDom(this);
-            this.popDom = popDom;
-            this.triDom = triDom;
-            computeStyle(this.popDom,this.triDom);
+            init(this);
         })
     },
     watch:{
         visible(val){
             console.log(val);
             this.value = val;
-            if(val) computeStyle(this.popDom,this.triDom, false);
+            if(val) init(this);
             this.$emit('visibleChange',this.value)
         }
     }
