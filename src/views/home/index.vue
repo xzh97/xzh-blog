@@ -1,7 +1,7 @@
 <template>
     <div class="home-wrapper">
         <div class="logo">
-            <h1 class="logo-text">Soft</h1>
+            <h1 class="logo-text">Winter Sweet</h1>
             <p class="description">何须仰望他人，自己亦是风景</p>
             <div class="search-anything">
                 <input class="search-area" type="text" placeholder="Search anything here~">

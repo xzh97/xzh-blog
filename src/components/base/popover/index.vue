@@ -1,11 +1,17 @@
 <template>
     <div>
-        <div :class="['popover-wrapper',placementClass]" v-show='visible' :style="activeStyle">
+        <span ref="trigger">
+            <slot></slot>
+        </span>
+        <div :class="['popover-wrapper',placementClass]"
+             v-show='value'
+             ref="popover"
+             :style="popoverStyle">
             <div class="popover-inner" >
                 <!-- <div :class="['arrow',placementClass]"></div> -->
                 <div v-if="title" class="popover-title">{{ title }}</div>
-                <slot>
-                    <div class="popover-content">{{ content }}</div>
+                <slot name="content">
+                    <div class="popover-content" v-html="content"></div>
                 </slot>
             </div>      
         </div>
@@ -14,16 +20,14 @@
 </template>
 
 <script>
-import {init} from './palcement.js';
-export default {
+    import {addEvent,removeEvent} from "@/share/utils";
+
+    export default {
     name:'popover',
     props:{
-        visible:{
-            type:Boolean
-        }, 
         placement:{
             type:String,
-            default:'top-left'
+            default:'top'
         },
         title:{
             type:String,
@@ -33,10 +37,19 @@ export default {
             type:String,
             default:''
         },
+        gutter:{
+            type: Number,
+            default:10
+        },
     },
     data(){
         return {
-            value:false,
+            value:true,
+            position:{
+                left:'',
+                top:'',
+            },
+            popoverStyle:{}
         }
     },
     computed:{
@@ -44,49 +57,67 @@ export default {
             let {placement} = this;
             return `popover-placement-${placement}`;
         },
-        activeStyle(){
-            return {
-                left:'',
-                top:'',
+    },
+    methods:{
+        init(flag){
+            const trigger = this.$refs.trigger.children[0];
+            const popover = this.$refs.popover;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+
+            switch (this.placement) {
+                case 'top':
+                    this.position.left = trigger.offsetLeft + trigger.offsetWidth/2  - popover.offsetWidth/2 - this.gutter;
+                    this.position.top = scrollTop + trigger.getBoundingClientRect().top - popover.offsetHeight - this.gutter;
+                    break;
+                default:
+                    console.warn(`${this.placement} is a Wrong placement, Please enter the correct placement`);
             }
+            console.dir(popover);
+            console.log('position',this.position);
+
+            this.popoverStyle = {
+                left: this.position.left + 'px',
+                top: this.position.top + 'px',
+            };
+        },
+        onOpen(){
+            this.value = true;
+        },
+        onClose(){
+            this.value = false;
         }
     },
+   /* watch:{
+        value(val){
+            if(val){
+                this.init(false);
+            }
+        }
+    },*/
     created(){
-        this.value = this.visible
     },
     mounted(){
         this.$nextTick(() => {
-            init(this);
+            this.init(true);
         })
     },
-    watch:{
-        visible(val){
-            console.log(val);
-            this.value = val;
-            if(val) init(this);
-            this.$emit('visibleChange',this.value)
-        }
-    }
 }
 </script>
 
 <style lang='scss' scoped>
 .popover-wrapper{
-    font-size: $font-size-base;
-    color:$text-color;
     position:absolute;
     top: 0;
     left: 0;
     z-index: 1030;
-    margin: 0;
-    padding: 0;
+
     border-radius: $border-radius-base;
-    background: #ffffff;
     box-shadow: $box-shadow-base;
+    background: #ffffff;
     .popover-inner{
-        font-size: 16px;
+        font-size: $font-size-base;
+        color:$text-color;
         line-height: 20px;
-        color: $title-color;
 
         .popover-title{
             box-sizing: border-box; 

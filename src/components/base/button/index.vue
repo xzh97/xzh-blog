@@ -12,7 +12,7 @@
         }
     ]"
     type='button'
-    @click='handleClick'
+    @click.native='handleClick'
     :disabled="disabled || loading "
     >
         <i v-if="loading" class="iconfont icon-loading loading"></i>

@@ -6,11 +6,12 @@
                 <!-- <component :is="demo.component" :placement=>
                     <xzh-button slot="element" type='primary'>hover me</xzh-button>   
                 </component> -->
-                <popover placement='top-left' content='this is popover content' :visible='value'>
-                    <xzh-button class="buttons" 
-                    slot="element" 
-                    type='primary' 
-                    @click="toggleValue"
+                <popover placement='top' content='this is popover content' :visible='value'>
+                    <xzh-button
+                        class="buttons"
+                        type='primary'
+                        @click="toggleValue"
+                        @mouseover="console.log('lalala')"
                     >hover me</xzh-button>
                 </popover>
             </div>
