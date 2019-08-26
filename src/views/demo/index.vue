@@ -5,11 +5,11 @@
             <div class="demo-item">
                 <!-- <component :is="demo.component" :placement=>
                     <xzh-button slot="element" type='primary'>hover me</xzh-button>   
-                </component> -->
-                <popover placement='top' content='this is popover content' :visible='value'>
+                </component>-->
+                <popover placement="top" content="this is popover content" :visible="value">
                     <xzh-button
                         class="buttons"
-                        type='primary'
+                        type="primary"
                         @click="toggleValue"
                         @mouseover="console.log('lalala')"
                     >hover me</xzh-button>
@@ -20,58 +20,57 @@
 </template>
 
 <script>
-import popover from '@/components/base/popover/index';
-import xzhButton from '@/components/base/button/index';
+import popover from "@/components/base/popover/index";
+import xzhButton from "@/components/base/button/index";
 export default {
-    name:'demo',
-    data(){
+    name: "demo",
+    data() {
         return {
-            demoList:[
+            demoList: [
                 {
-                    component:'popover',
-                    props:{
-                        placement:'top-left',
-                        title:'title',
-                        content:'this is popover content',
-                        value:true,
+                    component: "popover",
+                    props: {
+                        placement: "top-left",
+                        title: "title",
+                        content: "this is popover content",
+                        value: true
                     }
                 }
             ],
-            value:false,
-        }
-    }, 
-    methods:{
-        toggleValue(){
+            value: false
+        };
+    },
+    methods: {
+        toggleValue() {
             this.value = !this.value;
         }
     },
-    components:{
+    components: {
         popover,
         xzhButton
-    },
-}
+    }
+};
 </script>
 
 <style lang='scss' scoped>
-.demo-wrapper{
+.demo-wrapper {
     width: 100%;
-    height:100%;
-    h3{
+    height: 100%;
+    h3 {
         margin: 30px 0;
     }
-    .demo-list{
+    .demo-list {
         width: 100%;
-        height:100%;
-        .demo-item{
+        height: 100%;
+        .demo-item {
             height: 300px;
             border-radius: $border-radius-base;
-            border:1px solid #cccccc;
+            border: 1px solid #cccccc;
             box-shadow: $box-shadow-base;
             background: #ffffff;
-            
         }
     }
-    .buttons{
+    .buttons {
         margin: 0 auto;
     }
 }
