@@ -1,9 +1,9 @@
 <template>
-    <transition name="fade">
-        <div>
-            <span ref="trigger" @mouseover="onOpen" @mouseout="onClose">
+    <div>
+        <span class="trigger" ref="trigger" @mouseover="onOpen" @mouseout="onClose">
                 <slot></slot>
-            </span>
+        </span>
+        <transition name="fade">
             <div
                 :class="['popover-wrapper',placementClass]"
                 v-show="value"
@@ -18,8 +18,8 @@
                     </slot>
                 </div>
             </div>
-        </div>
-    </transition>
+        </transition>
+    </div>
 </template>
 
 <script>
@@ -45,7 +45,7 @@ export default {
     },
     data() {
         return {
-            value: true,
+            value: false,
             position: {
                 left: "",
                 top: ""
@@ -81,10 +81,10 @@ export default {
             switch (this.placement) {
                 case "top":
                     this.position.left =
-                        trigger.offsetLeft +
+                        parseInt(trigger.offsetLeft +
                         trigger.offsetWidth / 2 -
                         popover.offsetWidth / 2 -
-                        this.gutter;
+                        this.gutter);
                     this.position.top =
                         scrollTop +
                         trigger.getBoundingClientRect().top -
@@ -96,6 +96,7 @@ export default {
                         `${this.placement} is a Wrong placement, Please enter the correct placement`
                     );
             }
+            /*console.log(trigger.offsetWidth / 2, popover.offsetWidth / 2);
             console.log(
                 "trigger",
                 trigger.getBoundingClientRect().top,
@@ -107,11 +108,11 @@ export default {
 
             console.log("popover");
             console.dir(popover);
-            console.log("");
+            console.log(""); 
 
             console.log(
                 `position left : ${this.position.left}, position top : ${this.position.top}`
-            );
+            );*/
 
             this.popoverStyle = {
                 left: this.position.left + "px",
@@ -130,6 +131,11 @@ export default {
             this.init(true);
             window.addEventListener("resize", this.init);
         });
+    },
+    watch:{
+        value(val){
+            if(val) this.init();
+        }
     },
     beforeDestroy() {
         window.removeEventListener("resize", this.init);
@@ -204,5 +210,8 @@ export default {
             left: -6px;
         }
     }
+}
+.trigger{
+    display: inline-block;
 }
 </style>

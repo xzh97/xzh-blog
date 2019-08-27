@@ -39,5 +39,6 @@ export default {
     font-size: $font-size-base;
     line-height: 1.7;
     margin-bottom: 8px;
+    text-indent: 2em;
 }
 </style>

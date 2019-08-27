@@ -13,10 +13,15 @@
             <h4>记事</h4>
             <dl class="blog-item" v-for="blog in blogList" :key="blog.blogOid">
                 <dt class="create-time">{{blog.createTime}}</dt>
-                <dd class="title">{{blog.title}}</dd>
+                <dd class="title" @click="goDetail(blog.blogOid)">{{blog.title}}</dd>
                 <dd class="blog-description">{{blog.description}}</dd>
             </dl>
-            <pagination align="right" :has-next-page="hasNextPage" :has-prev-page="hasPrevPage"></pagination>
+            <pagination
+                align="right"
+                :has-next-page="hasNextPage"
+                :has-prev-page="hasPrevPage"
+                @on-page-change="onChangePager"
+            ></pagination>
         </div>
 
         <dl class="category-list">
@@ -48,21 +53,46 @@ export default {
             blogPage: 1,
             blogSize: 10,
             hasNextPage: false,
-            hasPrevPage: false
+            hasPrevPage: false,
+            totalPage: 0
         };
     },
     computed: {},
-    methods: {},
+    methods: {
+        getBlogList() {
+            getBlogList({ page: this.blogPage, size: this.blogSize }).then(
+                res => {
+                    console.log(res);
+                    res.data.forEach(item => {
+                        item.createTime = utils.dateFormat(item.createTime);
+                    });
+                    this.blogList = res.data;
+                    this.hasNextPage = res.hasNextPage;
+                    this.hasPrevPage = res.hasPrevPage;
+                    this.totalPage = res.totalPage;
+                }
+            );
+        },
+        onChangePager(type) {
+            console.log(type);
+            let { blogPage, totalPage } = this;
+            if (type === "prev") {
+                if (blogPage <= 1) return;
+                this.blogPage--;
+            } else {
+                if (blogPage >= totalPage) return;
+                this.blogPage++;
+            }
+            this.getBlogList();
+        },
+        goDetail(blogOid){
+            this.$router.push({
+                path:`blog/detail/${blogOid}`
+            })
+        }
+    },
     created() {
-        getBlogList({ page: this.blogPage, size: this.blogSize }).then(res => {
-            console.log(res);
-            res.data.forEach(item => {
-                item.createTime = utils.dateFormat(item.createTime);
-            });
-            this.blogList = res.data;
-            this.hasNextPage = res.hasNextPage;
-            this.hasPrevPage = res.hasPrevPage;
-        });
+        this.getBlogList();
         getCategories().then(res => {
             this.categoryList = res;
         });

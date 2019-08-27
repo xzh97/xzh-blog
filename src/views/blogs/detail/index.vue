@@ -1,83 +1,38 @@
 <template>
-    <div class="blogs-wrapper">
-        <div class="blogs-inner">
-            <header class="header">
-                <div class="header-left">
-                    <h4 class="header-title">xzh的学习笔记</h4>
-                </div>
-                <!-- <div class="header-right">
-                    <a-button>管理笔记</a-button>
-                </div> -->
-            </header>
-            <div class="content">
-                <sidebar></sidebar>
-                <div class="content-right">
-                    <div class="content-tips">
-                        <div class="blog-item" >
-                            <h4 class="blog-title">
-                                <span class="blog-type original"  v-if="blogData.type == '1'">原</span>
-                                <span class="blog-type reproduced" v-else>转</span>
-                                {{ blogData.title }}
-                            </h4>
-                            <div class="blog-item-footer clearfix">
-                                <p class="blog-date">{{ blogData.lastUpdatedTime }}</p>
-                                <p class="blog-read-num">阅读数 <span class="num">{{ blogData.readNumber }}</span></p>
-                                <p class="blog-comment">评论 <span class="num">{{ blogData.commentCount }}</span></p>
-                                <p class="float-right"><a-button size='small' class="blog-edit-btn" @click="editBlog">编辑</a-button></p>
-                            </div>                    
-                        </div>
-                    </div>
-                    <div class="blog-content quill-editor-content" v-html="blogData.content">
-                    </div>
-                </div>
+    <div class="blog-wrapper">
+        <h2 class="blog-title">{{ blogData.title }}</h2>
+        <!-- <ul class="blog-toolbar">
+            <li class="toolbar-item"></li>
+        </ul> -->
+        <!-- <div class="blog-tag">
+            <div class="tag-item"></div>
+        </div> -->
+        <div class="blog-content quill-editor-content" v-html="blogData.content">
+        </div>
+        <div class="comment-area" ref="commentArea">
+            <h4 class="comment-title">发表评论</h4>
+            <div class="comment-item">
+                <input v-model="commentAuthor" type="text" class="item-input comment-author">
+                <span class="item-title">名字(必填)</span>
             </div>
-            <div class="comment-area" ref="commentArea">
-                <h4 class="comment-title">发表评论</h4>
-                <div class="comment-item">
-                    <input v-model="commentAuthor" type="text" class="item-input comment-author">
-                    <span class="item-title">名字(必填)</span>
-                </div>
-                <div class="comment-item">
-                    <input v-model="commentEmail" type="email" class="item-input comment-email">
-                    <span class="item-title">电子邮箱(不会被公开)(必填)</span>
-                </div>
-                <div class="comment-item">
-                    <textarea v-model="commentContent" :placeholder="commentPlaceholder" class="comment-content" rows="4"></textarea>
-                </div>
-                <div class="comment-item">
-                    <a-button type="primary" @click="addComment">发表评论</a-button>
-                </div>
+            <div class="comment-item">
+                <input v-model="commentEmail" type="email" class="item-input comment-email">
+                <span class="item-title">电子邮箱(不会被公开)(必填)</span>
             </div>
-            <div class="comments-list">
-                <a-comment v-for="comment in blogData.comments" :key="comment.commentOid">
-                    <span slot="actions" @click="replyComment(comment,false)">回复</span>
-                    <a slot="author">{{comment.author}}</a>
-                    <span slot="datetime" style="padding: 0 0 0 8px;cursor: auto;">{{comment.createTime}}</span>
-                    <a-avatar
-                        slot="avatar"
-                        :src="imgs.defaultAvatar"
-                        :alt="comment.author"
-                    />
-                    <p slot="content">{{comment.content}}</p>
-                    <a-comment v-for="childComment in comment.children" :key="childComment.commentOid">
-                        <span slot="actions" @click="replyComment(childComment,true)">回复</span>
-                        <a slot="author">{{childComment.author}}</a>
-                        <span slot="datetime" style="padding: 0 0 0 8px;cursor: auto;">{{childComment.createTime}}</span>
-                        <a-avatar
-                            slot="avatar"
-                            :src="imgs.defaultAvatar"
-                            :alt="childComment.author"
-                        />
-                        <p slot="content">{{childComment.content}}</p>
-                    </a-comment>
-                </a-comment>
+            <div class="comment-item">
+                <textarea v-model="commentContent" :placeholder="commentPlaceholder" class="comment-content" rows="4"></textarea>
             </div>
+            <div class="comment-item">
+                <xzh-button type="primary" @click="addComment">发表评论</xzh-button>
+            </div>
+        </div>
+        <div class="comments-list">
         </div>
     </div>
 </template>
 
 <script>
-import Sidebar from '@/components/business/sidebar/index';
+import xzhButton from '@/components/base/button/index';
 import defaultAvatar from '@/assets/images/default_avatar.jpg';
 
 import util from '@/share/utils';
@@ -201,166 +156,26 @@ export default {
         }
     },
     components:{
-        Sidebar,
+        xzhButton,
     }
 }
 </script>
 
 <style lang='scss' scoped>
 @import '@/styles/mixin.scss';
-    .blogs-wrapper{
+    .blog-wrapper{
         width: 100%;
-        height: 100%;
-        min-height: 1000px;
-        background: url('../../../assets/images/bg3.jpg') repeat-y;
-        background-size: 100%;
+        h1,h2,h3,h4,h5,h6{
+            color: $text-color;
+        }
+        .blog-title{
+            font-size: 35px;
+        }
+        .quill-editor-content{
+            letter-spacing: .6px;
 
-        display: flex;
-        justify-content: center;
-
-        .blogs-inner{
-            width: 80%;
-            .header{
-                width: 100%;
-                height: 80px;
-                @include fbc;
-                .header-title{
-                    font-size: 24px;
-                    line-height: 30px;
-                    font-weight: 500;
-                    color:#ffffff;
-                }
-            }
-            .content{
-                @include fb;
-                width: 100%;
-                color: #4d4d4d;
-                padding-bottom: 20px;
+            p{
                 
-                .content-right{
-                    width: 70%;
-                    background: #ffffff;
-                    margin-left: 20px; 
-                    .content-tips{
-                        padding: 0 16px;
-                        @include fb;
-                        .blog-item{
-                            width: 100%;
-                            position: relative;
-                            padding: 12px 0;
-                            border-bottom: 1px solid #cccccc; 
-                            .blog-title{
-                                color: #4d4d4d;
-                                font-size: 24px;
-                                font-weight: 600;
-                                word-break: break-all;
-                                line-height: 30px;
-                                margin-bottom: 6px;
-                                .blog-type{
-                                    display: inline-block;
-                                    width: 30px;
-                                    height: 30px;
-                                    line-height: 30px;
-                                    border-radius: 50%;
-                                    box-sizing: border-box;
-                                    font-weight: normal;
-                                    margin-right: 8px;
-                                    font-size: 16px;
-                                    text-align: center;
-                                }
-                                .original{
-                                    color:#ca0c16;
-                                    border: 1px solid #f4ced0;
-                                }
-                                .reproduced{
-                                    color: #86ca5e;
-                                    border: 1px solid #e7f4df;
-                                }
-                            }
-                            .blog-item-footer{
-                                @include fsc;
-                                margin-top: 16px;
-                                position:relative;
-                                .blog-date,.blog-read-num,.blog-comment{
-                                    font-size: 16px;
-                                    line-height: 22px;
-                                    color: #999;
-                                    margin-right: 10px;
-                                    .num{
-                                        font-size: 16px;
-                                        color: #3399ea;
-                                    }
-                                }
-                                .blog-date{
-                                    color: #6b6b6b;
-                                }
-                                .blog-edit-btn{
-                                    position: absolute;
-                                    right: 10px;
-                                    top: 50%;
-                                    transform: translate(0,-50%);
-                                }
-                            }
-                        }
-                    }
-                    .blog-content{
-                        padding: 20px 16px;
-                        background: #ffffff;
-                        font-size: 16px;
-                    }
-                    .blog-content >>> p{
-                        font-size: 16px;
-                        line-height: 20px;
-                    }
-                }
-
-            }
-            .comment-area{
-                padding: 10px 20px;
-                margin: 1px 0;
-                background: #ffffff;
-                .comment-title{
-                    font-size: 24px;
-                    color: $text-color;
-                }
-                .comment-item{
-                    min-height: 32px;
-                    margin-top: 19px;
-                    .item-title{
-                        font-size: 12px;
-                        margin-left: 10px;
-                    }
-                    .item-input{
-                        outline: none;
-                        background: none;
-                        border: 1px solid #d9d9d9;
-                        vertical-align: middle;
-                        height: 30px;
-                        line-height: 30px;
-                        font-size: 16px;
-                        padding-left: 8px;
-                    }
-                    .comment-content{
-                        width: 50%;
-                        padding: 5px 10px;
-                        vertical-align: middle;
-                        line-height: 24px;
-                        color:$text-color;
-                        border-radius: 4px;
-                        border: 1px solid #d9d9d9;
-                        outline: none;
-                        margin-bottom: 10px;
-                    }
-                    .comment-content:hover{
-                        border: 1px solid #1890ff;
-                    }
-
-                }
-
-            }
-            .comments-list{
-                background: #ffffff;
-                padding: 0 20px;
             }
         }
     }

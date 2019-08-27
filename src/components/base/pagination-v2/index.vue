@@ -53,7 +53,9 @@ export default {
         return {
             showPopover: false,
             showList: false,
-            activeStyle: {}
+            activeStyle: {},
+            hasNext: false,
+            hasPrev: false,
         };
     },
     computed: {
@@ -76,11 +78,27 @@ export default {
             };
         }
     },
-    mounted() {},
+    mounted() {
+
+    },
     methods: {
         handleClick(type) {
             this.$emit("on-page-change", { type });
         }
+    },
+    watch:{
+        hasNextPage: {
+            handler(val){
+                this.hasNext = val;
+            },
+            immediate: true,
+        },
+        hasPrevPage: {
+            handler(val){
+                this.hasPrev = val;
+            },
+            immediate: true,
+        },
     },
     components: {
         icon,
