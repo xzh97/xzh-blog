@@ -66,9 +66,11 @@ export default {
     },
     methods: {
         init() {
-            this.$nextTick(() => this.getcomputedStyle());
+            this.$nextTick(() => {
+                setTimeout( ()=> this.getComputedStyle(),0);
+            });
         },
-        getcomputedStyle() {
+        getComputedStyle() {
             const trigger = this.$refs.trigger.children[0];
             const popover = this.$refs.popover;
             const scrollTop =
