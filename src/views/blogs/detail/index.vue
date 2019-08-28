@@ -7,23 +7,26 @@
         <!-- <div class="blog-tag">
             <div class="tag-item"></div>
         </div> -->
-        <div class="blog-content quill-editor-content" v-html="blogData.content">
+        <div class="blog-content quill-editor-content" v-html="blogData.content"></div>
+        <div class="blog-signature">
+            <p>本文由 Winter Sweet 创作，采用  <a class="link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">知识共享署名 4.0</a>  国际许可协议进行许可。</p>   
+            <p>可自由转载、引用，但需署名作者且注明文章出处。</p>
         </div>
         <div class="comment-area" ref="commentArea">
-            <h4 class="comment-title">发表评论</h4>
+            <h4 class="comment-title">What 度 U 旺吐 say?</h4>
             <div class="comment-item">
-                <input v-model="commentAuthor" type="text" class="item-input comment-author">
-                <span class="item-title">名字(必填)</span>
+                <input v-model="commentAuthor" placeholder="昵称(required)" type="text" class="item-input comment-author">
+                <!-- <span class="item-title">名字(必填)</span> -->
             </div>
             <div class="comment-item">
-                <input v-model="commentEmail" type="email" class="item-input comment-email">
-                <span class="item-title">电子邮箱(不会被公开)(必填)</span>
+                <input v-model="commentEmail" placeholder="电子邮箱(必填 不公开)" type="email" class="item-input comment-email">
+                <!-- <span class="item-title">电子邮箱(不会被公开)(必填)</span> -->
             </div>
             <div class="comment-item">
-                <textarea v-model="commentContent" :placeholder="commentPlaceholder" class="comment-content" rows="4"></textarea>
+                <textarea v-model="commentContent" :placeholder="commentPlaceholder" class="item-input comment-content" rows="4"></textarea>
             </div>
             <div class="comment-item">
-                <xzh-button type="primary" @click="addComment">发表评论</xzh-button>
+                <button class="comment-btn" @click="addComment">发表评论</button>
             </div>
         </div>
         <div class="comments-list">
@@ -171,12 +174,72 @@ export default {
         .blog-title{
             font-size: 35px;
         }
-        .quill-editor-content{
-            letter-spacing: .6px;
-
-            p{
-                
+        .blog-signature{
+            box-shadow: $box-shadow-base;
+            background: rgba(237, 238, 238, 0.7);
+            font-size: 14px;
+            margin: 0 0 10px;
+            padding: 20px;
+            p:nth-of-type(2){
+                margin-top: 10px;
             }
+            .link{
+                color: $title-color;
+                text-decoration:none;
+            }
+            .link:hover{
+                text-decoration: underline
+            }
+        }
+        .comment-area{
+            margin-top: 30px;
+            .comment-item{
+                //height: 36px;
+                margin-top: 10px;
+
+                .item-input{
+                    width: 100%;
+                    padding:10px 6px;
+                    background: none;
+                    border-radius: $border-radius-base;
+                    border: 1px solid $border-color-base;
+                    font-size: 14px;
+                    text-indent: 1em;
+                    box-sizing: border-box;
+                    outline: none;
+                }
+                .item-input::-webkit-input-placeholder{
+                    color: #bbbbbb;
+                }
+                .item-input:hover{
+                    border: 1px solid #888888;
+                }
+                .comment-btn{
+                    width: 160px;
+                    //padding: 10px 6px;
+                    padding: 10px 15px;
+                    font-size: 15px;
+                    font-weight: 400;
+                    line-height: 1.4;
+
+                    color: #fff;
+                    background-color: #34495e;
+                    border-radius: $border-radius-base;
+                    border: 1px solid #34495e;
+                    outline: none;
+
+                    cursor: pointer;
+                }
+                .comment-btn:hover{
+                    opacity: .8; 
+                    transition: all .36s;
+                }
+            }
+            
+            
+        }
+        .comments-list{
+            
         }
     }
 </style>

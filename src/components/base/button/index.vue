@@ -67,7 +67,7 @@ $danger-color:#f56c6c;
     border-radius: 4px;
     text-align: center;
     font-weight: 400;
-    box-shadow: 0 2px 0 rgba(0,0,0,0.015);
+    box-shadow: 0 2px 0 $box-shadow-base;
     box-sizing: border-box;
     margin-right: 10px;
     vertical-align: middle;
