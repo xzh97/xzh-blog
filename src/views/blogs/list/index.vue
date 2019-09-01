@@ -10,7 +10,6 @@
                 </div>
             </header>
             <div class="content">
-                <sidebar></sidebar>
                 <div class="content-right">
                     <div class="content-tips">
                         <div class="original-only">
@@ -60,7 +59,6 @@
 
 <script>
 import Pagination from '@/components/base/pagination/index';
-import Sidebar from '@/components/business/sidebar/index';
 
 import {getBlogList,deleteBlog} from "@/api/blog";
 
@@ -154,7 +152,6 @@ export default {
     },
     components:{
         Pagination,
-        Sidebar
     },
 }
 </script>

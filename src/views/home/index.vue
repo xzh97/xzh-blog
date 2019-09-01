@@ -51,7 +51,7 @@ export default {
             blogList: [],
             categoryList: [], //博客分类列表
             blogPage: 1,
-            blogSize: 10,
+            blogSize: 5,
             hasNextPage: false,
             hasPrevPage: false,
             totalPage: 0
@@ -73,10 +73,11 @@ export default {
                 }
             );
         },
-        onChangePager(type) {
+        onChangePager({type}) {
             console.log(type);
             let { blogPage, totalPage } = this;
             if (type === "prev") {
+                console.log(blogPage);
                 if (blogPage <= 1) return;
                 this.blogPage--;
             } else {

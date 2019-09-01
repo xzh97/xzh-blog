@@ -13,7 +13,7 @@
             <p>可自由转载、引用，但需署名作者且注明文章出处。</p>
         </div>
         <div class="comment-area" ref="commentArea">
-            <h4 class="comment-title">What 度 U 旺吐 say?</h4>
+            <h4 class="comment-title">说点什么?</h4>
             <div class="comment-item">
                 <input v-model="commentAuthor" placeholder="昵称(required)" type="text" class="item-input comment-author">
                 <!-- <span class="item-title">名字(必填)</span> -->
@@ -29,13 +29,18 @@
                 <button class="comment-btn" @click="addComment">发表评论</button>
             </div>
         </div>
-        <div class="comments-list">
-        </div>
+    
+        <comment :key='comment.commentOid' v-for="comment in blogData.comments" :comment-data="comment" @action-click='handleCommentActionClick'>
+            <template v-if="comment.children.length" slot="children">
+                <comment :key='childComment.commentOid' v-for="childComment in comment.children" :comment-data="childComment" @action-click='handleCommentActionClick'></comment>
+            </template>
+        </comment>
     </div>
 </template>
 
 <script>
 import xzhButton from '@/components/base/button/index';
+import comment from '@/components/base/comment/index';
 import defaultAvatar from '@/assets/images/default_avatar.jpg';
 
 import util from '@/share/utils';
@@ -53,7 +58,7 @@ export default {
             commentEmail:'',
             isReply:false, //是否是回复
             commentPlaceholder:'留下你的评论吧',
-            replyCommentOid:''
+            replyCommentOid:'',
         }
     },
     created(){
@@ -116,14 +121,12 @@ export default {
         },
         /**
          * @param {Object} comment 回复的评论信息
-         * @param {Boolean} isChild 是否为回复子评论
          */
-        replyComment(comment,isChild){
+        replyComment(comment){
             this.isReply = true;
-            this.$refs.commentArea.scrollIntoView();
             this.commentPlaceholder = `回复 @${comment.author}:`;
             this.replyCommentOid = comment.parentOid || comment.commentOid;
-
+            this.$refs.commentArea.scrollIntoView();
         },
         addComment(){
             let result = this.checkComment();
@@ -156,10 +159,20 @@ export default {
                 console.log(err);
                 this.$message({type:'error',text:err.errMsg})
             })
+        },
+        handleCommentActionClick(key,comment){
+            switch(key){
+                case 'reply':
+                    this.replyComment(comment);
+                    break;
+                default:
+                    console.warn(`The key : ${key}`)
+            }
         }
     },
     components:{
         xzhButton,
+        comment
     }
 }
 </script>

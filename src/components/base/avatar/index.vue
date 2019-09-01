@@ -3,7 +3,6 @@
         <div class="avatar-inner" :class="activeClass">
             <img :src='avatarImg || avatar' alt='用户头像'>
         </div>
-        <p class="avatar-name">将你我连同人间浸没</p>
     </div>
 </template>
 
@@ -93,7 +92,7 @@ export default {
     } 
 }
 .border-bottom{
-    border-bottom: 1px solid #cccccc;
+    border-bottom: 1px solid $border-color-base;
 }
 </style>
 
