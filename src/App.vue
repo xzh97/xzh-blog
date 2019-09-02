@@ -11,6 +11,11 @@ import HeaderComp from "./components/business/header/index";
 import FooterComp from "./components/business/footer/index";
 export default {
     name: "app",
+    computed: {
+        randomNumber() {
+            return Math.floor(Math.random() * 5 + 1)
+        }
+    },
     components: {
         HeaderComp,
         FooterComp
@@ -31,8 +36,22 @@ export default {
     top: 0;
     left: 0;
     z-index: -1;
-    opacity: 0.1;
-    background-image: url("assets/images/bg3.jpg");
+    opacity: 0.3;
+}
+.bg1{
+    background: url('./assets/images/bg1.jpg');
+}
+.bg2{
+    background: url('./assets/images/bg2.jpg');
+}
+.bg3{
+    background: url('./assets/images/bg3.jpg');
+}
+.bg4{
+    background: url('./assets/images/bg4.jpg');
+}
+.bg5{
+    background: url('./assets/images/bg5.jpg'); 
 }
 /* 富文本内容展示 的基本样式 */
 .quill-editor-content p {
