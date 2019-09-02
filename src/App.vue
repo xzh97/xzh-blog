@@ -1,5 +1,6 @@
 <template>
-    <div id="app">
+    <div id="app" >
+        <!-- :class="'bg'+randomNumber" -->
         <!-- <header-comp></header-comp> -->
         <router-view></router-view>
         <footer-comp></footer-comp>
