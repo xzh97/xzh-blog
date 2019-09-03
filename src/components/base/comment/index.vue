@@ -7,6 +7,7 @@
             <div class="comemnt-content">
                 <p>
                     <span class="comment-author">{{commentData.author}}</span>&nbsp;&nbsp;
+                    <span class="reply-comment-author">{{'回复: @'+ /*commentData.replyCommentAuthor*/ '谢志宏'}}</span>&nbsp;&nbsp;
                     <span class="comment-datetime">{{commentData.createTime}}</span>
                 </p>
                 <p class="comment-content-detail">{{commentData.content}}</p>
@@ -79,10 +80,10 @@ export default {
             .comment-author, .comment-datetime{
                 color: #aaa;
             }
-            .comment-author, .comment-datetime, .comment-content-detail{
+            .comment-author, .comment-datetime, .comment-content-detail, .reply-comment-author{
                 line-height: 1.5;
             }
-            .comment-author{
+            .comment-author,.reply-comment-author{
                 background: #dddddd;
                 padding: 1px 3px;
                 font-size: 14px;
@@ -90,6 +91,9 @@ export default {
                 border-radius: $border-radius-base;
                 display: inline-block;
                 color: #aaa;
+            }
+            .reply-comment-author{
+                font-weight: normal;
             }
             .comment-content-detail{
                 word-wrap: break-word;
@@ -113,6 +117,11 @@ export default {
         }
         .child-comment{
             /* margin-left: 10px; */
+            .comment-wrapper{
+                border-bottom: none;
+                border-top: 1px dashed $border-color-base;
+            }
+
         }
     }
     
