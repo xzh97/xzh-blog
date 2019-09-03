@@ -10,7 +10,7 @@
  * @param header request header参数
  * */
 
-export default function ajax({url, method='GET', async=true, params,data,header }){
+export default function ajax({url, method='GET', async=true, params, data, header }){
     let xhr;
     return new Promise((resolve,reject) => {
         if(window.XMLHttpRequest) {
@@ -18,34 +18,21 @@ export default function ajax({url, method='GET', async=true, params,data,header 
         }else{// IE 56
             xhr = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        let reqParam = '';
-        if(params){
-            let paramKeys = Object.keys(params);
-            paramKeys.forEach( (key,index) => {
-                if(index === 0){
-                    reqParam+=`?${key}=${params[key]}&`
-                }
-                else if(index === paramKeys.length - 1){
-                    reqParam+=`${key}=${params[key]}`
-                }
-                else{
-                    reqParam+=`${key}=${params[key]}&`
-                }
-            })
-        }
-        let reqUrl = method === 'GET' ? `${url}${reqParam}` : url;
-        data === method === 'GET' ?　null : data;
-    
-        xhr.open(method,reqUrl,async);
+        let reqUrl = GetReqUrl(url,params,method);
+
+        data = method === 'GET' ?　null : data;
+
         if(header){
             for(let key in header) xhr.setRequestHeader(key,header[key]);
         }
     
+        xhr.open(method,reqUrl,async);
+    
         xhr.send(JSON.stringify(data));
     
         xhr.onreadystatechange = () => {
-            if(xhr.readyState == '4'){
-                if(xhr.status >= 200 && xhr.status < 300 || xhr.status == 304){
+            if(xhr.readyState === 4){
+                if(xhr.status >= 200 && xhr.status < 300 || xhr.status === 304){
                     let result = JSON.parse(xhr.responseText);
                     resolve(result)
                 }
@@ -58,3 +45,25 @@ export default function ajax({url, method='GET', async=true, params,data,header 
         }
     })
 }
+
+/**
+ * @param {String} url 请求url
+ * @param {Object} obj 参数对象
+ * @param {String} method 请求方法
+ * @desc 判断url
+ * @return String 处理好的字符串
+ * */
+const GetReqUrl = (url,obj = {},method = 'GET') => {
+    if (method !== 'GET') return url;
+     //url是否带有参数
+    let str = url.indexOf('?') > -1 ? '' : '?';
+    let arr = [];
+
+    for(let key in obj){
+        let item = `${key}=${obj[key]}`;
+        arr.push(item);
+    }
+    //有参数才加'?' 没有不加
+    str = arr.length ? str : '';
+    return url + str + arr.join('&');
+};
