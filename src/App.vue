@@ -1,6 +1,5 @@
 <template>
-    <div id="app" >
-        <!-- :class="'bg'+randomNumber" -->
+    <div id="app" :class="'bg'+randomNumber">
         <!-- <header-comp></header-comp> -->
         <router-view></router-view>
         <footer-comp></footer-comp>
@@ -37,21 +36,22 @@ export default {
     top: 0;
     left: 0;
     z-index: -1;
-    opacity: 0.3;
+    opacity: 0.1;
+    background-size: 100%;
 }
-.bg1{
+.bg1::after{
     background: url('./assets/images/bg1.jpg');
 }
-.bg2{
+.bg2::after{
     background: url('./assets/images/bg2.jpg');
 }
-.bg3{
+.bg3::after{
     background: url('./assets/images/bg3.jpg');
 }
-.bg4{
+.bg4::after{
     background: url('./assets/images/bg4.jpg');
 }
-.bg5{
+.bg5::after{
     background: url('./assets/images/bg5.jpg'); 
 }
 /* 富文本内容展示 的基本样式 */

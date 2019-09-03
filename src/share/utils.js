@@ -74,7 +74,39 @@ export const removeEvent = (obj,type,fn,isCapture = false) => {
     else {
         obj.dettachEvent(`on${type}`, fn);
     }
-}
+};
+
+/**
+ * @param {Object} dom
+ * @param {String} className
+ * @desc classList IE10 才支持 做下兼容
+ * */
+const addClass = (dom,className) => {
+    if(dom.classList){
+        dom.classList.add(className)
+    }
+    else {
+        let classArr = dom.className.split(' ');
+        dom.className = classArr.push(className).join(' ');
+    }
+};
+
+/**
+ * @param {Object} dom
+ * @param {String} className
+ * @desc classList IE10 才支持 做下兼容
+ * */
+const removeClass = (dom,className) => {
+    if(dom.classList){
+        !dom.classList.contains(className) && console.log(`该元素无此类名${className}!` )
+        dom.classList.contains(className) && dom.classList.remove(className);
+    }
+    else {
+        let classArr = dom.className.split(' ');
+        let index = classArr.indexOf(className);
+        dom.className = index > -1 ? classArr.splice(index,1).join(' ') : classArr.join(' ');
+    }
+};
 
 export default {
     dateFormat,
