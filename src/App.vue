@@ -60,5 +60,12 @@ export default {
     line-height: 1.7;
     margin-bottom: 8px;
     text-indent: 2em;
+    img{
+        box-shadow:0 2px 15px 1px rgba(0,0,0,0.03);
+    }
+    img:hover{
+        cursor: zoom-in;
+        transform: scale(1.03);
+    }
 }
 </style>
