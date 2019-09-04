@@ -7,7 +7,7 @@
             <div class="comemnt-content">
                 <p>
                     <span class="comment-author">{{commentData.author}}</span>&nbsp;&nbsp;
-                    <span class="reply-comment-author">{{'回复: @'+ /*commentData.replyCommentAuthor*/ '谢志宏'}}</span>&nbsp;&nbsp;
+                    <span v-if="commentData.replyCommentAuthor" class="reply-comment-author">{{'回复: @'+ commentData.replyCommentAuthor}}</span>&nbsp;&nbsp;
                     <span class="comment-datetime">{{commentData.createTime}}</span>
                 </p>
                 <p class="comment-content-detail">{{commentData.content}}</p>

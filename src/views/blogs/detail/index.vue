@@ -139,7 +139,7 @@ export default {
                 content:commentContent,
                 blogOid:this.$route.params.blogOid,
                 author:commentAuthor,
-                email:commentEmail
+                email:commentEmail,
             };
             postData.parentOid = this.replyCommentOid;
             addNewComment(postData).then(res => {
