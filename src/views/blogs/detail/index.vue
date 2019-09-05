@@ -13,7 +13,7 @@
             <p>可自由转载、引用，但需署名作者且注明文章出处。</p>
         </div>
         <div class="comment-area" ref="commentArea">
-            <h4 class="comment-title">说点什么?</h4>
+            <h4 class="comment-title">说点什么? <span v-if="isReply" class="cancel-reply" @click="cancelReply">取消回复</span></h4>
             <div class="comment-item">
                 <input v-model="commentAuthor" placeholder="昵称(required)" type="text" class="item-input comment-author">
                 <!-- <span class="item-title">名字(必填)</span> -->
@@ -59,6 +59,7 @@ export default {
             isReply:false, //是否是回复
             commentPlaceholder:'留下你的评论吧',
             replyCommentOid:'',
+            replyCommentAuthor:'',
         }
     },
     created(){
@@ -119,15 +120,6 @@ export default {
             return error;
 
         },
-        /**
-         * @param {Object} comment 回复的评论信息
-         */
-        replyComment(comment){
-            this.isReply = true;
-            this.commentPlaceholder = `回复 @${comment.author}:`;
-            this.replyCommentOid = comment.parentOid || comment.commentOid;
-            this.$refs.commentArea.scrollIntoView();
-        },
         addComment(){
             let result = this.checkComment();
             if(result.errFlag){
@@ -141,7 +133,9 @@ export default {
                 author:commentAuthor,
                 email:commentEmail,
             };
-            postData.parentOid = this.replyCommentOid;
+
+            postData.parentOid = isReply ? this.replyCommentOid : null;
+            postData.replyCommentAuthor = isReply ? this.replyCommentAuthor : null;
             addNewComment(postData).then(res => {
                 console.log(res);
                 this.$message({type:'success',text:res.errMsg});
@@ -168,6 +162,22 @@ export default {
                 default:
                     console.warn(`The key : ${key}`)
             }
+        },
+        /**
+         * @param {Object} comment 回复的评论信息
+         */
+        replyComment(comment){
+            this.isReply = true;
+            this.commentPlaceholder = `回复 @${comment.author}:`;
+            this.replyCommentOid = comment.parentOid || comment.commentOid;
+            this.replyCommentAuthor = comment.author;
+            this.$refs.commentArea.scrollIntoView();
+        },
+        cancelReply(){
+            this.isReply = false;
+            this.commentPlaceholder = '留下你的评论吧';
+            this.replyCommentAuthor = '';
+            this.replyCommentOid = '';
         }
     },
     components:{
@@ -206,6 +216,15 @@ export default {
         }
         .comment-area{
             margin-top: 30px;
+            .cancel-reply{
+                text-decoration: underline;
+                display: inline-block;
+                margin-left: 10px;
+            }
+            .cancel-reply:hover{
+                color: $primary-color;
+                cursor: pointer;
+            }
             .comment-item{
                 //height: 36px;
                 margin-top: 10px;
