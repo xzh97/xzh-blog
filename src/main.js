@@ -26,10 +26,12 @@ Vue.component(Col.name, Col); */
 
 import directives from './share/directive';
 import message from './plugins/message/index';
+import imgViewer from './plugins/image-viewer/index';
 
 Vue.config.productionTip = false
 
 Vue.use(message);
+Vue.use(imgViewer);
 directives(Vue);
 
 new Vue({

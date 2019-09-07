@@ -62,10 +62,15 @@ export default {
     text-indent: 2em;
     img{
         box-shadow:0 2px 15px 1px rgba(0,0,0,0.03);
+        transition: all .36s;
+        border-radius: $border-radius-base;
+
     }
     img:hover{
         cursor: zoom-in;
+        box-shadow: 0 0 5px $primary-color;
         transform: scale(1.03);
+        transition: all .36s;
     }
 }
 </style>

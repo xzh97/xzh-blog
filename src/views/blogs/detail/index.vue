@@ -44,9 +44,11 @@ import comment from '@/components/base/comment/index';
 import defaultAvatar from '@/assets/images/default_avatar.jpg';
 
 import util from '@/share/utils';
+import {imgMixin} from '@/share/mixin';
 import {getBlogDetail, addNewComment} from '@/api/blog'
 export default {
     name:'blog-detail',
+    mixins:[imgMixin],
     data(){
         return {
             blogData:{},

@@ -12,7 +12,7 @@ const message = {
         }
         $vm.isShow = false;
 
-        Vue.prototype.$message = (options) => {
+        Vue.prototype.$message = options => {
             let durations = 1500;
             if(!options){return}
             else if(typeof options === 'string'){ //成功

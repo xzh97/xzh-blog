@@ -14,7 +14,7 @@
  * @author xzh xzh19971005@163.com
  *
  * Created at     : 2019-05-20 21:19:57 
- * Last modified  : 2019-06-18 23:31:08
+ * Last modified  : 2019-09-07 18:37:56
  */
 export default {
     name: "xzh-switch",
@@ -59,7 +59,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-@import "../../../styles/animate.css";
+/* @import "../../../styles/animate.css"; */
 .switch-wrapper {
     .switch-box {
         min-width: 44px;
