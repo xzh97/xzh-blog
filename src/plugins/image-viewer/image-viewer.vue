@@ -9,13 +9,13 @@
 </template>
 
 <script>
-import { setTimeout } from 'timers';
+import errorImg from '@/assets/images/404.png';
 export default {
     name:'image-viewer',
     data(){
         return {
             isShow:false,
-            imgSrc:'',
+            imgSrc:errorImg,
             width:0,
             height:0,
         }
