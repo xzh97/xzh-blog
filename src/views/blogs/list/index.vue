@@ -1,92 +1,22 @@
 <template>
     <div class="blogs-wrapper">
-        <div class="blogs-inner">
-            <header class="header">
-                <div class="header-left">
-                    <h4 class="header-title">xzh的学习笔记</h4>
-                </div>
-                <div class="header-right">
-                    <a-button type='primary' @click="addNewBlog" >写笔记</a-button>
-                </div>
-            </header>
-            <div class="content">
-                <div class="content-right">
-                    <div class="content-tips">
-                        <div class="original-only">
-                            <label class="check-original-box" for="check-original"><input v-model="isSeeOriginalOnly" type="checkbox" name="blogTypeCheck" id="check-original" @change="getBlogList">只看原创</label>
-                        </div>
-                        <dl class="sort-by clearfix">
-                            <dt>排序方式:</dt>
-                            <dd class="sort-filter" v-for="item in sortByList" :key="item.title" 
-                                :class="{'sort-by-active':item.value === sortBy}"
-                                @click="sortClickHandle(item)">
-                                {{ item.title }}
-                            </dd>
-                        </dl>
-                    </div>
-                    <ul class="content-list">
-                        <li class="blog-item" :key="item.blogOid" v-for="item in blogList"
-                            @click='goToBlogDetail(item)'
-                            @mouseleave="updateBlogEditBtn(item,'hide')"
-                            @mouseenter="updateBlogEditBtn(item,'show')">
-                            <h4 class="blog-title">
-                                <span class="blog-type original"  v-if="item.type === 1">原</span>
-                                <span class="blog-type reproduced" v-else>转</span>
-                                {{ item.title }}
-                            </h4>
-                            <p class="blog-desc">{{ item.description }}</p>
-                            <div class="blog-item-footer">
-                                <p class="blog-date">{{ item.createTime }}</p>
-                                <p class="point"></p>
-                                <p class="blog-read-num">阅读数 <span class="num">{{ item.readNumber }}</span></p>
-                                <p class="point"></p>
-                                <p class="blog-comment">评论 <span class="num">{{ item.commentCount }}</span></p>
-                            </div>
-                            <div class="blog-edit-btn-group" v-if="item.isShowBlogEditBtn">
-                                <button class="blog-edit-btn" @click.stop.self='editBlog(item)'>编辑</button>
-                                <button class="blog-edit-btn">置顶</button>
-                                <button class="blog-edit-btn detele-btn" @click.stop='deleteBlog(item)'>删除</button>
-                            </div>                        
-                        </li>
-                    </ul>
-                    <pagination :total-page='totalPage' :page-size='size' :isShowPageTo='true' @page-change='handlePageChange'>
-                    </pagination>
-                </div>
-            </div>   
-        </div>
+        <logo></logo>
     </div>
 </template>
 
 <script>
 import Pagination from '@/components/base/pagination/index';
+import Logo from '@/components/business/header/index';
 
-import {getBlogList,deleteBlog} from "@/api/blog";
+import {getBlogList} from "@/api/blog";
 
 import util from '@/share/utils';
 export default {
     name:'blog-list',
     data(){
         return {
-            isSeeOriginalOnly:false,
-            sortBy:'default',
-            sortByList:[
-                {
-                    title:'按时间降序',
-                    value:'default',
-                },
-                {
-                    title:'按更新升序',
-                    value:'ascending',
-                },
-                {
-                    title:'按浏览量',
-                    value:'pageviews',
-                },
-            ],
-            blogList:[],
             page:1,
-            size:10,
-            totalPage:1,        
+            size:12,
         }
     },
     created(){
@@ -110,7 +40,7 @@ export default {
             let params = {
                 page:this.page,
                 size:this.size,
-                sortBy:this.sortBy,
+                sortBy:'default',
             }
             if(this.isSeeOriginalOnly){
                 params.type = 1;
@@ -152,6 +82,7 @@ export default {
     },
     components:{
         Pagination,
+        Logo,
     },
 }
 </script>
