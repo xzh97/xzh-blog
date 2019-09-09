@@ -7,7 +7,7 @@
         <!-- <div class="blog-tag">
             <div class="tag-item"></div>
         </div> -->
-        <div class="blog-content quill-editor-content" v-html="blogData.content"></div>
+        <div class="blog-content quill-editor-content" v-html="blogData.content" @click="handleImgClick"></div>
         <div class="blog-signature">
             <p>本文由 Winter Sweet 创作，采用  <a class="link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">知识共享署名 4.0</a>  国际许可协议进行许可。</p>   
             <p>可自由转载、引用，但需署名作者且注明文章出处。</p>
@@ -15,7 +15,7 @@
         <div class="comment-area" ref="commentArea">
             <h4 class="comment-title">说点什么? <span v-if="isReply" class="cancel-reply" @click="cancelReply">取消回复</span></h4>
             <div class="comment-item">
-                <input v-model="commentAuthor" placeholder="昵称(required)" type="text" class="item-input comment-author">
+                <input v-model="commentAuthor" placeholder="昵称(必填)" type="text" class="item-input comment-author">
                 <!-- <span class="item-title">名字(必填)</span> -->
             </div>
             <div class="comment-item">
@@ -91,7 +91,7 @@ export default {
             };
             if(!commentAuthor){
                 error.errFlag = true;
-                error.errMsg = '名称未填写';
+                error.errMsg = '昵称未填写';
                 return error;
             }
 

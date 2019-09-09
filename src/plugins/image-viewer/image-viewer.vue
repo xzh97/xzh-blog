@@ -35,21 +35,12 @@ export default {
             }
         }
     },
-    /* mounted(){  
-        this.$nextTick(() => {
-            setTimeout(() => {
-                let body = document.body;
-                body.style.overflow = 'hidden';
-            },0)
-        })
-    }, */
     methods:{
         hideImageViewer(){
             this.isShow = false;
-            /* setTimeout(() => {
-                let body = document.body;
-                body.style.overflow = 'auto';
-            },0) */
+            //todo 会有滚动条跳动问题  body的宽度会变化
+            console.dir(document.body);
+            document.body.style.overflow = 'auto';
         }
     }
 }
