@@ -3,7 +3,7 @@ const blogsDetail = () => import('@/views/blogs/detail/index');
 const addBlog = () => import('@/views/blogs/create/index');
 const routes = [
     {
-        path:'/blog/list/',
+        path:'/blog/list/:categoryOid',
         name: 'blogList',
         component:blogsList,
         meta:{},

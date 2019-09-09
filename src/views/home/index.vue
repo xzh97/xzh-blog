@@ -25,7 +25,7 @@
                 v-for="(category,index) in categoryList"
                 :key="category.categoryOid"
             >
-                <span class="category-name">&{{category.name}}</span>
+                <span class="category-name" @click='goCategoryList(category)'>&{{category.name}}</span>
                 <span v-if="index !== categoryList.length - 1" class="dot">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
             </dd>
         </dl>
@@ -83,6 +83,11 @@ export default {
         goDetail(blogOid){
             this.$router.push({
                 path:`blog/detail/${blogOid}`
+            })
+        },
+        goCategoryList(category){
+            this.$router.push({
+                path:`blog/list/${category.categoryOid}`
             })
         }
     },

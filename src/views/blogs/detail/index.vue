@@ -68,11 +68,6 @@ export default {
         this.getBlogData();
     },
     methods:{
-        editBlog(){
-            let {blogOid} = this.$route.params;
-            this.$router.push({path:`/blog/update/${blogOid}`})
-        },
-        //service
         getBlogData(){
             let {blogOid} = this.$route.params;
             getBlogDetail(blogOid).then(res => {
