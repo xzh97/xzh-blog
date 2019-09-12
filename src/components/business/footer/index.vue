@@ -1,10 +1,10 @@
 <template>
     <div class="footer-wrapper">
-        <p class="copy-right">豫ICP备15033156号-1 / 豫公网安备 41081102000052号</p>
+        <p class="copy-right">沪ICP备xxxxxxxx-1 / 沪公网安备 xxxxxxxxxxxxxx号</p>
         <p
             class="copy-right"
             style="margin-top:20px;"
-        >© 2014 - 2019 追梦的蚂蚁. Using Typecho & Moricolor. / Sitemap</p>
+        >© 2019 - {{ new Date().getFullYear() }} 追梦的蚂蚁. </p>
     </div>
 </template>
 

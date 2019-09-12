@@ -9,7 +9,7 @@
         </div> -->
         <div class="blog-content quill-editor-content" v-html="blogData.content" @click="handleImgClick"></div>
         <div class="blog-signature">
-            <p>本文由 Winter Sweet 创作，采用  <a class="link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">知识共享署名 4.0</a>  国际许可协议进行许可。</p>   
+            <p>本文由 Winter Sweet 创作，采用  <a class="link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">知识共享署名 4.0国际许可协议</a> 进行许可。</p>
             <p>可自由转载、引用，但需署名作者且注明文章出处。</p>
         </div>
         <div class="comment-area" ref="commentArea">

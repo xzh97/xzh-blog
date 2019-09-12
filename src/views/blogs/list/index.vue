@@ -8,13 +8,13 @@
                 <p class="blog-title oneline" @click="goBlogDetail(blog)">{{blog.title}}</p>
                 <p class="blog-create-time">{{blog.createTime}}</p>
             </div>
-            <pagination
-                align="right"
-                :has-next-page="hasNextPage"
-                :has-prev-page="hasPrevPage"
-                @on-page-change="onChangePager"
-            ></pagination>
         </div>
+        <pagination
+            align="right"
+            :has-next-page="hasNextPage"
+            :has-prev-page="hasPrevPage"
+            @on-page-change="onChangePager"
+        ></pagination>
     </div>
 </template>
 
@@ -119,7 +119,7 @@ export default {
     }
     .blog-list-inner {
         width: 100%;
-        @include fac;
+        @include fsc;
         flex-direction: row;
         flex-wrap: wrap;
         .blog-list-item{

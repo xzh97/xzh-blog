@@ -12,7 +12,7 @@
 5. 命令行更新版本  思路：node脚本 打新包 + 上传到服务器 替换掉旧文件  
 6. blog 评论模块 finished
 7. comment组件，回复时 增加 回复的对象 (后端需要加一个replyCommentAuthor字段); finished
-8. 每个分类下的博客列表页面 todo 2019-09-09 finished
+8. 每个分类下的博客列表页面 2019-09-09 finished
 
 ## 博客 灵感
 1. antd vue按需加载之后， select下的option，radio下的group都需要按照这个方式在main下引入一次才行  不然不能用 ，了解一下原理
