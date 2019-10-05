@@ -7,7 +7,9 @@
         <!-- <div class="blog-tag">
             <div class="tag-item"></div>
         </div> -->
-        <div class="blog-content quill-editor-content" v-html="blogData.content" @click="handleImgClick"></div>
+        <div class="blog-content quill-editor-content">
+            <div class="ql-snow ql-editor" v-html="blogData.content" @click="handleImgClick"></div>
+        </div>
         <div class="blog-signature">
             <p>本文由 Winter Sweet 创作，采用  <a class="link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">知识共享署名 4.0国际许可协议</a> 进行许可。</p>
             <p>可自由转载、引用，但需署名作者且注明文章出处。</p>
@@ -29,7 +31,7 @@
                 <button class="comment-btn" @click="addComment">发表评论</button>
             </div>
         </div>
-    
+
         <comment :key='comment.commentOid' v-for="comment in blogData.comments" :comment-data="comment" @action-click='handleCommentActionClick'>
             <template v-if="comment.children.length" slot="children">
                 <comment :key='childComment.commentOid' v-for="childComment in comment.children" :comment-data="childComment" @action-click='handleCommentActionClick'></comment>
@@ -42,6 +44,7 @@
 import xzhButton from '@/components/base/button/index';
 import comment from '@/components/base/comment/index';
 import defaultAvatar from '@/assets/images/default_avatar.jpg';
+import 'quill/dist/quill.snow.css';
 
 import util from '@/share/utils';
 import {imgMixin} from '@/share/mixin';
@@ -81,7 +84,7 @@ export default {
                 console.log(err);
                 this.$message({type:'error',text:err.errMsg})
             })
-            
+
         },
         checkComment(){
             let {commentContent, commentAuthor, commentEmail} = this;
@@ -260,15 +263,15 @@ export default {
                     cursor: pointer;
                 }
                 .comment-btn:hover{
-                    opacity: .8; 
+                    opacity: .8;
                     transition: all .36s;
                 }
             }
-            
-            
+
+
         }
         .comments-list{
-            
+
         }
     }
 </style>
