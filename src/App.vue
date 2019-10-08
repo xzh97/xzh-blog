@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import HeaderComp from "./components/business/header/index";
 import FooterComp from "./components/business/footer/index";
 export default {
     name: "app",
@@ -16,7 +15,6 @@ export default {
         }
     },
     components: {
-        HeaderComp,
         FooterComp
     }
 };
@@ -51,14 +49,14 @@ export default {
     background: url('./assets/images/bg4.jpg');
 }
 .bg5::after{
-    background: url('./assets/images/bg5.jpg'); 
+    background: url('./assets/images/bg5.jpg');
 }
 /* 富文本内容展示 的基本样式 */
 .quill-editor-content p {
     font-size: $font-size-base;
     line-height: 1.7;
     margin-bottom: 8px;
-    text-indent: 2em;
+    //text-indent: 2em;
     img{
         box-shadow:0 2px 15px 1px rgba(0,0,0,0.03);
         transition: all .36s;
