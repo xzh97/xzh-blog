@@ -1,10 +1,11 @@
+/* eslint-disable */
 var path = require('path')
 function resolve (dir) {
   console.log(__dirname)
   return path.join(__dirname, dir)
 }
 module.exports = {
-  lintOnSave: false,
+  lintOnSave: true,
   css: {
     loaderOptions: {
       // 给 sass-loader 传递选项

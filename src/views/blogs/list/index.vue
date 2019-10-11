@@ -82,6 +82,7 @@ export default {
                 if (blogPage <= 1) return;
                 this.blogPage--;
             } else {
+                console.log(blogPage);
                 if (blogPage >= totalPage) return;
                 this.blogPage++;
             }
