@@ -24,11 +24,11 @@ export const dateFormat = (date,format = 'yyyy-MM-dd') => {
     second = d.getSeconds();
 
     let newTime = format.replace(/yyyy/g,year).
-    replace(/MM/g,addZero(month)).
-    replace(/dd/g,addZero(day)).
-    replace(/hh/g,addZero(hour)).
-    replace(/mm/g,addZero(min)).
-    replace(/ss/g,addZero(second))
+        replace(/MM/g,addZero(month)).
+        replace(/dd/g,addZero(day)).
+        replace(/hh/g,addZero(hour)).
+        replace(/mm/g,addZero(min)).
+        replace(/ss/g,addZero(second))
 
     return newTime;
 
@@ -42,7 +42,7 @@ export const dateFormat = (date,format = 'yyyy-MM-dd') => {
  */
 export const getStyle = (obj = {},attr) => {
     if(!attr) return;
-    return obj.currentStyle ?　obj.currentStyle[attr] :　window.getComputedStyle(obj,null)[attr];
+    return obj.currentStyle ? obj.currentStyle[attr] : window.getComputedStyle(obj,null)[attr];
 };
 /**
  * @param obj 传入对象

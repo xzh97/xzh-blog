@@ -61,11 +61,7 @@ export default {
     computed: {
         alignClass() {
             let { align } = this;
-            return align === "left"
-                ? "align-left"
-                : align === "right"
-                ? "align-right"
-                : "align-center";
+            return align === "left" ? "align-left" : align === "right" ? "align-right" : "align-center";
         },
         popoverContent() {
             let { hasNextPage, hasPrevPage } = this;

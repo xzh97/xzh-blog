@@ -1,7 +1,7 @@
 /**
  * @description 封装ajax。
  * @author xzh
- * 
+ *
  * @param url 请求地址
  * @param method 请求方法
  * @param async 异步或同步
@@ -20,16 +20,16 @@ export default function ajax({url, method='GET', async=true, params, data, heade
         }
         let reqUrl = GetReqUrl(url,params,method);
 
-        data = method === 'GET' ?　null : data;
+        data = method === 'GET' ? null : data;
 
         if(header){
             for(let key in header) xhr.setRequestHeader(key,header[key]);
         }
-    
+
         xhr.open(method,reqUrl,async);
-    
+
         xhr.send(JSON.stringify(data));
-    
+
         xhr.onreadystatechange = () => {
             if(xhr.readyState === 4){
                 if(xhr.status >= 200 && xhr.status < 300 || xhr.status === 304){
@@ -55,7 +55,7 @@ export default function ajax({url, method='GET', async=true, params, data, heade
  * */
 const GetReqUrl = (url,obj = {},method = 'GET') => {
     if (method !== 'GET') return url;
-     //url是否带有参数
+    //url是否带有参数
     let str = url.indexOf('?') > -1 ? '' : '?';
     let arr = [];
 

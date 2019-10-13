@@ -79,22 +79,22 @@ export default {
                 document.body.scrollTop;
 
             switch (this.placement) {
-                case "top":
-                    this.position.left =
-                        parseInt(trigger.offsetLeft +
-                        trigger.offsetWidth / 2 -
-                        popover.offsetWidth / 2 -
-                        this.gutter);
-                    this.position.top =
-                        scrollTop +
-                        trigger.getBoundingClientRect().top -
-                        popover.offsetHeight -
-                        this.gutter;
-                    break;
-                default:
-                    console.warn(
-                        `${this.placement} is a Wrong placement, Please enter the correct placement`
-                    );
+            case "top":
+                this.position.left =
+                    parseInt(trigger.offsetLeft +
+                    trigger.offsetWidth / 2 -
+                    popover.offsetWidth / 2 -
+                    this.gutter);
+                this.position.top =
+                    scrollTop +
+                    trigger.getBoundingClientRect().top -
+                    popover.offsetHeight -
+                    this.gutter;
+                break;
+            default:
+                console.warn(
+                    `${this.placement} is a Wrong placement, Please enter the correct placement`
+                );
             }
             /*console.log(trigger.offsetWidth / 2, popover.offsetWidth / 2);
             console.log(
@@ -108,7 +108,7 @@ export default {
 
             console.log("popover");
             console.dir(popover);
-            console.log(""); 
+            console.log("");
 
             console.log(
                 `position left : ${this.position.left}, position top : ${this.position.top}`

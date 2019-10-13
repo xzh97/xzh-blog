@@ -32,6 +32,8 @@ module.exports = {
         'eqeqeq': [2, 'always'],
         "no-console": 0, //不允许使用console
         "no-unused-vars" : 0, //声明但是没用到的变量
+        "no-undef":0, //未声明变量
+        "vue/no-unused-components":0, //注册了但未使用的vue组件
         //'no-alert': process.env.NODE_ENV === 'production' ? 2 : 0,
     }
 };

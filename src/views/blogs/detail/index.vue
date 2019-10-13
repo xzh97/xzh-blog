@@ -104,7 +104,9 @@ export default {
                 return error;
             }
             else{
-                let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+                /*let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;*/
+                //eslint上 \-会报错 先看下这样改有没有问题
+                let reg = /^([a-zA-Z]|[0-9])(\w|-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
                 if(!reg.test(commentEmail)){
                     error.errFlag = true;
                     error.errMsg = '请填写正确的电子邮箱';
@@ -156,11 +158,11 @@ export default {
         },
         handleCommentActionClick(key,comment){
             switch(key){
-                case 'reply':
-                    this.replyComment(comment);
-                    break;
-                default:
-                    console.warn(`The key : ${key}`)
+            case 'reply':
+                this.replyComment(comment);
+                break;
+            default:
+                console.warn(`The key : ${key}`)
             }
         },
         /**
