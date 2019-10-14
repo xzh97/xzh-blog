@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "commitizen": "^4.0.3",
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
     "vue-quill-editor": "^3.0.6",
@@ -21,6 +22,7 @@
     "babel-eslint": "^10.0.1",
     "babel-plugin-import": "^1.12.0",
     "css-loader": "^2.1.1",
+    "cz-conventional-changelog": "^3.0.2",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.11.0",
@@ -52,5 +54,10 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }

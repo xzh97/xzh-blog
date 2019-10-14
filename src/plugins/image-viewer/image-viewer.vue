@@ -2,7 +2,7 @@
     <transition name="fade">
         <div v-if="isShow" class="image-viewer-wrapper" @click="hideImageViewer">
             <div class="image-viewer-inner">
-                <img ref="img" class="img-center" :src="imgSrc" alt="">
+                <img ref="img" :style="imgStyle" class="img-center" :src="imgSrc" alt="">
             </div>
         </div>
     </transition>
