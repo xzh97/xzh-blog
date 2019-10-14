@@ -23,14 +23,32 @@ export default {
     computed:{
         imgStyle(){
             let {width, height} = this;
+            let clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+            let clientWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            console.log(clientHeight, clientWidth);
             if(width >= height){
-                return {
-                    height:height + 'px'
+                if(height > clientHeight){
+                    return {
+                        height:clientHeight + 'px'
+                    }
                 }
+                else{
+                    return {
+                        height:height + 'px'
+                    }
+                }
+
             }
             else{
-                return {
-                    width:width + 'px',
+                if(width > clientWidth){
+                    return {
+                        width:clientWidth + 'px',
+                    }
+                }
+                else{
+                    return {
+                        width:width + 'px',
+                    }
                 }
             }
         }
@@ -38,7 +56,7 @@ export default {
     methods:{
         hideImageViewer(){
             this.isShow = false;
-            //todo 会有滚动条跳动问题  body的宽度会变化
+            //todo windows 会有滚动条跳动问题  body的宽度会变化  暂时不解决了
             console.dir(document.body);
             document.body.style.overflow = 'auto';
         }
