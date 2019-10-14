@@ -18,14 +18,13 @@ export default {
             imgSrc:errorImg,
             width:0,
             height:0,
+            clientWidth:document.documentElement.clientWidth || document.body.clientWidth, //浏览器宽度边界值
+            clientHeight:document.documentElement.clientHeight || document.body.clientHeight, //浏览器高度边界值
         }
     },
     computed:{
         imgStyle(){
-            let {width, height} = this;
-            let clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
-            let clientWidth = document.documentElement.clientWidth || document.body.clientWidth;
-            console.log(clientHeight, clientWidth);
+            let {width, height, clientHeight, clientWidth} = this;
             if(width >= height){
                 if(height > clientHeight){
                     return {
@@ -76,6 +75,7 @@ export default {
         cursor: zoom-out;
         .image-viewer-inner{
             padding: 20px;
+            height: 100%;
             .img-center{
                 position: absolute;
                 top: 50%;
