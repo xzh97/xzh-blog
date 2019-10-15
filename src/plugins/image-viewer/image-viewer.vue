@@ -2,7 +2,7 @@
     <transition name="fade">
         <div v-if="isShow" class="image-viewer-wrapper" @click="hideImageViewer">
             <div class="image-viewer-inner">
-                <img ref="img" :style="imgStyle" class="img-center" :src="imgSrc" alt="">
+                <img ref="img"  class="img-center" :src="imgSrc" alt="">
             </div>
         </div>
     </transition>
@@ -57,7 +57,7 @@ export default {
             this.isShow = false;
             //todo windows 会有滚动条跳动问题  body的宽度会变化  暂时不解决了
             console.dir(document.body);
-            document.body.style.overflow = 'auto';
+            //document.body.style.overflow = 'auto';
         }
     }
 }
@@ -73,16 +73,18 @@ export default {
         background: rgba(0,0,0,0.45);
         z-index: 8;
         cursor: zoom-out;
+        overflow: auto;
         .image-viewer-inner{
             padding: 20px;
-            height: 100%;
+            width: 520px;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background: #ffffff;
             .img-center{
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%,-50%);
-
-                //cursor: zoom-out;
+                width: 100%;
             }
         }
     }

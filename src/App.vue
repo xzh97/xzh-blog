@@ -60,6 +60,7 @@ export default {
     img{
         box-shadow:0 2px 15px 1px rgba(0,0,0,0.03);
         transition: all .36s;
+        max-width: 100%;
         border-radius: $border-radius-base;
 
     }
