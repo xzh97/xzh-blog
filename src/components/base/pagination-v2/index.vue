@@ -18,7 +18,6 @@
 </template>
 
 <script>
-//todo 把分页组件写完
 import icon from "@/components/base/icon/index";
 import popover from "@/components/base/popover/index";
 export default {

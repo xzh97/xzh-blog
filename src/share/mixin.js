@@ -17,7 +17,6 @@ export const imgMixin = {
             console.log($event);
             let target = $event.target || $event.srcElement;
             if(target.tagName === 'IMG'){
-                //todo 会有滚动条跳动问题  body的宽度会变化
                 console.log(document.body.getBoundingClientRect());
                 console.dir(document.body);
                 document.body.style.overflow = 'hidden';
