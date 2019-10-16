@@ -57,7 +57,7 @@ export default {
             this.isShow = false;
             //todo windows 会有滚动条跳动问题  body的宽度会变化  暂时不解决了
             console.dir(document.body);
-            //document.body.style.overflow = 'auto';
+            document.body.style.overflow = 'auto';
         }
     }
 }
