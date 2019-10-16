@@ -27,7 +27,7 @@ export default {
 }
 #app::after {
     content: "";
-    width: 100%;
+    width: 100vw;
     height: 100%;
     position: fixed;
     top: 0;
