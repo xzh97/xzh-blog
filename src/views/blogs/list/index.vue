@@ -3,7 +3,7 @@
         <logo></logo>
 
         <h3 class="category-title">Category:&nbsp;&nbsp;{{category.name}}</h3>
-        <div class="blog-list-inner">
+        <div class="blog-list-inner clearfix">
             <div class="blog-list-item" v-for="blog in blogList" :key="blog.blogOid">
                 <p class="blog-title oneline" @click="goBlogDetail(blog)">{{blog.title}}</p>
                 <p class="blog-create-time">{{blog.createTime}}</p>
@@ -44,7 +44,8 @@ export default {
     },
     methods: {
         getCategoryDetail(){
-            getCategoryDetail(this.$route.params.categoryOid).then(res => {
+            let {categoryOid} = this.$route.params
+            getCategoryDetail(categoryOid).then(res => {
                 console.log(res);
                 this.category = res;
             }).catch(err => {
@@ -77,12 +78,11 @@ export default {
         onChangePager({type}) {
             console.log(type);
             let { blogPage, totalPage } = this;
+            console.log(blogPage);
             if (type === "prev") {
-                console.log(blogPage);
                 if (blogPage <= 1) return;
                 this.blogPage--;
             } else {
-                console.log(blogPage);
                 if (blogPage >= totalPage) return;
                 this.blogPage++;
             }
@@ -120,9 +120,7 @@ export default {
     }
     .blog-list-inner {
         width: 100%;
-        @include fsc;
-        flex-direction: row;
-        flex-wrap: wrap;
+        height: 100%;
         .blog-list-item{
             width: 30%;
             background: rgba(253, 246, 243, 0.6);
@@ -131,7 +129,10 @@ export default {
             box-shadow: $box-shadow-base;
             padding: 14px;
             line-height: 20px;
-            margin-bottom: 20px;
+            margin: 0 12.5px 20px;
+            float: left;
+            transform:scale(1);
+            transition: all .3s;
             .blog-title{
                 font-size: 15px;
                 color:$title-color;
@@ -147,7 +148,8 @@ export default {
             }
         }
         .blog-list-item:hover{
-            opacity: .8;
+            transform:scale(1.1);
+            transition: all .3s;
         }
     }
 }

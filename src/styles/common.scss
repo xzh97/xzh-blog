@@ -47,7 +47,6 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-    width: 100vw;
 }
 ol, ul {
 	list-style: none;
@@ -74,6 +73,7 @@ hr {
     
 .clearfix::after{
 	content: '';
+	display: block;
 	height:0;
 	visibility: hidden;
 	clear: both;
