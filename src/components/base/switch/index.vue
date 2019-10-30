@@ -39,7 +39,7 @@ export default {
     computed:{
         checkedStyle(){
             let { checkedValue, activeBg, inactiveBg} = this;
-            return checkedValue ? { 'background-color': activeBg } :　{ 'background-color': inactiveBg };
+            return checkedValue ? { 'background-color': activeBg } : { 'background-color': inactiveBg };
         }
     },
     methods:{
