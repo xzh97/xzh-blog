@@ -2,17 +2,21 @@
     <div id="app" :class="'bg'+randomNumber">
         <router-view></router-view>
         <footer-comp></footer-comp>
+        <canvas id="live2d" width="280" height="250"></canvas>
     </div>
 </template>
 
 <script>
-import FooterComp from "./components/business/footer/index";
+import FooterComp from "@/components/business/footer/index";
 export default {
     name: "app",
     computed: {
         randomNumber() {
             return Math.floor(Math.random() * 5 + 1)
         }
+    },
+    mounted(){
+        loadlive2d("live2d", 'static/live2d/kesshouban/model.json');
     },
     components: {
         FooterComp
@@ -70,5 +74,10 @@ export default {
         transform: scale(1.03);
         transition: all .36s;
     }
+}
+#live2d{
+    position: fixed;
+    right: 0;
+    bottom: 0;
 }
 </style>
