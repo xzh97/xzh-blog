@@ -28,7 +28,7 @@ module.exports = {
     ],
     rules:{
         "parser": "babel-eslint",
-        'indent': [2, 4],
+        'indent': ["error", 4],
         'eqeqeq': [2, 'always'],
         "no-console": 0, //不允许使用console
         "no-unused-vars" : 0, //声明但是没用到的变量

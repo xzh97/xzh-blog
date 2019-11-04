@@ -18,5 +18,11 @@
 		"tap_body":[
 			{"file":"motions/Dance.mtn"}
 		]
+	},
+	"hit_areas_custom":{
+		"head_x":[-0.80, 0.85],
+		"head_y":[-0.45, 0.45],
+		"body_x":[-0.75, 0.45],
+		"body_y":[-0.50, 0]
 	}
 }

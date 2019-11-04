@@ -2,20 +2,23 @@
     <div class="home-wrapper">
         <logo></logo>    
 
-        <div class="blog-list">
-            <h4>记事</h4>
-            <dl class="blog-item" v-for="blog in blogList" :key="blog.blogOid">
-                <dt class="create-time">{{blog.createTime}}</dt>
-                <dd class="title" @click="goDetail(blog.blogOid)">{{blog.title}}</dd>
-                <dd class="blog-description">{{blog.description}}</dd>
-            </dl>
-            <pagination
-                align="right"
-                :has-next-page="hasNextPage"
-                :has-prev-page="hasPrevPage"
-                @on-page-change="onChangePager"
-            ></pagination>
-        </div>
+            <div class="blog-list">
+                <h4>记事</h4>
+                <!--<transition-group name="fade">-->
+                <dl class="blog-item" v-for="blog in blogList" :key="blog.blogOid">
+                    <dt class="create-time">{{blog.createTime}}</dt>
+                    <dd class="title" @click="goDetail(blog.blogOid)">{{blog.title}}</dd>
+                    <dd class="blog-description">{{blog.description}}</dd>
+                </dl>
+                <!--</transition-group>-->
+
+                <pagination
+                        align="right"
+                        :has-next-page="hasNextPage"
+                        :has-prev-page="hasPrevPage"
+                        @on-page-change="onChangePager"
+                ></pagination>
+            </div>
 
         <dl class="category-list">
             <h4>(ฅ´ω`ฅ)</h4>
@@ -110,7 +113,7 @@ export default {
     .blog-list {
         width: 100%;
         .blog-item {
-            text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
+            text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
             font-weight: 400;
             line-height: 1.7;
             margin-bottom: 30px;
