@@ -7,12 +7,11 @@
  * Created at     : 2019-04-23 15:48:22
  * Last modified  : 2019-07-15 22:05:03
  */
-import config from '../config/index';
 import ajax from '../share/ajax';
 //获取文章列表
 export const getBlogList = (params) => {
     return ajax({
-        url:`${config.apiUrl}/api/blog/list`,
+        url:`/api/blog/list`,
         method:'GET',
         params
     });
@@ -21,7 +20,7 @@ export const getBlogList = (params) => {
 //新建文章
 export const createNewBlog = (data) => {
     return ajax({
-        url:`${config.apiUrl}/api/blog/create`,
+        url:`/api/blog/create`,
         method:'POST',
         data
     });
@@ -30,7 +29,7 @@ export const createNewBlog = (data) => {
 //获取文章详情
 export const getBlogDetail = (blogOid) => {
     return ajax({
-        url:`${config.apiUrl}/api/blog/detail/${blogOid}`,
+        url:`/api/blog/detail/${blogOid}`,
         method:'GET',
     });
 }
@@ -38,7 +37,7 @@ export const getBlogDetail = (blogOid) => {
 //更新文章
 export const updateBlog = (data) => {
     return ajax({
-        url:`${config.apiUrl}/api/blog/update`,
+        url:`/api/blog/update`,
         method:'PUT',
         data
     });
@@ -47,7 +46,7 @@ export const updateBlog = (data) => {
 //删除文章
 export const deleteBlog = (blogOid) => {
     return ajax({
-        url:`${config.apiUrl}/api/blog/delete/${blogOid}`,
+        url:`/api/blog/delete/${blogOid}`,
         method:'DELETE',
     });
 }
@@ -56,7 +55,7 @@ export const deleteBlog = (blogOid) => {
 //获取文章分类列表
 export const getCategories = () => {
     return ajax({
-        url:`${config.apiUrl}/api/blog/category/list`,
+        url:`/api/blog/category/list`,
         method:'GET'
     });
 }
@@ -64,7 +63,7 @@ export const getCategories = () => {
 //获取分类详情
 export const getCategoryDetail = (categoryOid) => {
     return ajax({
-        url:`${config.apiUrl}/api/blog/category/detail/${categoryOid}`,
+        url:`/api/blog/category/detail/${categoryOid}`,
         method:'GET'
     });
 }
@@ -72,7 +71,7 @@ export const getCategoryDetail = (categoryOid) => {
 //新建文章分类
 export const createCategory = (data) => {
     return ajax({
-        url:`${config.apiUrl}/api/blog/category/create`,
+        url:`/api/blog/category/create`,
         method:'POST',
         data
     });
@@ -81,7 +80,7 @@ export const createCategory = (data) => {
 //更新文章分类
 export const updateCategory = (data) => {
     return ajax({
-        url:`${config.apiUrl}/api/blog/category/update`,
+        url:`/api/blog/category/update`,
         method:'PUT',
         data
     });
@@ -90,7 +89,7 @@ export const updateCategory = (data) => {
 //更新文章分类
 export const deleteCategory = (categoryOid) => {
     return ajax({
-        url:`${config.apiUrl}/api/blog/category/delete/${categoryOid}`,
+        url:`/api/blog/category/delete/${categoryOid}`,
         method:'DELETE',
     });
 }
@@ -98,7 +97,7 @@ export const deleteCategory = (categoryOid) => {
 //添加文章评论
 export const addNewComment = (data) => {
     return ajax({
-        url:`${config.apiUrl}/api/blog/comment/add`,
+        url:`/api/blog/comment/add`,
         method:'POST',
         data
     });

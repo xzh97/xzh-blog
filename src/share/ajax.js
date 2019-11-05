@@ -9,7 +9,7 @@
  * @param data request body参数
  * @param header request header参数
  * */
-
+import config from '@/config/index';
 export default function ajax({url, method='GET', async=true, params, data, header }){
     let xhr;
     return new Promise((resolve,reject) => {
@@ -26,7 +26,7 @@ export default function ajax({url, method='GET', async=true, params, data, heade
             for(let key in header) xhr.setRequestHeader(key,header[key]);
         }
 
-        xhr.open(method,reqUrl,async);
+        xhr.open(method,`${config.apiUrl}${reqUrl}`,async);
 
         xhr.send(JSON.stringify(data));
 
