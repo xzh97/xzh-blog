@@ -47,6 +47,7 @@ import defaultAvatar from '@/assets/images/default_avatar.jpg';
 import 'quill/dist/quill.snow.css';
 
 import util from '@/share/utils';
+import moment from 'moment';
 import {imgMixin} from '@/share/mixin';
 import {getBlogDetail, addNewComment} from '@/api/blog'
 export default {
@@ -77,8 +78,8 @@ export default {
                 res.lastUpdatedTime = util.dateFormat(res.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss');
                 this.blogData = res;
                 this.blogData.comments.forEach(comment => {
-                    comment.createTime = util.dateFormat(comment.createTime,'yyyy-MM-dd hh:mm:ss');
-                    comment.children.length && comment.children.map(item => item.createTime = util.dateFormat(item.createTime,'yyyy-MM-dd hh:mm:ss'));
+                    comment.createTime = moment(comment.createTime).fromNow();
+                    comment.children.length && comment.children.map(item => item.createTime = moment(item.createTime).fromNow());
                 })
             }).catch(err => {
                 console.log(err);
