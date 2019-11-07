@@ -6,6 +6,7 @@ import router from './routes/index';
 //import './assets/iconfont/iconfont.css'; //暂时先用在线css
 import './styles/animate.css';
 import './styles/common.scss';
+import '@/styles/font-family.css';
 
 import directives from './share/directive';
 import message from './plugins/message/index';

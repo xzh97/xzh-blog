@@ -3,7 +3,7 @@
         <logo></logo>    
 
             <div class="blog-list">
-                <h4>记事</h4>
+                <h4 class="list-tip">最近更新</h4>
                 <!--<transition-group name="fade">-->
                 <dl class="blog-item" v-for="blog in blogList" :key="blog.blogOid">
                     <dt class="create-time">{{blog.createTime}}</dt>
@@ -12,36 +12,34 @@
                 </dl>
                 <!--</transition-group>-->
 
-                <pagination
+                <!--<pagination
                         align="right"
                         :has-next-page="hasNextPage"
                         :has-prev-page="hasPrevPage"
                         @on-page-change="onChangePager"
-                ></pagination>
+                ></pagination>-->
             </div>
 
-        <dl class="category-list">
-            <h4>(ฅ´ω`ฅ)</h4>
-            <dt class="category">Category</dt>
-            <dd
+        <ul class="category-list">
+            <h4 class="list-tip">Category</h4>
+            <li
                 class="category-item"
-                v-for="(category,index) in categoryList"
+                v-for="category in categoryList"
                 :key="category.categoryOid"
             >
-                <span class="category-name" @click='goCategoryList(category)'>&{{category.name}}</span>
-                <span v-if="index !== categoryList.length - 1" class="dot">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
-            </dd>
-        </dl>
+                <span class="category-name" @click='goCategoryList(category)'>&nbsp;&nbsp;{{category.name}}&nbsp;&nbsp;</span>
+                <!--<span v-if="index !== categoryList.length - 1" class="dot">&nbsp;&nbsp;·&nbsp;&nbsp;</span>-->
+            </li>
+        </ul>
     </div>
 </template>
 
 <script>
 import { getBlogList, getCategories } from "@/api/blog";
-import utils from "@/share/utils";
 import moment from 'moment';
 
 import Pagination from "@/components/base/pagination-v2/index";
-import Logo from '@/components/business/header/index';
+import Logo from '@/components/business/logo/index';
 export default {
     name: "home",
     data() {
@@ -49,7 +47,7 @@ export default {
             blogList: [],
             categoryList: [], //博客分类列表
             blogPage: 1,
-            blogSize: 5,
+            blogSize: 8,
             hasNextPage: false,
             hasPrevPage: false,
             totalPage: 0
@@ -112,6 +110,11 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/mixin.scss";
 .home-wrapper {
+    .list-tip{
+        font-size: 24px;
+        font-family: 'llt';
+        font-weight: 600;
+    }
     .blog-list {
         width: 100%;
         .blog-item {
@@ -124,17 +127,19 @@ export default {
                 float: left;
                 clear: left;
                 color: #34495e;
+                font-family: 'llt';
+                font-size: 22px;
             }
             .title {
                 cursor: pointer;
                 color: $title-color;
             }
+            .title:hover {
+                color: #34495e;
+                transition: all 0.2s;
+            }
             .blog-description {
                 font-size: 15px;
-            }
-
-            .blog-item:hover {
-                color: #34495e;
             }
         }
     }
@@ -156,9 +161,6 @@ export default {
             .category-name:hover {
                 color: #34495e;
                 transition: all 0.2s;
-            }
-            .dot {
-                color: #34495e;
             }
         }
     }

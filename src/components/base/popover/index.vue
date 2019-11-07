@@ -96,21 +96,21 @@ export default {
                     `${this.placement} is a Wrong placement, Please enter the correct placement`
                 );
             }
-            /*console.log(trigger.offsetWidth / 2, popover.offsetWidth / 2);
-            console.log(
+            /*console.logo(trigger.offsetWidth / 2, popover.offsetWidth / 2);
+            console.logo(
                 "trigger",
                 trigger.getBoundingClientRect().top,
                 trigger.offsetTop,
                 popover.offsetHeight
             );
             console.dir(trigger);
-            console.log("");
+            console.logo("");
 
-            console.log("popover");
+            console.logo("popover");
             console.dir(popover);
-            console.log("");
+            console.logo("");
 
-            console.log(
+            console.logo(
                 `position left : ${this.position.left}, position top : ${this.position.top}`
             );*/
 

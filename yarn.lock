@@ -4090,7 +4090,7 @@ lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5
 
 log-symbols@^2.2.0:
   version "2.2.0"
-  resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-2.2.0.tgz#5740e1c5d6f0dfda4ad9323b5332107ef6b4c40a"
+  resolved "https://registry.yarnpkg.com/logo-symbols/-/logo-symbols-2.2.0.tgz#5740e1c5d6f0dfda4ad9323b5332107ef6b4c40a"
   dependencies:
     chalk "^2.0.1"
 
@@ -4683,7 +4683,7 @@ ora@^3.4.0:
     chalk "^2.4.2"
     cli-cursor "^2.1.0"
     cli-spinners "^2.0.0"
-    log-symbols "^2.2.0"
+    logo-symbols "^2.2.0"
     strip-ansi "^5.2.0"
     wcwidth "^1.0.1"
 
@@ -6708,7 +6708,7 @@ webpack-dev-middleware@^3.6.2:
     memory-fs "^0.4.1"
     mime "^2.3.1"
     range-parser "^1.0.3"
-    webpack-log "^2.0.0"
+    webpack-logo "^2.0.0"
 
 webpack-dev-server@^3.3.1:
   version "3.3.1"
@@ -6742,12 +6742,12 @@ webpack-dev-server@^3.3.1:
     supports-color "^6.1.0"
     url "^0.11.0"
     webpack-dev-middleware "^3.6.2"
-    webpack-log "^2.0.0"
+    webpack-logo "^2.0.0"
     yargs "12.0.5"
 
 webpack-log@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.yarnpkg.com/webpack-log/-/webpack-log-2.0.0.tgz#5b7928e0637593f119d32f6227c1e0ac31e1b47f"
+  resolved "https://registry.yarnpkg.com/webpack-logo/-/webpack-logo-2.0.0.tgz#5b7928e0637593f119d32f6227c1e0ac31e1b47f"
   dependencies:
     ansi-colors "^3.0.0"
     uuid "^3.3.2"

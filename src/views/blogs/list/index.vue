@@ -20,7 +20,7 @@
 
 <script>
 import Pagination from "@/components/base/pagination-v2/index";
-import Logo from "@/components/business/header/index";
+import Logo from "@/components/business/logo/index";
 
 import { getBlogList,getCategoryDetail } from "@/api/blog";
 
