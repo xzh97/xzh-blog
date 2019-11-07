@@ -38,6 +38,7 @@
 <script>
 import { getBlogList, getCategories } from "@/api/blog";
 import utils from "@/share/utils";
+import moment from 'moment';
 
 import Pagination from "@/components/base/pagination-v2/index";
 import Logo from '@/components/business/header/index';
@@ -61,7 +62,8 @@ export default {
                 res => {
                     console.log(res);
                     res.data.forEach(item => {
-                        item.createTime = utils.dateFormat(item.createTime);
+                        //item.createTime = utils.dateFormat(item.createTime);
+                        item.createTime = moment(item.createTime).format('ddd,YY MMM Do');
                     });
                     this.blogList = res.data;
                     this.hasNextPage = res.hasNextPage;
