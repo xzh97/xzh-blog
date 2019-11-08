@@ -22,11 +22,14 @@ export default function ajax({url, method='GET', async=true, params, data, heade
 
         data = method === 'GET' ? null : data;
 
+        xhr.open(method,`${config.apiUrl}${reqUrl}`,async);
+
+        /* setRequestHeader 必须在open之后 send之前*/
+        xhr.setRequestHeader('Access-Control-Allow-Origin',`${config.apiUrl}`);
+
         if(header){
             for(let key in header) xhr.setRequestHeader(key,header[key]);
         }
-
-        xhr.open(method,`${config.apiUrl}${reqUrl}`,async);
 
         xhr.send(JSON.stringify(data));
 
