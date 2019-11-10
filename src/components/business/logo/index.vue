@@ -22,7 +22,7 @@ export default {
         font-weight: 600;
         margin-top: 30px;
         position: relative;
-        font-family: 'llt';
+        //font-family: 'llt';
     }
     .description {
         font-size: 18px;
