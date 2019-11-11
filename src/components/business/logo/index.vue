@@ -1,17 +1,26 @@
 <template>
     <div class="logo">
-        <h1 class="logo-text">Winter Sweet</h1>
+        <h1 class="logo-text">Winter Sweet <Icon @click="goToGitHub" type="github" fill /></h1>
         <p class="description">何须仰望他人，自己亦是风景</p>
-        <div class="search-anything">
+        <!--<div class="search-anything">
             <input class="search-area" type="text" placeholder="Search anything here~" />
-        </div>
+        </div>-->
         <hr />
     </div>
 </template>
 
 <script>
+import Icon from '@/components/base/icon/index';
 export default {
-    name: 'logo'
+    name: 'logo',
+    methods:{
+        goToGitHub(){
+            window.open('https://github.com/xzh97','_blank')
+        }
+    },
+    components:{
+        Icon,
+    }
 }
 </script>
 
@@ -22,7 +31,16 @@ export default {
         font-weight: 600;
         margin-top: 30px;
         position: relative;
-        //font-family: 'llt';
+        .icon-github-fill{
+            cursor: pointer;
+            display: inline-block;
+            transform: scale(1);
+            transition: all .6s;
+        }
+        .icon-github-fill:hover{
+            transform: scale(1.2);
+            transition: all .6s;
+        }
     }
     .description {
         font-size: 18px;

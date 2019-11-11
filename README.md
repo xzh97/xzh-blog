@@ -13,6 +13,8 @@
 * todo comment组件 添加emoji表情
 * live2d 添加血小板看板娘 初步完成，还需要改一些东西 finished
 * todo blog/detail 显示目录方便点击跳到对应地方
+* todo 首页搜索文章功能
+* todo pagination组件 确认下中间的菜单用来干嘛。。
 
 ## 博客 灵感
 * 工作上碰到的问题 及解决方案 （ ex：1.去年碰到的点击账本直接进入详情，详情回退直接回退到首页 列表页不显示问题， contentLoaded的问题， 原因: 首屏引入的amap等第三方文件太大，还没加载完就点击账本，导致vue-router崩溃；）

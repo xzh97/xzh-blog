@@ -3,7 +3,7 @@ import App from './App.vue'
 
 import router from './routes/index';
 
-//import './assets/iconfont/iconfont.css'; //暂时先用在线css
+import './assets/iconfont/iconfont.css';
 import './styles/animate.css';
 import './styles/common.scss';
 

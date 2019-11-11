@@ -112,8 +112,6 @@ export default {
 .home-wrapper {
     .list-tip{
         font-size: 24px;
-        //font-family: 'llt';
-        font-weight: 600;
     }
     .blog-list {
         width: 100%;
@@ -127,8 +125,7 @@ export default {
                 float: left;
                 clear: left;
                 color: #34495e;
-                //font-family: 'llt';
-                font-size: 22px;
+                font-size: 20px;
             }
             .title {
                 cursor: pointer;
