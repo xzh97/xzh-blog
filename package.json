@@ -9,6 +9,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w"
   },
   "dependencies": {
+    "canvas-nest.js": "^2.0.4",
     "core-js": "^2.6.5",
     "moment": "^2.24.0",
     "vue": "^2.6.10",

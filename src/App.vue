@@ -1,5 +1,6 @@
 <template>
-    <div id="app" :class="'bg'+randomNumber">
+    <!--:class="'bg'+randomNumber"-->
+    <div id="app">
         <router-view></router-view>
         <footer-comp></footer-comp>
         <canvas id="live2d" width="280" height="250"></canvas>
@@ -8,18 +9,38 @@
 
 <script>
 import FooterComp from "@/components/business/footer/index";
+import CanvasNest from 'canvas-nest.js'
 export default {
     name: "app",
     computed: {
         randomNumber() {
             return Math.floor(Math.random() * 5 + 1)
+        },
+        config(){
+            return {
+                color: '115,150,167',
+                count: 99,
+                opacity: 0.7,
+                zIndex: -1
+            }
+        }
+    },
+    methods:{
+        createCanvasNest(){
+            const el = document.querySelector('body');
+            this.cn = new CanvasNest(el,this.config)
         }
     },
     mounted(){
         loadlive2d("live2d", 'static/live2d/kesshouban/model.json');
+        this.createCanvasNest();
+
+    },
+    beforeDestroy () {
+        this.cn.destroy()
     },
     components: {
-        FooterComp
+        FooterComp,
     }
 };
 </script>
