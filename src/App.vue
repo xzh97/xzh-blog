@@ -1,8 +1,8 @@
 <template>
     <!--:class="'bg'+randomNumber"-->
     <div id="app">
-        <router-view></router-view>
-        <footer-comp></footer-comp>
+        <router-view />
+        <footer-comp />
         <canvas id="live2d" width="280" height="250"></canvas>
     </div>
 </template>

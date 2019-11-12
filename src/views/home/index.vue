@@ -4,20 +4,11 @@
 
             <div class="blog-list">
                 <h4 class="list-tip">最近更新</h4>
-                <!--<transition-group name="fade">-->
                 <dl class="blog-item" v-for="blog in blogList" :key="blog.blogOid">
                     <dt class="create-time">{{blog.createTime}}</dt>
                     <dd class="title" @click="goDetail(blog.blogOid)">{{blog.title}}</dd>
                     <dd class="blog-description">{{blog.description}}</dd>
                 </dl>
-                <!--</transition-group>-->
-
-                <!--<pagination
-                        align="right"
-                        :has-next-page="hasNextPage"
-                        :has-prev-page="hasPrevPage"
-                        @on-page-change="onChangePager"
-                ></pagination>-->
             </div>
 
         <ul class="category-list">
@@ -46,42 +37,20 @@ export default {
         return {
             blogList: [],
             categoryList: [], //博客分类列表
-            blogPage: 1,
-            blogSize: 8,
-            hasNextPage: false,
-            hasPrevPage: false,
-            totalPage: 0
         };
     },
     computed: {},
     methods: {
         getBlogList() {
-            getBlogList({ page: this.blogPage, size: this.blogSize }).then(
+            getBlogList({ page: 1, size: 8 }).then(
                 res => {
                     console.log(res);
                     res.data.forEach(item => {
-                        //item.createTime = utils.dateFormat(item.createTime);
                         item.createTime = moment(item.createTime).format('ddd,YY MMM Do');
                     });
                     this.blogList = res.data;
-                    this.hasNextPage = res.hasNextPage;
-                    this.hasPrevPage = res.hasPrevPage;
-                    this.totalPage = res.totalPage;
                 }
             );
-        },
-        onChangePager({type}) {
-            console.log(type);
-            let { blogPage, totalPage } = this;
-            if (type === "prev") {
-                console.log(blogPage);
-                if (blogPage <= 1) return;
-                this.blogPage--;
-            } else {
-                if (blogPage >= totalPage) return;
-                this.blogPage++;
-            }
-            this.getBlogList();
         },
         goDetail(blogOid){
             this.$router.push({
