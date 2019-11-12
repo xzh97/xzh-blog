@@ -1,6 +1,6 @@
 <template>
     <div class="blog-wrapper">
-        <h2 class="blog-title">{{ blogData.title }}</h2>
+        <h2 class="blog-title" id="blog-title">{{ blogData.title }}</h2>
         <!-- <ul class="blog-toolbar">
             <li class="toolbar-item"></li>
         </ul> -->
@@ -8,7 +8,7 @@
             <div class="tag-item"></div>
         </div> -->
         <div class="blog-content quill-editor-content">
-            <div class="ql-snow ql-editor" v-html="blogData.content" @click="handleImgClick"></div>
+            <div class="ql-snow ql-editor" v-html="blogContent" @click="handleImgClick"></div>
         </div>
         <div class="blog-signature">
             <p>本文由 Winter Sweet 创作，采用  <a class="link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">知识共享署名 4.0国际许可协议</a> 进行许可。</p>
@@ -32,11 +32,19 @@
             </div>
         </div>
 
-        <comment :key='comment.commentOid' v-for="comment in blogData.comments" :comment-data="comment" @action-click='handleCommentActionClick'>
+        <comment id="blog-comments" :key='comment.commentOid' v-for="comment in blogData.comments" :comment-data="comment" @action-click='handleCommentActionClick'>
             <template v-if="comment.children.length" slot="children">
                 <comment :key='childComment.commentOid' v-for="childComment in comment.children" :comment-data="childComment" @action-click='handleCommentActionClick'></comment>
             </template>
         </comment>
+
+        <div class="blog-directory">
+            <div class="blog-directory-item" v-for="item in directory" :key="item.id">
+                <a :href="'#'+item.id" @click="handleDirectoryClick($event,item)">
+                    <span :class="[item.tag + '-title']" >{{ item.hash }}</span>
+                </a>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -66,10 +74,22 @@ export default {
             commentPlaceholder:'留下你的评论吧',
             replyCommentOid:'',
             replyCommentAuthor:'',
+            directory:[
+                {
+                    hash:'Title',
+                    tag:'blog-title',
+                    id:'blog-title'
+                },
+            ], //文章目录
         }
     },
     created(){
         this.getBlogData();
+    },
+    computed:{
+        blogContent(){
+            return this.blogData.content;
+        }
     },
     methods:{
         getBlogData(){
@@ -81,11 +101,38 @@ export default {
                     comment.createTime = moment(comment.createTime).fromNow();
                     comment.children.length && comment.children.map(item => item.createTime = moment(item.createTime).fromNow());
                 })
+                this.getBlogDirectory();
             }).catch(err => {
                 console.log(err);
                 this.$message({type:'error',text:err.errMsg})
             })
 
+        },
+        getBlogDirectory(){
+            let { content } = this.blogData;
+            let reg = /<(h\d).*?>.*?<\/h\d>/g;
+            let count = 0;
+            content = content.replace(reg, (match, tag) => {
+                count ++;
+                const hash = match.replace(/<.*?>/g, '');
+                const anchorId = `anchor-${count}`;
+                this.directory.push({ hash, tag, id: anchorId });
+                return `<${tag} id="${anchorId}">${hash}</${tag}>`;
+            });
+            this.directory.push({
+                hash:'Comment',
+                tag:'blog-comments',
+                id:'blog-comments'
+            });
+            this.blogData.content = content;
+        },
+        handleDirectoryClick(ev,item){
+            console.log(ev);
+            console.log(item);
+            ev.preventDefault();
+            document.querySelector(`#${item.id}`).scrollIntoView({
+                behavior: "smooth",
+            });
         },
         checkComment(){
             let {commentContent, commentAuthor, commentEmail} = this;
@@ -183,6 +230,9 @@ export default {
             this.replyCommentOid = '';
         }
     },
+    beforeDestroy(){
+        this.directory = [];
+    },
     components:{
         xzhButton,
         comment
@@ -194,6 +244,7 @@ export default {
 @import '@/styles/mixin.scss';
     .blog-wrapper{
         width: 100%;
+        position: relative;
         h1,h2,h3,h4,h5,h6{
             color: $text-color;
         }
@@ -275,6 +326,44 @@ export default {
         }
         .comments-list{
 
+        }
+        .blog-directory{
+            position: fixed;
+            right: 300px;
+            top: 100px;
+            border-left: 1px solid #cccccc;
+            padding: 10px;
+            max-width: 200px;
+            display: inline-block;
+            .blog-directory-item{
+                font-size: 16px;
+                line-height: 1.2;
+                .blog-title-title,.blog-comments-title{
+
+                }
+                .h1-title{
+                    font-weight: 600;
+                }
+                .h2-title{
+                    font-size: .8em;
+                    text-indent: .4em;
+                }
+                .blog-title-title{
+                    border-bottom:1px solid #cccccc;
+                    margin-bottom: 2px;
+                }
+                .blog-comments-title{
+                    border-top:1px solid #cccccc;
+                    margin-top: 2px;
+                }
+                span{
+                    display: inline-block;
+                }
+                a{
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+            }
         }
     }
 </style>
