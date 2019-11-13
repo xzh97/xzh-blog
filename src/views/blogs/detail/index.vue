@@ -247,7 +247,7 @@ export default {
     },
     beforeDestroy(){
         this.directory = [];
-        window.removeEventListener('resize')
+        window.removeEventListener('resize',this.updateDirectoryStyle)
     },
     components:{
         xzhButton,
@@ -256,7 +256,7 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
 @import '@/styles/mixin.scss';
     .blog-wrapper{
         width: 100%;
