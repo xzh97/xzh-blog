@@ -8,7 +8,7 @@
             <div class="tag-item"></div>
         </div> -->
         <div class="blog-content quill-editor-content">
-            <div class="ql-snow ql-editor" v-html="blogContent" @click="handleImgClick"></div>
+            <div class="ql-snow ql-editor" v-html="blogData.content" @click="handleImgClick"></div>
         </div>
         <div class="blog-signature">
             <p>本文由 Winter Sweet 创作，采用  <a class="link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">知识共享署名 4.0国际许可协议</a> 进行许可。</p>
@@ -38,7 +38,7 @@
             </template>
         </comment>
 
-        <div class="blog-directory">
+        <div class="blog-directory" :style="directoryStyle">
             <div class="blog-directory-item" v-for="item in directory" :key="item.id">
                 <a :href="'#'+item.id" @click="handleDirectoryClick($event,item)">
                     <span :class="[item.tag + '-title']" >{{ item.hash }}</span>
@@ -81,15 +81,15 @@ export default {
                     id:'blog-title'
                 },
             ], //文章目录
+            directoryStyle:{},
         }
     },
     created(){
         this.getBlogData();
     },
-    computed:{
-        blogContent(){
-            return this.blogData.content;
-        }
+    mounted(){
+        this.updateDirectoryStyle();
+        window.addEventListener('resize',this.updateDirectoryStyle)
     },
     methods:{
         getBlogData(){
@@ -228,10 +228,26 @@ export default {
             this.commentPlaceholder = '留下你的评论吧';
             this.replyCommentAuthor = '';
             this.replyCommentOid = '';
+        },
+        updateDirectoryStyle(){
+            let clientWidth = document.querySelector('body').clientWidth;
+
+            if(clientWidth > 1210){
+                this.directoryStyle = {
+                    width: 200 + 'px',
+                    right: (clientWidth - 750)/2 - 240 + 'px',
+                }
+            }
+            else{
+                this.directoryStyle = {
+                    display:'none'
+                }
+            }
         }
     },
     beforeDestroy(){
         this.directory = [];
+        window.removeEventListener('resize')
     },
     components:{
         xzhButton,
@@ -329,11 +345,10 @@ export default {
         }
         .blog-directory{
             position: fixed;
-            right: 300px;
+            //right: 300px;
             top: 100px;
             border-left: 1px solid #cccccc;
             padding: 10px;
-            max-width: 200px;
             display: inline-block;
             .blog-directory-item{
                 font-size: 16px;
@@ -349,11 +364,9 @@ export default {
                     text-indent: .4em;
                 }
                 .blog-title-title{
-                    border-bottom:1px solid #cccccc;
                     margin-bottom: 2px;
                 }
                 .blog-comments-title{
-                    border-top:1px solid #cccccc;
                     margin-top: 2px;
                 }
                 span{

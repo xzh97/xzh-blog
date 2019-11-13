@@ -11,8 +11,8 @@
 * comment组件，回复时 增加 回复的对象 (后端需要加一个replyCommentAuthor字段); finished
 * 每个分类下的博客列表页面 2019-09-09 finished
 * todo comment组件 添加emoji表情
-* live2d 添加血小板看板娘 初步完成，还需要改一些东西 finished
-* todo blog/detail 显示目录方便点击跳到对应地方
+* live2d 添加血小板看板娘 初步完成 finished todo 还需要改一些东西
+* blog/detail 显示目录方便点击跳到对应地方 finished on 19.11.13
 * todo 首页搜索文章功能
 * todo pagination组件 确认下中间的菜单用来干嘛。。
 
