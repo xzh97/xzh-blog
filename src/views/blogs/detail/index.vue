@@ -40,7 +40,7 @@
 
         <div class="blog-directory">
             <div class="blog-directory-item" v-for="item in directory" :key="item.id">
-                <a :ref="item.id" :href="'#'+item.id" @click="handleDirectoryClick($event,item)">
+                <a :href="'#'+item.id" @click="handleDirectoryClick($event,item)">
                     <span :class="[item.tag + '-title']" >{{ item.hash }}</span>
                 </a>
             </div>
@@ -130,12 +130,9 @@ export default {
             console.log(ev);
             console.log(item);
             ev.preventDefault();
-            this.$refs[item.id].scrollIntoView({
+            document.querySelector(`#${item.id}`).scrollIntoView({
                 behavior: "smooth",
             });
-            /*document.querySelector(`#${item.id}`).scrollIntoView({
-                behavior: "smooth",
-            });*/
         },
         checkComment(){
             let {commentContent, commentAuthor, commentEmail} = this;
