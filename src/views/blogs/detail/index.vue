@@ -40,7 +40,7 @@
 
         <div class="blog-directory">
             <div class="blog-directory-item" v-for="item in directory" :key="item.id">
-                <a :href="'#'+item.id" @click="handleDirectoryClick($event,item)">
+                <a :ref="item.id" :href="'#'+item.id" @click="handleDirectoryClick($event,item)">
                     <span :class="[item.tag + '-title']" >{{ item.hash }}</span>
                 </a>
             </div>
@@ -97,10 +97,10 @@ export default {
             getBlogDetail(blogOid).then(res => {
                 res.lastUpdatedTime = util.dateFormat(res.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss');
                 this.blogData = res;
-                this.blogData.comments.forEach(comment => {
+                this.blogData.comments.length && this.blogData.comments.forEach(comment => {
                     comment.createTime = moment(comment.createTime).fromNow();
                     comment.children.length && comment.children.map(item => item.createTime = moment(item.createTime).fromNow());
-                })
+                });
                 this.getBlogDirectory();
             }).catch(err => {
                 console.log(err);
@@ -119,7 +119,7 @@ export default {
                 this.directory.push({ hash, tag, id: anchorId });
                 return `<${tag} id="${anchorId}">${hash}</${tag}>`;
             });
-            this.directory.push({
+            this.blogData.comments.length && this.directory.push({
                 hash:'Comment',
                 tag:'blog-comments',
                 id:'blog-comments'
@@ -130,9 +130,12 @@ export default {
             console.log(ev);
             console.log(item);
             ev.preventDefault();
-            document.querySelector(`#${item.id}`).scrollIntoView({
+            this.$refs[item.id].scrollIntoView({
                 behavior: "smooth",
             });
+            /*document.querySelector(`#${item.id}`).scrollIntoView({
+                behavior: "smooth",
+            });*/
         },
         checkComment(){
             let {commentContent, commentAuthor, commentEmail} = this;

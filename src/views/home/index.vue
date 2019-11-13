@@ -15,11 +15,11 @@
             <h4 class="list-tip">Category</h4>
             <li
                 class="category-item"
-                v-for="category in categoryList"
+                v-for="(category,index) in categoryList"
                 :key="category.categoryOid"
             >
-                <span class="category-name" @click='goCategoryList(category)'>&nbsp;&nbsp;{{category.name}}&nbsp;&nbsp;</span>
-                <!--<span v-if="index !== categoryList.length - 1" class="dot">&nbsp;&nbsp;·&nbsp;&nbsp;</span>-->
+                <span class="category-name" @click='goCategoryList(category)'>{{category.name}}</span>
+                <span v-if="index !== categoryList.length - 1" class="dot">·</span>
             </li>
         </ul>
     </div>
@@ -110,10 +110,6 @@ export default {
         }
     }
     .category-list {
-        .category {
-            display: inline-block;
-            margin-right: 20px;
-        }
         .category-item {
             display: inline-block;
             height: 30px;
@@ -127,6 +123,10 @@ export default {
             .category-name:hover {
                 color: #34495e;
                 transition: all 0.2s;
+            }
+            .dot{
+                display: inline-block;
+                margin: 0 10px;
             }
         }
     }
