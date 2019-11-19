@@ -7,8 +7,8 @@
         <!-- <div class="blog-tag">
             <div class="tag-item"></div>
         </div> -->
-        <div class="blog-content quill-editor-content">
-            <div class="ql-snow ql-editor" v-html="blogData.content" @click="handleImgClick"></div>
+        <div class="blog-content quill-editor-content ql-snow">
+            <div class="ql-editor" v-html="blogData.content" @click="handleImgClick"></div>
         </div>
         <div class="blog-signature">
             <p>本文由 Winter Sweet 创作，采用  <a class="link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">知识共享署名 4.0国际许可协议</a> 进行许可。</p>
