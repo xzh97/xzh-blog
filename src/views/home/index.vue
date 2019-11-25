@@ -7,7 +7,7 @@
                 <dl class="blog-item" v-for="blog in blogList" :key="blog.blogOid">
                     <dt class="create-time">{{blog.createTime}}</dt>
                     <dd class="title" @click="goDetail(blog.blogOid)">{{blog.title}}</dd>
-                    <dd class="blog-description">{{blog.description}}</dd>
+                    <dd class="blog-description oneline">{{blog.description}}</dd>
                 </dl>
             </div>
 
