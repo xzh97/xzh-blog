@@ -121,7 +121,6 @@ export default {
         cursor: pointer;
         .icon {
             color: #ffffff;
-            font-size: 16px;
             font-weight: 700;
         }
     }

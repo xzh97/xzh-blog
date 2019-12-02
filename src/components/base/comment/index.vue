@@ -7,7 +7,8 @@
             <div class="comemnt-content">
                 <p>
                     <span class="comment-author">{{commentData.author}}</span>&nbsp;&nbsp;
-                    <span v-if="commentData.replyCommentAuthor" class="reply-comment-author">{{'回复: @'+ commentData.replyCommentAuthor}}</span>&nbsp;&nbsp;
+                    <span v-if="commentData.replyCommentAuthor" class="reply-comment-author">{{'回复: @'+ commentData.replyCommentAuthor}}</span>
+                    <span v-if="commentData.replyCommentAuthor">&nbsp;&nbsp;</span>
                     <span class="comment-datetime">{{commentData.createTime}}</span>
                 </p>
                 <p class="comment-content-detail">{{commentData.content}}</p>
@@ -69,7 +70,7 @@ export default {
 <style lang='scss' scoped>
 @import '@/styles/mixin.scss';
 .comment-wrapper{
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 10px;
     border-bottom: 1px dashed $border-color-base;
     .comment-inner{
@@ -78,19 +79,20 @@ export default {
         .comemnt-content{
             flex: 1 0;
             .comment-author, .comment-datetime{
-                color: #aaa;
+                color: $text-color;
+                font-size: .9em;
             }
             .comment-author, .comment-datetime, .comment-content-detail, .reply-comment-author{
                 line-height: 1.5;
             }
             .comment-author,.reply-comment-author{
-                background: #dddddd;
+                background: #eeeeee;
                 padding: 1px 3px;
-                font-size: 14px;
-                font-weight: 700;
+                font-size: .9em;
+                font-weight: 600;
                 border-radius: $border-radius-base;
                 display: inline-block;
-                color: #aaa;
+                color: $link-color;
             }
             .reply-comment-author{
                 font-weight: normal;
@@ -98,19 +100,20 @@ export default {
             .comment-content-detail{
                 word-wrap: break-word;
                 word-break: break-all;
-                color: #000;
+                color: $text-color-secondary;
             }
             .comment-actions{
                 .action-item{
                     cursor: pointer;
                     display: inline-block;
                     margin-left: 6px;
+                    font-size: 0.9em;
                 }
                 .action-item:nth-of-type(1){
                     margin-left: 0;
                 }
                 .action-item:hover{
-                    color: $primary-color;
+                    color: $link-color;
                     transition: all .36s;
                 }
             }

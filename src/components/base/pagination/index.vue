@@ -120,14 +120,14 @@ export default {
         .page{
             margin-left: 4px;
             padding: 0 10px;
-            font-size: 12px;
+            font-size: .75em;
             box-sizing: border-box;
             border: 1px solid #cccccc;
             height: 100%;
             line-height: 20px;
             border-radius: 4px;
             .font-size-12{
-                font-size: 12px;
+                font-size: .75em;
             }
             &:hover{
                 border-color: #d41919;
@@ -157,7 +157,7 @@ export default {
             }
         }
         .page-to{
-            font-size: 12px;
+            font-size: .75em;
             margin-left: 8px;
             .page-to-input{
                 width: 30px;

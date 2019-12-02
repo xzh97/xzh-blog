@@ -17,7 +17,6 @@ export default {};
 .footer-wrapper {
     width: 100%;
     padding: 20px;
-    font-size: 15px;
     color: #bac1c8;
     text-align: center;
     border-top: 1px solid #bac1c8;

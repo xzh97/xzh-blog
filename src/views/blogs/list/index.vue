@@ -106,7 +106,7 @@ export default {
     width: 100%;
     .category-title{
         width: 100%;
-        font-size: 22px;
+        font-size: 1.25em;
         color: $title-color;
         font-weight: 400;
         margin-top: 30px;
@@ -115,7 +115,7 @@ export default {
     .category-title::before{
         content:'#';
         font-weight: 700;
-        color: #e8a6a6;
+        color: $link-color;
         margin-right: 8px;
     }
     .blog-list-inner {
@@ -134,16 +134,15 @@ export default {
             transform:scale(1);
             transition: all .3s;
             .blog-title{
-                font-size: 15px;
                 color:$title-color;
             }
             .blog-title:hover{
-                color: $primary-color;
+                color: $link-color;
                 cursor: pointer;
             }
             .blog-create-time{
                 margin-top: 8px;
-                font-size: 12px;
+                font-size: .75em;
                 color:$text-color;
             }
         }

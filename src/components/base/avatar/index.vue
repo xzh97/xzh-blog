@@ -73,7 +73,7 @@ export default {
     }
     .avatar-name{
         color: #3d3d3d;
-        font-size: 14px;
+        font-size: .9em;
     }
     .default-size{
         width: 40px;

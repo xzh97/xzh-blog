@@ -1,22 +1,22 @@
 <template>
     <div class="home-wrapper">
-        <logo></logo>    
+        <logo />
 
-            <div class="blog-list">
-                <h4 class="list-tip">最近更新</h4>
-                <dl class="blog-item" v-for="blog in blogList" :key="blog.blogOid">
-                    <dt class="create-time">{{blog.createTime}}</dt>
-                    <dd class="title" @click="goDetail(blog.blogOid)">{{blog.title}}</dd>
-                    <dd class="blog-description oneline">{{blog.description}}</dd>
-                </dl>
-            </div>
+        <div class="blog-list">
+            <h4 class="list-tip">最近更新</h4>
+            <dl class="blog-item" v-for="blog in blogList" :key="blog.blogOid">
+                <dt class="create-time">{{blog.createTime}}</dt>
+                <dd class="title" @click="goDetail(blog.blogOid)">{{blog.title}}</dd>
+                <dd class="blog-description oneline">{{blog.description}}</dd>
+            </dl>
+        </div>
 
         <ul class="category-list">
             <h4 class="list-tip">Category</h4>
             <li
-                class="category-item"
-                v-for="(category,index) in categoryList"
-                :key="category.categoryOid"
+                    class="category-item"
+                    v-for="(category,index) in categoryList"
+                    :key="category.categoryOid"
             >
                 <span class="category-name" @click='goCategoryList(category)'>{{category.name}}</span>
                 <span v-if="index !== categoryList.length - 1" class="dot">·</span>
@@ -80,7 +80,7 @@ export default {
 @import "@/styles/mixin.scss";
 .home-wrapper {
     .list-tip{
-        font-size: 24px;
+        font-size: 1.5em;
     }
     .blog-list {
         width: 100%;
@@ -89,23 +89,20 @@ export default {
             font-weight: 400;
             line-height: 1.7;
             margin-bottom: 30px;
-            font-size: 18px;
             .create-time {
                 float: left;
                 clear: left;
-                color: #34495e;
-                font-size: 20px;
+                color: $title-color;
+                font-size: 1.25em;
             }
             .title {
                 cursor: pointer;
                 color: $title-color;
-            }
-            .title:hover {
-                color: #34495e;
                 transition: all 0.2s;
             }
-            .blog-description {
-                font-size: 15px;
+            .title:hover {
+                color: $link-color;
+                transition: all 0.2s;
             }
         }
     }
@@ -117,11 +114,10 @@ export default {
             .category-name {
                 color: $title-color;
                 cursor: pointer;
-                font-size: 16px;
                 transition: all 0.2s;
             }
             .category-name:hover {
-                color: #34495e;
+                color: $link-color;
                 transition: all 0.2s;
             }
             .dot{

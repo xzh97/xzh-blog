@@ -112,7 +112,7 @@ export default {
             padding-right: 16px;
             .chinese{
                 opacity: .67;
-                font-size: 12px;
+                font-size: .75em;
             }
         }
         .plugin-item:hover{

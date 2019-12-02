@@ -154,7 +154,6 @@ export default {
     box-shadow: $box-shadow-base;
     background: #ffffff;
     .popover-inner {
-        font-size: $font-size-base;
         color: $text-color;
         line-height: 20px;
         .popover-title {
@@ -165,7 +164,7 @@ export default {
         }
         .popover-content {
             padding: 10px 8px;
-            font-size: 14px;
+            font-size: .9em;
         }
         .popover-arrow {
             width: 0;

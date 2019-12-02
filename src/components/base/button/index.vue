@@ -141,29 +141,27 @@ $danger-color:#f56c6c;
 }
 .btn-size-default{
     padding: 0 16px;
-    font-size: 14px;
+    font-size: .9em;
     height: 32px;
     line-height: 32px;
     span{
-        font-size: 14px;
+        font-size: .9em;
     }
 }
 .btn-size-large{
     padding: 0 20px;
-    font-size: 16px;
     height: 36px;
     line-height: 36px;
     span{
-        font-size: 16px;
     }
 }
 .btn-size-small{
     padding: 0 12px;
-    font-size: 12px;
+    font-size: .75em;
     height: 28px;
     line-height: 28px;
     span{
-        font-size: 12px;
+        font-size: .75em;
     }
 }
 .btn-disabled{

@@ -42,7 +42,6 @@ export default {
         border-radius: 4px;
         box-shadow:  0 0 6px rgba(127,127,127,.2);
         .message-text{
-            font-size: 16px;
             color: #666;
             .iconfont{
                 margin-right: 4px;

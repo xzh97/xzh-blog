@@ -273,7 +273,8 @@ export default {
             color: $text-color;
         }
         .blog-title{
-            font-size: 35px;
+            font-size: 2em;
+            color: $title-color;
         }
         .blog-updated{
             background-color: rgba(252, 228, 236, 0.6313725490196078);
@@ -281,7 +282,8 @@ export default {
             font-size: .8em;
             margin: 20px 0 0;
             padding: 10px 6px;
-            border-radius: 6px;
+            border-radius: $border-radius-base;
+            box-shadow: $box-shadow-base;
         }
         /* 富文本内容样式 */
         .quill-editor-content{
@@ -290,13 +292,13 @@ export default {
                 margin-bottom: 15px;
             }
             h1{
-                font-size: 32px;
+                font-size: 2em;
             }
             h2{
-                font-size: 24px;
+                font-size: 1.5em;
             }
             h3{
-                font-size: 19px;
+                font-size: 1.25em;
             }
             li{
                 margin-bottom: 15px;
@@ -305,11 +307,14 @@ export default {
                 background-color: #f9f9f9 !important;
                 color:$text-color !important;
             }
+            .ql-editor code{
+                color: $link-color;
+                background-color: rgba(252, 228, 236, 0.6313725490196078);
+            }
             .ql-editor p {
-                font-size: $font-size-base;
                 line-height: 1.6;
                 margin-bottom: 15px;
-                //text-indent: 2em;
+                color: $text-color;
                 img{
                     box-shadow:0 2px 15px 1px rgba(0,0,0,0.03);
                     transition: all .36s;
@@ -323,23 +328,22 @@ export default {
                     transform: scale(1.03);
                     transition: all .36s;
                 }
-                code{
-                    color: rgba(255, 82, 82, 0.8);
-                    background-color: rgba(252, 228, 236, 0.6313725490196078);
-                }
+            }
+            .ql-editor a{
+                color: $link-color;
             }
         }
         .blog-signature{
             box-shadow: $box-shadow-base;
             background: rgba(237, 238, 238, 0.7);
-            font-size: 14px;
+            font-size: .9em;
             margin: 0 0 10px;
             padding: 20px;
             p:nth-of-type(2){
                 margin-top: 10px;
             }
             .link{
-                color: $title-color;
+                color: $link-color;
                 text-decoration:none;
             }
             .link:hover{
@@ -354,7 +358,7 @@ export default {
                 margin-left: 10px;
             }
             .cancel-reply:hover{
-                color: $primary-color;
+                color: $link-color;
                 cursor: pointer;
             }
             .comment-item{
@@ -367,7 +371,7 @@ export default {
                     background: none;
                     border-radius: $border-radius-base;
                     border: 1px solid $border-color-base;
-                    font-size: 14px;
+                    font-size: .9em;
                     text-indent: 1em;
                     box-sizing: border-box;
                     outline: none;
@@ -382,7 +386,6 @@ export default {
                     width: 160px;
                     //padding: 10px 6px;
                     padding: 10px 15px;
-                    font-size: 15px;
                     font-weight: 400;
                     line-height: 1.4;
 
@@ -421,7 +424,7 @@ export default {
                 .blog-comments-title::before,
                 .h1-title::before{
                     content:'#';
-                    color: rgba(255, 82, 82, 0.8);
+                    color: $link-color;
                     margin-right: 4px;
                 }
 

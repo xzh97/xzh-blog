@@ -161,7 +161,7 @@ export default {
                 box-sizing: border-box;
                 height: 100%;
                 line-height: 18px;
-                font-size: 12px;
+                font-size: .75em;
                 background-color: #fafafa;
                 border: 1px solid #e8e8e8;
                 border-radius: 2px;
@@ -212,7 +212,7 @@ export default {
             height: 24px;
             line-height: 24px;
             color: rgba(0,0,0,.65);
-            font-size: 14px;
+            font-size: .9em;
             padding: 0 10px;
         }
         .select-item:hover{

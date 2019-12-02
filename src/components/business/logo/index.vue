@@ -27,7 +27,7 @@ export default {
 <style lang="scss" scoped>
 .logo{
     .logo-text {
-        font-size: 30px;
+        font-size: 2em;
         font-weight: 600;
         margin-top: 30px;
         position: relative;
@@ -43,7 +43,6 @@ export default {
         }
     }
     .description {
-        font-size: 18px;
         margin: 0 0 15px;
     }
     .search-anything {
@@ -56,7 +55,7 @@ export default {
             border: 2px solid #dddddd;
             background: rgba(254, 252, 250, 0.6);
             //padding: 6px 10px;
-            font-size: 14px;
+            font-size: .9em;
         }
         .search-area:hover {
             border-color: #cccccc;
@@ -67,7 +66,7 @@ export default {
     }
     h4 {
         font-weight: 600;
-        font-size: 20px;
+        font-size: 1.25em;
         line-height: 1.1;
         color: #34495e;
     }
