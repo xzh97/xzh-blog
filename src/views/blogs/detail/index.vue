@@ -7,6 +7,7 @@
         <!-- <div class="blog-tag">
             <div class="tag-item"></div>
         </div> -->
+        <div class="blog-updated" v-if="!!blogData.updateDiffDays">此文章于{{blogData.updateDiffDays}}天前进行了修改，内容发生变动</div>
         <div class="blog-content quill-editor-content ql-snow">
             <div class="ql-editor" v-html="blogData.content" @click="handleImgClick"></div>
         </div>
@@ -76,7 +77,7 @@ export default {
             replyCommentAuthor:'',
             directory:[
                 {
-                    hash:'Title',
+                    hash:'标题',
                     tag:'blog-title',
                     id:'blog-title'
                 },
@@ -95,7 +96,14 @@ export default {
         getBlogData(){
             let {blogOid} = this.$route.params;
             getBlogDetail(blogOid).then(res => {
-                res.lastUpdatedTime = util.dateFormat(res.lastUpdatedTime,'yyyy-MM-dd hh:mm:ss');
+                res.updateDiffDays = moment().diff(moment(res.lastUpdatedTime),'days');
+                this.directory = [
+                    {
+                        hash:'标题',
+                        tag:'blog-title',
+                        id:'blog-title'
+                    },
+                ];
                 this.blogData = res;
                 this.blogData.comments.length && this.blogData.comments.forEach(comment => {
                     comment.createTime = moment(comment.createTime).fromNow();
@@ -120,7 +128,7 @@ export default {
                 return `<${tag} id="${anchorId}">${hash}</${tag}>`;
             });
             this.blogData.comments.length && this.directory.push({
-                hash:'Comment',
+                hash:'评论',
                 tag:'blog-comments',
                 id:'blog-comments'
             });
@@ -267,6 +275,60 @@ export default {
         .blog-title{
             font-size: 35px;
         }
+        .blog-updated{
+            background-color: rgba(252, 228, 236, 0.6313725490196078);
+            color: rgba(255, 82, 82, 0.8);
+            font-size: .8em;
+            margin: 20px 0 0;
+            padding: 10px 6px;
+            border-radius: 6px;
+        }
+        /* 富文本内容样式 */
+        .quill-editor-content{
+            .ql-editor h1, .ql-editor h2, .ql-editor h3{
+                margin-top: 30px;
+                margin-bottom: 15px;
+            }
+            h1{
+                font-size: 32px;
+            }
+            h2{
+                font-size: 24px;
+            }
+            h3{
+                font-size: 19px;
+            }
+            li{
+                margin-bottom: 15px;
+            }
+            .ql-editor pre.ql-syntax{
+                background-color: #f9f9f9 !important;
+                color:$text-color !important;
+            }
+            .ql-editor p {
+                font-size: $font-size-base;
+                line-height: 1.6;
+                margin-bottom: 15px;
+                //text-indent: 2em;
+                img{
+                    box-shadow:0 2px 15px 1px rgba(0,0,0,0.03);
+                    transition: all .36s;
+                    max-width: 100%;
+                    border-radius: $border-radius-base;
+
+                }
+                img:hover{
+                    cursor: zoom-in;
+                    box-shadow: 0 0 5px $primary-color;
+                    transform: scale(1.03);
+                    transition: all .36s;
+                }
+                code{
+                    color: rgba(255, 82, 82, 0.8);
+                    background-color: rgba(252, 228, 236, 0.6313725490196078);
+                }
+            }
+        }
         .blog-signature{
             box-shadow: $box-shadow-base;
             background: rgba(237, 238, 238, 0.7);
@@ -351,17 +413,25 @@ export default {
             padding: 10px;
             display: inline-block;
             .blog-directory-item{
-                font-size: 16px;
                 line-height: 1.2;
-                .blog-title-title,.blog-comments-title{
+                .h1-title,.blog-title-title,.blog-comments-title{
+                    font-size: .9em;
+                }
+                .blog-title-title::before,
+                .blog-comments-title::before,
+                .h1-title::before{
+                    content:'#';
+                    color: rgba(255, 82, 82, 0.8);
+                    margin-right: 4px;
+                }
 
-                }
-                .h1-title{
-                    font-weight: 600;
-                }
                 .h2-title{
                     font-size: .8em;
-                    text-indent: .4em;
+                    text-indent: .6em;
+                }
+                .h2-title::before{
+                    content: "";
+                    margin-right: 4px;
                 }
                 .blog-title-title{
                     margin-bottom: 2px;
@@ -375,6 +445,11 @@ export default {
                 a{
                     text-decoration: none;
                     cursor: pointer;
+                }
+            }
+            .blog-directory-item:hover {
+                span{
+                    background-color: rgba(252, 228, 236, 0.6313725490196078);
                 }
             }
         }

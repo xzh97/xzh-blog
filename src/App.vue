@@ -76,44 +76,6 @@ export default {
 .bg5::after{
     background: url('./assets/images/bg5.jpg');
 }
-/* 富文本内容展示 的基本样式 */
-.quill-editor-content{
-    .ql-editor h1, .ql-editor h2, .ql-editor h3{
-        margin-top: 30px;
-        margin-bottom: 15px;
-    }
-    h1{
-        font-size: 32px;
-    }
-    h2{
-        font-size: 24px;
-    }
-    h3{
-        font-size: 19px;
-    }
-    li{
-        margin-bottom: 15px;
-    }
-    p {
-        font-size: $font-size-base;
-        line-height: 1.6;
-        margin-bottom: 15px;
-        //text-indent: 2em;
-        img{
-            box-shadow:0 2px 15px 1px rgba(0,0,0,0.03);
-            transition: all .36s;
-            max-width: 100%;
-            border-radius: $border-radius-base;
-
-        }
-        img:hover{
-            cursor: zoom-in;
-            box-shadow: 0 0 5px $primary-color;
-            transform: scale(1.03);
-            transition: all .36s;
-        }
-    }
-}
 #live2d{
     position: fixed;
     right: 0;

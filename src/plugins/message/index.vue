@@ -47,15 +47,6 @@ export default {
             .iconfont{
                 margin-right: 4px;
             }
-            .icon-check-circle-fill{
-                color: #1afa29;
-            }
-            .icon-warning-circle-fill{
-                color: #f4ea2a;
-            }
-            .icon-close-circle-fill{
-                color: #d81e06;
-            }
         }
     }
 </style>
