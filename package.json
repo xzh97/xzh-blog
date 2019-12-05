@@ -27,6 +27,7 @@
     "cz-conventional-changelog": "^3.0.2",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "jszip": "^3.2.2",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "sass-resources-loader": "^2.0.0",
