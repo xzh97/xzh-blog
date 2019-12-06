@@ -1,92 +1,81 @@
 /**
  * @desc 压缩dist文件成zip
+ * @desc 思路：
+ * 1.获取源文件路径及目录
+ * 2.遍历源文件，zip添加文件或者目录（若为目录，则递归调用此方法遍历）
+ * 3.写入target.zip
  * */
 const JSZip = require('jszip');
 const fs = require('fs');
 const path = require('path');
+const { saveAs } = require('file-saver');
 
-/*const ajax = require("./share/ajax");
-
-const postFile = file => {
-    return ajax({
-        url:`/api/upload`,
-        method:'POST',
-        file
-    });
-};*/
-async function init(){
+/**
+ * @param source 压缩源文件
+ * @param target 压缩包名
+ * */
+function init(source, target) {
     let zip = new JSZip();
 
-    let zipFilePath = getFilePath();
+    //获取dist文件路径
+    let zipFilePath = path.join(__dirname, source);
+    console.log('dist文件夹路径', zipFilePath);
 
-    await getFileDir(zipFilePath);
+    getFileDir(zipFilePath,'').then(res => {
+        console.log('zip',zip);
 
-    console.log(zip);
+        zip.generateNodeStream({streamFiles:true})
+            .pipe(fs.createWriteStream(`${target}.zip`))
+            .on('finish',() => {
+                console.log('写入成功')
+            })
+    });
 
-    zip.generateAsync({type:"nodebuffer",platform: process.platform})
-        .then(function(content) {
-            // see FileSaver.js
-            //saveAs(content, "dist.zip");
-            fs.writeFile('dist.zip',content,{encoding:'utf-8'},(err,data) => {
-                if(err){throw err}
-                console.log(data);
-            });
-        });
-
-
-
-    // 获取dist文件目录
-    function getFilePath() {
-        let filePath = path.resolve(__dirname);
-        let fullPath = path.join(filePath,'dist');
-        console.log('dist文件夹路径',fullPath);
-        return fullPath;
-    }
-    //
     /**
      * @desc 获取dist文件夹目录结构
      * @param filePath
      * @param dirName
      * */
     function getFileDir(filePath,dirName) {
-        //获取dist下所有目录
-        let dir = fs.readdirSync(filePath,{ encoding:'utf-8',withFileTypes:true });
-        console.log(dir);
+        return new Promise(resolve => {
+            let dir = fs.readdirSync(filePath,{ encoding:'utf8',withFileTypes:true });
 
-        //获取子级目录
-        dir.forEach(dirent => {
-            if(dirent.isDirectory()){
+            //获取子级目录
+            dir.forEach(dirent => {
                 let childFilePath = path.join(filePath,dirent.name);
-                console.log('dist子目录路径',childFilePath);
-                zip.folder(dirent.name)
-                getFileDir(childFilePath,dirent.name);
-            }
-            else if(dirent.isFile()){
-                let childFilePath = path.join(filePath,dirent.name);
-                console.log('dist file路径',childFilePath);
-                if(dirName){
-                    zip.file(`${dirName}/${dirent.name}`,addZipFile(childFilePath));
-                }
-                else{
-                    zip.file(dirent.name,addZipFile(childFilePath));
-                }
 
-            }
+                if(dirent.isDirectory()){
+                    console.log(`添加${dirent.name}子目录到${dirName}中`);
+                    zip.folder(path.join(dirName, dirent.name))
+                    getFileDir(childFilePath,path.join(dirName, dirent.name));
+                }
+                else if(dirent.isFile()){
+                    //zip子目录
+                    if(dirName){
+                        console.log(`添加${dirent.name}到zip的子目录：${dirName}中`)
+                        zip.file(path.join(dirName, dirent.name), getFile(childFilePath));
+                    }
+                    //zip目录
+                    else{
+                        console.log(`添加${dirent.name}到zip中`)
+                        zip.file(dirent.name, getFile(childFilePath));
+                    }
+                }
+            })
+            resolve();
+        },reject => {
+            console.log('zip文件添加错误')
+            reject();
         })
     }
 
-    function addZipFile(filePath) {
-        let fileContent;
-        fileContent = fs.readFile(filePath,'utf8',(err,data) => {
-            if(err){
-                console.log(`读取${filePath}文件内容错误`)
-                console.log(err);
-                throw err;
-            }
-            console.log(data);
-            return data;
-        });
-        return fileContent;
+    /**
+     * @desc 获取文件内容
+     * @param filePath
+     * */
+    function getFile(filePath) {
+        console.log(`文件路径: ${filePath}`);
+        return fs.createReadStream(filePath,{ autoClose:true, });
     }
 }
-init();
+init('dist','blog');
