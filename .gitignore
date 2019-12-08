@@ -49,3 +49,6 @@ yinru.js
 src/config/dist.js
 */.DS_Store
 package-lock.json
+
+#dist zip
+*.zip

@@ -8,7 +8,50 @@
 const JSZip = require('jszip');
 const fs = require('fs');
 const path = require('path');
-const { saveAs } = require('file-saver');
+const request = require('request');
+//const { saveAs } = require('file-saver');
+const envMap = {
+    'dev': {
+        apiUrl:'http://127.0.0.1:3000',
+    },
+    'prod': {
+        apiUrl:'http://122.51.73.210:3000',
+    }
+};
+
+const upload = target => {
+    return new Promise((resolve,reject) => {
+        let env = process.env.NODE_ENV === 'development' ? 'dev' : 'prod';
+        let url = `${envMap['dev'].apiUrl}/api/upload`;
+        let formData = {
+            file:fs.createReadStream(`${target}.zip`)
+        };
+        let params = {
+            url,
+            formData
+        };
+        request.post(params, function (err ,res, body) {
+            if(err){
+                console.error('上传应用压缩包文件失败 ', err);
+                reject(err);
+            }
+            else{
+                if (body) {
+                    console.log(body);
+                    console.log(url);
+                    //console.log('上传应用压缩包文件成功 ', JSON.parse(body));
+                    //console.log('文件路径 ' + JSON.parse(body).fullPath);
+                    //console.log('Upload successful!  Server responded with:', body);
+                    //resolve(JSON.parse(body))
+                } else {
+                    reject('error');
+                }
+            }
+        })
+    })
+
+};
+
 
 /**
  * @param source 压缩源文件
@@ -27,7 +70,9 @@ function init(source, target) {
         zip.generateNodeStream({streamFiles:true})
             .pipe(fs.createWriteStream(`${target}.zip`))
             .on('finish',() => {
-                console.log('写入成功')
+                console.log('打包成功');
+                console.log(`开始上传${target}.zip`);
+                upload(target);
             })
     });
 
