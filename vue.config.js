@@ -1,5 +1,6 @@
 /* eslint-disable */
-var path = require('path')
+const path = require('path')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 function resolve (dir) {
     console.log(__dirname)
     return path.join(__dirname, dir)
@@ -36,5 +37,10 @@ module.exports = {
                 }
             }
         }
-    }
+    },
+    configureWebpack: {
+        plugins: [
+            new BundleAnalyzerPlugin()
+        ]
+    },
 }
