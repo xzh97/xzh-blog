@@ -5,7 +5,7 @@
         <div class="blog-list">
             <h4 class="list-tip">最近更新</h4>
             <dl class="blog-item" v-for="blog in blogList" :key="blog.blogOid">
-                <dt class="create-time">{{blog.createTime}}</dt>
+                <dt class="create-time" :title="blog.createTimeTitle">{{blog.createTime}}</dt>
                 <dd class="title" @click="goDetail(blog.blogOid)">{{blog.title}}</dd>
                 <dd class="blog-description oneline">{{blog.description}}</dd>
             </dl>
@@ -46,6 +46,7 @@ export default {
                 res => {
                     console.log(res);
                     res.data.forEach(item => {
+                        item.createTimeTitle = moment(item.createTime).format('YYYY年MM月DD日');
                         item.createTime = moment(item.createTime).format('ddd,YY MMM Do');
                     });
                     this.blogList = res.data;

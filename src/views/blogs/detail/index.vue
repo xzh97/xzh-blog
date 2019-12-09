@@ -50,16 +50,15 @@
 </template>
 
 <script>
-import xzhButton from '@/components/base/button/index';
-import comment from '@/components/base/comment/index';
-import defaultAvatar from '@/assets/images/default_avatar.jpg';
-import 'quill/dist/quill.snow.css';
+    import xzhButton from '@/components/base/button/index';
+    import comment from '@/components/base/comment/index';
+    import defaultAvatar from '@/assets/images/default_avatar.jpg';
+    import 'quill/dist/quill.snow.css';
+    import moment from 'moment';
+    import {imgMixin} from '@/share/mixin';
+    import {addNewComment, getBlogDetail} from '@/api/blog'
 
-import util from '@/share/utils';
-import moment from 'moment';
-import {imgMixin} from '@/share/mixin';
-import {getBlogDetail, addNewComment} from '@/api/blog'
-export default {
+    export default {
     name:'blog-detail',
     mixins:[imgMixin],
     data(){
