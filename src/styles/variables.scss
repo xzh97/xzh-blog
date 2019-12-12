@@ -19,8 +19,10 @@ $border-radius-large: 8px; // 2倍圆角
 $box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.15);
 
 /*全局配色*/
-$primary-color: #1890ff; // 全局主色
 $link-color: rgba(255, 82, 82, 0.8); // 链接色
+
+/*不知道要不要这些颜色- - 先留着*/
+$primary-color: #1890ff; // 全局主色
 $success-color: #52c41a; // 成功色
 $warning-color: #faad14; // 警告色
 $error-color: #f5222d; // 错误色

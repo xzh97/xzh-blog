@@ -32,14 +32,14 @@ export default {
         margin-top: 30px;
         position: relative;
         .icon-github-fill{
+            font-size: .625em;
             cursor: pointer;
             display: inline-block;
-            transform: scale(1);
             transition: all .6s;
         }
         .icon-github-fill:hover{
-            transform: scale(1.2);
             transition: all .6s;
+            color: #000;
         }
     }
     .description {
