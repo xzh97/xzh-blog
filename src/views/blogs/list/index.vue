@@ -56,9 +56,9 @@ export default {
         getBlogList() {
             let params = {
                 page: this.page,
-                size: this.size
+                size: this.size,
+                categoryOid: this.$route.params.categoryOid,
             };
-            params.categoryOid = this.$route.params.categoryOid;
 
             getBlogList(params).then(res => {
                 console.log("getbloglist", res.data);
@@ -77,15 +77,16 @@ export default {
         },
         onChangePager({type}) {
             console.log(type);
-            let { blogPage, totalPage } = this;
-            console.log(blogPage);
+            let { page, totalPage } = this;
             if (type === "prev") {
-                if (blogPage <= 1) return;
-                this.blogPage--;
+                if (page <= 1) return;
+                this.page--;
             } else {
-                if (blogPage >= totalPage) return;
-                this.blogPage++;
+                if (page >= totalPage) return;
+                this.page++;
             }
+            console.log(page);
+
             this.getBlogList();
         },
 
