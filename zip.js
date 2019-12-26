@@ -1,6 +1,7 @@
 /**
  * @desc 压缩dist文件成zip
  * @desc 思路：
+ * 1.构建新的dist目录
  * 1.获取源文件路径及目录
  * 2.遍历源文件，zip添加文件或者目录（若为目录，则递归调用此方法遍历）
  * 3.写入target.zip
@@ -9,6 +10,7 @@ const JSZip = require('jszip');
 const fs = require('fs');
 const path = require('path');
 const request = require('request');
+const childProcess = require('child_process');
 //const { saveAs } = require('file-saver');
 const envMap = {
     'dev': {
@@ -18,7 +20,6 @@ const envMap = {
         apiUrl:'http://122.51.73.210:3000',
     }
 };
-
 const upload = target => {
     return new Promise((resolve,reject) => {
         let env = process.env.NODE_ENV === 'development' ? 'dev' : 'prod';
@@ -37,6 +38,7 @@ const upload = target => {
             }
             else{
                 if (body) {
+                    console.error('上传应用压缩包文件成功');
                     console.log(body);
                     console.log(url);
                     //console.log('上传应用压缩包文件成功 ', JSON.parse(body));
@@ -51,29 +53,57 @@ const upload = target => {
     })
 
 };
-
+/**
+ * @desc 运行指令
+ * */
+function runCommand(cmd){
+    return new Promise((resolve,reject) => {
+        childProcess.exec(cmd,(error, stdout, stderr) => {
+            if (error) {
+                console.error(`执行命令出错：${cmd}`);
+                console.error(error);
+                reject(error);
+            }
+            else{
+                console.log(`stdout: ${stdout}`);
+                console.log(`stderr: ${stderr}`);
+                resolve()
+            }
+        })
+    })
+}
+/**
+ * @desc 构建dist包
+ * */
+function buildDist(){
+    console.log('开始构建dist包');
+    return runCommand('npm run build')
+}
 
 /**
- * @param source 压缩源文件
+ * @param source 源文件
  * @param target 压缩包名
  * */
-function init(source, target) {
+function start(source, target) {
     let zip = new JSZip();
 
-    //获取dist文件路径
-    let zipFilePath = path.join(__dirname, source);
-    console.log('dist文件夹路径', zipFilePath);
+    buildDist().then(res => {
+        console.log('开始压缩dist文件');
+        //获取dist文件路径
+        let zipFilePath = path.join(__dirname, source);
+        console.log('dist文件夹路径', zipFilePath);
 
-    getFileDir(zipFilePath,'').then(res => {
-        console.log('zip',zip);
+        getFileDir(zipFilePath,'').then(res => {
+            //console.log('zip',zip);
 
-        zip.generateNodeStream({streamFiles:true})
-            .pipe(fs.createWriteStream(`${target}.zip`))
-            .on('finish',() => {
-                console.log('打包成功');
-                console.log(`开始上传${target}.zip`);
-                upload(target);
-            })
+            zip.generateNodeStream({streamFiles:true})
+                .pipe(fs.createWriteStream(`${target}.zip`))
+                .on('finish',() => {
+                    console.log('压缩dist文件成功');
+                    console.log(`开始上传${target}.zip`);
+                    upload(target);
+                })
+        });
     });
 
     /**
@@ -90,19 +120,19 @@ function init(source, target) {
                 let childFilePath = path.join(filePath,dirent.name);
 
                 if(dirent.isDirectory()){
-                    console.log(`添加${dirent.name}子目录到${dirName}中`);
+                    //console.log(`添加${dirent.name}子目录到${dirName}中`);
                     zip.folder(path.join(dirName, dirent.name))
                     getFileDir(childFilePath,path.join(dirName, dirent.name));
                 }
                 else if(dirent.isFile()){
                     //zip子目录
                     if(dirName){
-                        console.log(`添加${dirent.name}到zip的子目录：${dirName}中`)
+                        //console.log(`添加${dirent.name}到zip的子目录：${dirName}中`)
                         zip.file(path.join(dirName, dirent.name), getFile(childFilePath));
                     }
                     //zip目录
                     else{
-                        console.log(`添加${dirent.name}到zip中`)
+                        //console.log(`添加${dirent.name}到zip中`)
                         zip.file(dirent.name, getFile(childFilePath));
                     }
                 }
@@ -123,4 +153,5 @@ function init(source, target) {
         return fs.createReadStream(filePath,{ autoClose:true, });
     }
 }
-init('dist','blog');
+
+start('dist','blog');
