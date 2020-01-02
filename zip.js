@@ -30,9 +30,9 @@ if (process.argv.length > 2) {
     targetName = process.argv[4] || targetName;
 }
 
-console.log(appEnv);
-console.log(sourceName);
-console.log(targetName);
+console.log('appEnv: ', appEnv);
+console.log('sourceName: ', sourceName);
+console.log('targetName: ', targetName);
 
 const upload = target => {
     return new Promise((resolve,reject) => {
@@ -59,7 +59,7 @@ const upload = target => {
                     //console.log('Upload successful!  Server responded with:', body);
                     //resolve(JSON.parse(body))
                 } else {
-                    reject('error');
+                    reject('上传应用压缩包文件失败');
                 }
             }
         })
@@ -115,10 +115,6 @@ function start(source, target) {
                     console.log('压缩dist文件成功');
                     console.log(`开始上传${target}.zip`);
                     upload(target);
-                })
-                .catch(e => {
-                    console.log('压缩dist文件失败：generateNodeStream出错');
-                    console.error(e);
                 })
         }).catch(e => {
             console.log('压缩dist文件失败:getFileDir过程中错误');
@@ -177,4 +173,4 @@ function start(source, target) {
     }
 }
 
-start('dist','blog');
+start(sourceName, targetName);
