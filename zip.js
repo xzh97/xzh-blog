@@ -20,10 +20,23 @@ const envMap = {
         apiUrl:'http://122.51.73.210:3000',
     }
 };
+
+let appEnv = 'dev';
+let sourceName = 'dist';
+let targetName = 'dist';
+if (process.argv.length > 2) {
+    appEnv = process.argv[2] || appEnv;
+    sourceName = process.argv[3] || sourceName;
+    targetName = process.argv[4] || targetName;
+}
+
+console.log('appEnv: ', appEnv);
+console.log('sourceName: ', sourceName);
+console.log('targetName: ', targetName);
+
 const upload = target => {
     return new Promise((resolve,reject) => {
-        let env = process.env.NODE_ENV === 'development' ? 'dev' : 'prod';
-        let url = `${envMap['dev'].apiUrl}/api/upload`;
+        let url = `${envMap[appEnv].apiUrl}/api/upload`;
         let formData = {
             file:fs.createReadStream(`${target}.zip`)
         };
@@ -46,7 +59,7 @@ const upload = target => {
                     //console.log('Upload successful!  Server responded with:', body);
                     //resolve(JSON.parse(body))
                 } else {
-                    reject('error');
+                    reject('上传应用压缩包文件失败');
                 }
             }
         })
@@ -103,7 +116,13 @@ function start(source, target) {
                     console.log(`开始上传${target}.zip`);
                     upload(target);
                 })
+        }).catch(e => {
+            console.log('压缩dist文件失败:getFileDir过程中错误');
+            console.error(e);
         });
+    }).catch(e => {
+        console.log('构建包时出现错误');
+        console.error(e);
     });
 
     /**
@@ -154,4 +173,4 @@ function start(source, target) {
     }
 }
 
-start('dist','blog');
+start(sourceName, targetName);
