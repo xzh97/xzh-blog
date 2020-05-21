@@ -1,5 +1,5 @@
 <template>
-    <div class="avatar-wrapper" :class="{'border-bottom': showBorderBottom}">
+    <div class="avatar-wrapper" :class="{'border-bottom': showBorderBottom}" :style="avatarStyle">
         <div class="avatar-inner" :class="activeClass">
             <img :src='avatarImg || avatar' alt='用户头像'>
         </div>
@@ -35,6 +35,10 @@ export default {
         showBorderBottom:{
             type: Boolean,
             default: true,
+        },
+        display: {
+            type: String,
+            default: 'inline-block',
         }
     },
     data(){
@@ -51,6 +55,12 @@ export default {
                 'big-size':size === 'big',
                 'square':shape !== 'circle',
             }
+        },
+        avatarStyle(){
+            let { display } = this;
+            return {
+                display,
+            }
         }
     }
 };
@@ -62,7 +72,7 @@ export default {
     width: 100%;
     @include fsc;
     .avatar-inner{
-        padding: 16px;
+        padding: 15px;
         box-sizing: content-box;
         img{
             display: block;

@@ -1,9 +1,7 @@
 <template>
     <!--:class="'bg'+randomNumber"-->
     <div id="app">
-        <transfrom name="fade">
-            <router-view />
-        </transfrom>
+        <router-view />
         <footer-comp />
         <canvas id="live2d" width="280" height="250"></canvas>
     </div>
