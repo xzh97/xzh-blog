@@ -53,7 +53,7 @@
 import xzhButton from '@/components/base/button/index';
 import comment from '@/components/base/comment/index';
 import defaultAvatar from '@/assets/images/default_avatar.jpg';
-import 'quill/dist/quill.snow.css';
+//import 'quill/dist/quill.snow.css';
 import moment from 'moment';
 import {imgMixin} from '@/share/mixin';
 import {addNewComment, getBlogDetail} from '@/api/blog'

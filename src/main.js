@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 
 import router from './routes/index';
+import store from './vuex/index';
 
 import './assets/iconfont/iconfont.css';
 import './styles/animate.css';
@@ -22,5 +23,6 @@ directives(Vue);
 
 new Vue({
     router,
+    store,
     render: h => h(App),
 }).$mount('#app')

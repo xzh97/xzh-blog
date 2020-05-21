@@ -1,7 +1,9 @@
 <template>
     <!--:class="'bg'+randomNumber"-->
     <div id="app">
-        <router-view />
+        <transfrom name="fade">
+            <router-view />
+        </transfrom>
         <footer-comp />
         <canvas id="live2d" width="280" height="250"></canvas>
     </div>
@@ -9,7 +11,8 @@
 
 <script>
 import FooterComp from "@/components/business/footer/index";
-import CanvasNest from 'canvas-nest.js'
+import loading from '@/components/base/loading/index';
+import CanvasNest from 'canvas-nest.js';
 export default {
     name: "app",
     computed: {
@@ -41,6 +44,7 @@ export default {
     },
     components: {
         FooterComp,
+        loading
     }
 };
 </script>

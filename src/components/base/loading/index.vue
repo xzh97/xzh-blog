@@ -1,12 +1,16 @@
 <template>
     <div class="loading-wrapper">
-
+        <Icon :type="'loading'"></Icon>
     </div>
 </template>
 
 <script>
+import Icon from '@/components/base/icon/index';
 export default {
     name:'loading',
+    components:{
+        Icon,
+    }
 }
 </script>
 
