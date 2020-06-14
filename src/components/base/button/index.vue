@@ -22,7 +22,7 @@
 
 <script>
 /**
- *  @summary props说明
+ *  @desc props说明
  *  @param type 按钮类型
  *  @param size 按钮尺寸
  *  @param loading 是否显示loading

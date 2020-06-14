@@ -16,6 +16,11 @@
             <div class="logo-right-top">
                 <Icon :key="item.type" v-for="item in iconList" @click="baseClick(item)" :type="item.type" fill />
             </div>
+            <div class="logo-right-bottom">
+                <Button :type="'primary'">
+                    编辑资料
+                </Button>
+            </div>
         </div>
     </div>
 </template>
@@ -23,6 +28,7 @@
 <script>
 import Icon from '@/components/base/icon/index';
 import Avatar from '@/components/base/avatar/index';
+import Button from '@/components/base/button/index';
 import {mapGetters} from 'vuex'
 export default {
     name: 'logo',
@@ -58,6 +64,7 @@ export default {
     components:{
         Icon,
         Avatar,
+        Button
     }
 }
 </script>
@@ -72,26 +79,24 @@ export default {
         margin-right: 20px;
     }
     .logo-center{
+        flex: 1;
         .logo-text {
-            font-weight: 600;
-            position: relative;
-            .icon-github-fill{
-                font-size: .625em;
-                cursor: pointer;
-                display: inline-block;
-                transition: all .6s;
-            }
-            .icon-github-fill:hover{
-                transition: all .6s;
-                color: #000;
-            }
+
         }
         .description {
             margin: 0 0 15px;
         }
     }
     .logo-right{
+        margin-right: 20px;
+        .logo-right-top{
+            margin: 16px 0;
+            .iconfont{
+                font-size: 20px;
+                margin-right: 20px;
 
+            }
+        }
     }
 }
     
