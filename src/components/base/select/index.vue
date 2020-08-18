@@ -2,7 +2,7 @@
     <div class="select-wrapper" tabindex="1" :style="boxStyle" @blur="isShowList = false">
         <div class="select-box" @click.stop='showList'>
             <ul class="selected-list" v-if="mode !== 'radio'">
-                <li class="selected-item" :key='item.value' v-for="item in selectedList"><span class="oneline selected-item-show">{{item.showValue}}</span><i class="iconfont icon-close" @click.stop.self="clearSelectedItem(item)"></i> </li>
+                <li class="selected-item" :key='item.value' v-for="item in selectedList"><span class="one-line selected-item-show">{{item.showValue}}</span><i class="iconfont icon-close" @click.stop.self="clearSelectedItem(item)"></i> </li>
             </ul>
             <p class="radio-selected" v-else>
                 <span>{{selectedList[0] ? selectedList[0].showValue : ""}}</span>
@@ -10,7 +10,7 @@
             </p>
         </div>
         <ul class="select-list" v-if="isShowList">
-            <li class="select-item oneline" 
+            <li class="select-item one-line" 
                 :key='item.value' 
                 v-for="item in dataList"
                 @click.stop='handleItemClick(item)'

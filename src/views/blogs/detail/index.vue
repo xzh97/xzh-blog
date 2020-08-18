@@ -257,6 +257,14 @@ export default {
         this.directory = [];
         window.removeEventListener('resize',this.updateDirectoryStyle)
     },
+    beforeRouteResolve (to, from, next) {
+        this.setIsShowLoading(false);
+        next();
+    },
+    beforeRouteLeave (to, from, next) {
+        this.setIsShowLoading(true);
+        next();
+    },
     components:{
         xzhButton,
         comment

@@ -4,15 +4,22 @@
         <router-view />
         <footer-comp />
         <canvas id="live2d" width="280" height="250"></canvas>
+        <loading v-model="isShowLoading"></loading>
     </div>
 </template>
 
 <script>
 import FooterComp from "@/components/business/footer/index";
 import CanvasNest from 'canvas-nest.js'
+import loading from '@/components/base/loading/index';
+
+import {mapGetters} from 'vuex';
 export default {
     name: "app",
     computed: {
+        ...mapGetters([
+            'isShowLoading',
+        ]),
         randomNumber() {
             return Math.floor(Math.random() * 5 + 1)
         },
@@ -41,6 +48,7 @@ export default {
     },
     components: {
         FooterComp,
+        loading
     }
 };
 </script>

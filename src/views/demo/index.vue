@@ -6,14 +6,113 @@
                 <!-- <component :is="demo.component" :placement=>
                     <xzh-button slot="element" type='primary'>hover me</xzh-button>   
                 </component>-->
-                <popover placement="top" content="this is popover content" :visible="value">
+                <x-button
+                    class="buttons"
+                    type="primary"
+                    @click="toggleValue"
+                >
+                    modal button
+                </x-button>
+                <x-button
+                    class="buttons"
+                    type="primary"
+                    @click="showLoading"
+                    :style='{marginLeft: "8px"}'
+                >
+                    loading button
+                </x-button>
+
+                <modal v-model="visible" :title='"modal标题"'>
+                    <div>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                        <p>My favorite singer is SoftLipa</p>
+                        <p>My favorite song is the 史诗</p>
+                    </div>
+                    <div slot='footer'>
+                        <x-button :type='"primary"'>footer slot button</x-button>
+                    </div>
+                </modal>
+    
+                <loading v-model="loading">
+
+                </loading>
+                <!-- <popover placement="top" content="this is popover content" :visible="value">
                     <xzh-button
                         class="buttons"
                         type="primary"
                         @click="toggleValue"
                         @mouseover="console.log('lalala')"
                     >hover me</xzh-button>
-                </popover>
+                </popover> -->
             </div>
         </div>
     </div>
@@ -21,7 +120,9 @@
 
 <script>
 import popover from "@/components/base/popover/index";
-import xzhButton from "@/components/base/button/index";
+import xButton from "@/components/base/button/index";
+import modal from "@/components/base/modal/index";
+import loading from '@/components/base/loading/index';
 export default {
     name: "demo",
     data() {
@@ -37,17 +138,33 @@ export default {
                     }
                 }
             ],
-            value: false
+            value: false,
+            visible: false,
+            loading: false,
         };
     },
     methods: {
         toggleValue() {
-            this.value = !this.value;
+            console.log('click');
+            this.visible = true;
+        },
+        showLoading() {
+            console.log('click');
+            this.loading = true;
+            // setTimeout(() => {
+            //     this.loading = false;
+            // },2000)
+        },
+        
+        mouseoverButton(){
+            console.log('mouseOverButton');
         }
     },
     components: {
         popover,
-        xzhButton
+        xButton,
+        modal,
+        loading
     }
 };
 </script>
@@ -63,7 +180,7 @@ export default {
         width: 100%;
         height: 100%;
         .demo-item {
-            height: 300px;
+            height: 1800px;
             border-radius: $border-radius-base;
             border: 1px solid #cccccc;
             box-shadow: $box-shadow-base;

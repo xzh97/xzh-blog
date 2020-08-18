@@ -1,5 +1,5 @@
 <template>
-    <button class="xzh-btn oneline"
+    <button class="xzh-btn one-line"
     :class="[
         type ? 'btn-' + type : '',
         size ? 'btn-size-' + size : '',
@@ -12,7 +12,7 @@
         }
     ]"
     type='button'
-    @click.native='handleClick'
+    v-on='$listeners'
     :disabled="disabled || loading "
     >
         <i v-if="loading" class="iconfont icon-loading loading"></i>
@@ -32,7 +32,7 @@
  *  @param circle 是否开启圆形按钮
  */
 export default {
-    name: 'xzh-button',
+    name: 'x-button',
     props:{
         type: {
             type: String,
@@ -48,11 +48,6 @@ export default {
         round: Boolean,
         circle: Boolean
     },
-    methods:{
-        handleClick(ev){
-            this.$emit('click',ev);
-        }
-    }
 }
 </script>
 
@@ -69,7 +64,6 @@ $danger-color:#f56c6c;
     font-weight: 400;
     box-shadow: 0 2px 0 $box-shadow-base;
     box-sizing: border-box;
-    margin-right: 10px;
     vertical-align: middle;
 }
 .xzh-btn:hover{

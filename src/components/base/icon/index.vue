@@ -1,5 +1,5 @@
 <template>
-    <i @click="handleClick" :class="'icon iconfont ' + iconClass"></i>
+    <i v-on="$listeners" :class="'icon iconfont ' + iconClass"></i>
 </template>
 
 <script>

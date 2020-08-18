@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 
 import router from './routes/index';
+import store from './vuex/index';
 
 import './assets/iconfont/iconfont.css';
 import './styles/animate.css';
@@ -15,12 +16,12 @@ import message from './plugins/message/index';
 import imgViewer from './plugins/image-viewer/index';
 
 Vue.config.productionTip = false
-
 Vue.use(message);
 Vue.use(imgViewer);
 directives(Vue);
 
 new Vue({
     router,
+    store,
     render: h => h(App),
 }).$mount('#app')

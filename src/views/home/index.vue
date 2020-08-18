@@ -7,7 +7,7 @@
             <dl class="blog-item" v-for="blog in blogList" :key="blog.blogOid">
                 <dt class="create-time">{{blog.createTime}}</dt>
                 <dd class="title" @click="goDetail(blog.blogOid)">{{blog.title}}</dd>
-                <dd class="blog-description oneline">{{blog.description}}</dd>
+                <dd class="blog-description one-line">{{blog.description}}</dd>
             </dl>
         </div>
 
@@ -28,6 +28,7 @@
 <script>
 import { getBlogList, getCategories } from "@/api/blog";
 import moment from 'moment';
+import {mapMutations} from 'vuex';
 
 import Pagination from "@/components/base/pagination-v2/index";
 import Logo from '@/components/business/logo/index';
@@ -41,6 +42,9 @@ export default {
     },
     computed: {},
     methods: {
+        ...mapMutations([
+            'setIsShowLoading'
+        ]),
         getBlogList() {
             getBlogList({ page: 1, size: 8 }).then(
                 res => {
@@ -68,6 +72,13 @@ export default {
         getCategories().then(res => {
             this.categoryList = res;
         });
+    },
+    beforeRouteEnter (to, from, next) {
+        next();
+    },
+    beforeRouteLeave (to, from, next) {
+        this.setIsShowLoading(true);
+        next();
     },
     components: {
         Pagination,

@@ -5,7 +5,7 @@
         <h3 class="category-title">Category:&nbsp;&nbsp;{{category.name}}</h3>
         <div class="blog-list-inner clearfix">
             <div class="blog-list-item" v-for="blog in blogList" :key="blog.blogOid">
-                <p class="blog-title oneline" @click="goBlogDetail(blog)">{{blog.title}}</p>
+                <p class="blog-title one-line" @click="goBlogDetail(blog)">{{blog.title}}</p>
                 <p class="blog-create-time">{{blog.createTime}}</p>
             </div>
         </div>

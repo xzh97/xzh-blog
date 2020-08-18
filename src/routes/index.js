@@ -30,4 +30,15 @@ const routes = [
 routes.push(...blogsRoute);
 routes.push(...pluginsRoute);
 
-export default new vueRouter({routes});
+const router = new vueRouter({routes});
+
+// router.beforeEach((to, from, next) => {
+//     console.log('beforeEach', router.app.$store);
+//     router.app.$store.commit('setIsShowLoading',true);
+//     next();
+// })
+// router.afterEach((to, from) => {
+//     console.log('afterEach',);
+// })
+
+export default router;
