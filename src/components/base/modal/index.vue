@@ -1,7 +1,7 @@
 <template>
 <!-- todo 鼠标放在遮罩上时  滚轮无效-->
   <div class="modal-wrapper" v-body v-if='currentValue'>
-      <div class="modal-mask" v-if="mask" @click="handleCancel('mask',$event)"></div>
+      <div class="modal-mask" :style="maskStyle" v-if="mask" @click="handleCancel('mask',$event)"></div>
       <div class="modal-inner" :style='{width: realWidth}'>
             <div class="modal-close-icon" v-if="closable"><i class="iconfont icon-close" @click="handleCancel('icon')"></i></div>
             <div class="modal-title one-line">{{title}}</div>
@@ -11,7 +11,7 @@
 
             <div class="modal-footer" slot='footer'>
                 <slot name='footer'>
-                    <x-button :type='"default"' @click="handleCancel('button')">{{cancelText}}</x-button>
+                    <x-button v-if="showCancelBtn" :type='"default"' @click="handleCancel('button')">{{cancelText}}</x-button>
                     <x-button :type='"primary"' @click="handleOk">{{okText}}</x-button>
                 </slot>
             </div>
@@ -58,6 +58,16 @@ export default {
             default(){
                 return {}
             }
+        },
+        maskStyle:{
+            type: Object,
+            default(){
+                return {}
+            }
+        },
+        showCancelBtn:{
+            type: Boolean,
+            default: true,
         }
     },
     data(){
@@ -98,8 +108,11 @@ export default {
         },
     },
     watch:{
-        value(val){
-            this.currentValue !== val && (this.currentValue = val);
+        value:{
+            handler(val){
+                this.currentValue !== val && (this.currentValue = val);
+            },
+            immediate: true,
         },
         currentValue(val){
             this.switchScrollingEffect();
@@ -119,7 +132,7 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 1000;
+    z-index: 99;
     overflow: auto;
     outline: 0;
     
@@ -132,14 +145,14 @@ export default {
         //width: calc(100% - 17px);
         height: 100%;
         background: rgba(0,0,0,.45);
-        z-index: 999;
+        z-index: 99;
     }
     .modal-inner{
         position: relative;
         margin: 0 auto 24px;
         top: 100px;
         background: #fff;
-        z-index: 1000;
+        z-index: 99;
         box-shadow: $box-shadow-base;
         border-radius: $border-radius-base;
         pointer-events: 'auto';

@@ -58,7 +58,9 @@ import 'quill/dist/quill.snow.css';
 import util from '@/share/utils';
 import moment from 'moment';
 import {imgMixin} from '@/share/mixin';
-import {getBlogDetail, addNewComment} from '@/api/blog'
+import {getBlogDetail, addNewComment} from '@/api/blog';
+import {mapMutations} from 'vuex'
+
 export default {
     name:'blog-detail',
     mixins:[imgMixin],
@@ -93,6 +95,9 @@ export default {
         window.addEventListener('resize',this.updateDirectoryStyle)
     },
     methods:{
+        ...mapMutations([
+            'setIsShowLoading',
+        ]),
         getBlogData(){
             let {blogOid} = this.$route.params;
             getBlogDetail(blogOid).then(res => {
@@ -113,6 +118,8 @@ export default {
             }).catch(err => {
                 console.log(err);
                 this.$message({type:'error',text:err.errMsg})
+            }).finally(res => {
+                this.setIsShowLoading(false);
             })
 
         },

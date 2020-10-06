@@ -7,15 +7,16 @@
  * @param async 异步或同步
  * @param params url参数
  * @param data request body参数
- * @param header request header参数
+ * @param headers request headers参数
  * */
 import config from '@/config/index';
-export default function ajax({url, method='GET', async=true, params, data, header }){
+export default function ajax({url, method='GET', async=true, params, data, headers }){
     let xhr;
     return new Promise((resolve,reject) => {
         if(window.XMLHttpRequest) {
             xhr = new XMLHttpRequest();
         }else{// IE 56
+            console.log('求你升级下版本好不好');
             xhr = new ActiveXObject("Microsoft.XMLHTTP");
         }
         let reqUrl = GetReqUrl(url,params,method);
@@ -27,8 +28,8 @@ export default function ajax({url, method='GET', async=true, params, data, heade
         /* setRequestHeader 必须在open之后 send之前*/
         xhr.setRequestHeader('Access-Control-Allow-Origin',`${config.apiUrl}`);
 
-        if(header){
-            for(let key in header) xhr.setRequestHeader(key,header[key]);
+        if(headers){
+            for(let key in headers) xhr.setRequestHeader(key,headers[key]);
         }
 
         xhr.send(JSON.stringify(data));

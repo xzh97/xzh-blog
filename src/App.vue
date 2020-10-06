@@ -1,8 +1,8 @@
 <template>
     <!--:class="'bg'+randomNumber"-->
-    <div id="app">
+    <div id="app" :class="appClass">
         <router-view />
-        <footer-comp />
+        <!-- <footer-comp /> -->
         <canvas id="live2d" width="280" height="250"></canvas>
         <loading v-model="isShowLoading"></loading>
     </div>
@@ -10,7 +10,6 @@
 
 <script>
 import FooterComp from "@/components/business/footer/index";
-import CanvasNest from 'canvas-nest.js'
 import loading from '@/components/base/loading/index';
 
 import {mapGetters} from 'vuex';
@@ -19,32 +18,20 @@ export default {
     computed: {
         ...mapGetters([
             'isShowLoading',
+            'isLogin',
         ]),
         randomNumber() {
             return Math.floor(Math.random() * 5 + 1)
         },
-        config(){
-            return {
-                color: '115,150,167',
-                count: 99,
-                opacity: 0.7,
-                zIndex: -1
-            }
-        }
-    },
-    methods:{
-        createCanvasNest(){
-            const el = document.querySelector('body');
-            this.cn = new CanvasNest(el,this.config)
+        appClass(){
+            let {randomNumber, isLogin} = this;
+            let result = {};
+            result[`bg${randomNumber}`] = isLogin
+            return result
         }
     },
     mounted(){
         loadlive2d("live2d", 'static/live2d/kesshouban/model.json');
-        this.createCanvasNest();
-
-    },
-    beforeDestroy () {
-        this.cn.destroy()
     },
     components: {
         FooterComp,

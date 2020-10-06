@@ -4,9 +4,10 @@ import App from './App.vue'
 import router from './routes/index';
 import store from './vuex/index';
 
-import './assets/iconfont/iconfont.css';
+// import './assets/iconfont/iconfont.css';
 import './styles/animate.css';
 import './styles/common.scss';
+import './share/prototype';
 
 //太卡了  暂时先不要了
 //import '@/styles/font-family.css';

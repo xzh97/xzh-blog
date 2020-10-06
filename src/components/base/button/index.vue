@@ -52,7 +52,6 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-$primary-color:#1890ff;
 $default-color:rgba(0,0,0,0.65);
 $warning-color:#e6a23c;
 $danger-color:#f56c6c;
@@ -65,6 +64,7 @@ $danger-color:#f56c6c;
     box-shadow: 0 2px 0 $box-shadow-base;
     box-sizing: border-box;
     vertical-align: middle;
+    color: #ffffff;
 }
 .xzh-btn:hover{
     cursor: pointer;

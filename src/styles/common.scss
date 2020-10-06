@@ -4,6 +4,11 @@
 */
 html{
 	font-size: $font-size-base;
+	height:100%;
+}
+body{
+	min-height:100%;
+	padding-top: 1px;
 }
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -38,7 +43,11 @@ input{
 	width: 100%;
 	border: 0;
 	outline: none;
-	padding-left: 20px;
+	padding: 0;
+	box-sizing: border-box;
+}
+button{
+	outline: none;
 }
 textarea{
 	resize: none; //禁止拉伸
