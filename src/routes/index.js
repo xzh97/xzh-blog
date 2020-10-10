@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import vueRouter from 'vue-router';
 
-import blogsRoute from './blogs/index';
-import pluginsRoute from './plugins/index';
+import blogsRoute from './blog';
+import pluginsRoute from './plugin';
+import demosRoute from './demo';
 
 Vue.use(vueRouter);
 
 const home = () => import('@/views/home/index');
-const demo = () => import('@/views/demo/index');
 const login = () => import('@/views/login/index');
 
 const routes = [
@@ -23,11 +23,6 @@ const routes = [
         name:'home'
     },
     {
-        path: '/demo',
-        component: demo,
-        name:'demo'
-    },
-    {
         path: '/login',
         component: login,
         name:'login'
@@ -35,6 +30,7 @@ const routes = [
 ];
 routes.push(...blogsRoute);
 routes.push(...pluginsRoute);
+routes.push(...demosRoute);
 
 const router = new vueRouter({routes});
 
