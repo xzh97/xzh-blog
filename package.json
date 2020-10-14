@@ -1,5 +1,5 @@
 {
-  "name": "xzh.com",
+  "name": "xzh-blog",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,6 +11,8 @@
   "dependencies": {
     "canvas-nest.js": "^2.0.4",
     "core-js": "^2.6.5",
+    "crypto-js": "^4.0.0",
+    "dayjs": "^1.9.3",
     "moment": "^2.24.0",
     "vue": "^2.6.10",
     "vue-quill-editor": "^3.0.6",

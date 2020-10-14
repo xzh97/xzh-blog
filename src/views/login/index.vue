@@ -32,7 +32,7 @@ import Register from './register';
 import CanvasNest from 'canvas-nest.js'
 
 
-import {login, register} from '@/api/login.js';
+import {login, register} from '@/api/base.js';
 import greetingImg from '@/assets/images/login/greeting.png';
 import normalImg from '@/assets/images/login/normal.png';
 import blindfoldImg from '@/assets/images/login/blindfold.png';
@@ -86,43 +86,11 @@ export default {
             this.currentTab = tab.key;
             if(tab.key === 'register') this.handleFocus('normal');
         },
-        handleOk(){
-            if(this.currentTab === 'login'){
-                login();
-            }
-            else{
-                register();
-            }
-        },
-        login(){
-            let data = {
-                account: this.account,
-                password: this.password,
-            }
-            login(data).then(res => {
-                if(res.data.status === 200){
-                    this.$message('登录成功');
-                    this.$router.push({name: 'home'});
-                }
-            }).catch(err => {
-                err = {
-                    headers:{
-
-                    },
-                    status: 400,
-                    data: {
-                        errCode: 'LOGIN_FAILED',
-                        errMsg: '登录失败',
-                    }
-                }
-                this.handleError(err);
-            })
-        },
         register(){
 
         },
         handleFocus(type){
-            console.log(type);
+            // console.log(type);
             this.currentLogo = type;
         }
     },

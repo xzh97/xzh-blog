@@ -5,4 +5,7 @@ export default {
     setIsLogin(state, flag){
         state.isLogin = flag;
     },
+    setToken(state, obj){
+        state.token = obj;
+    }
 }

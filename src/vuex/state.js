@@ -6,5 +6,6 @@ export default {
         phoneNumber: '13******590',
         qq: '995194437',
         avatar: '',
-    }
+    },
+    token: null,
 }

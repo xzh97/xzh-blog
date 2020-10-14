@@ -56,7 +56,7 @@ import defaultAvatar from '@/assets/images/default_avatar.jpg';
 import 'quill/dist/quill.snow.css';
 
 import util from '@/share/utils';
-import moment from 'moment';
+import dayJS from 'dayjs'
 import {imgMixin} from '@/share/mixin';
 import {getBlogDetail, addNewComment} from '@/api/blog';
 import {mapMutations} from 'vuex'
@@ -101,7 +101,7 @@ export default {
         getBlogData(){
             let {blogOid} = this.$route.params;
             getBlogDetail(blogOid).then(res => {
-                res.updateDiffDays = moment().diff(moment(res.lastUpdatedTime),'days');
+                res.updateDiffDays = dayJS().diff(dayJS(res.lastUpdatedTime),'days');
                 this.directory = [
                     {
                         hash:'标题',
@@ -111,8 +111,8 @@ export default {
                 ];
                 this.blogData = res;
                 this.blogData.comments.length && this.blogData.comments.forEach(comment => {
-                    comment.createTime = moment(comment.createTime).fromNow();
-                    comment.children.length && comment.children.map(item => item.createTime = moment(item.createTime).fromNow());
+                    comment.createTime = dayJS(comment.createTime).fromNow();
+                    comment.children.length && comment.children.map(item => item.createTime = dayJS(item.createTime).fromNow());
                 });
                 this.getBlogDirectory();
             }).catch(err => {

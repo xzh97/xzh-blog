@@ -27,7 +27,7 @@
 
 <script>
 import { getBlogList, getCategories } from "@/api/blog";
-import moment from 'moment';
+import dayJS from 'dayjs';
 import {mapMutations} from 'vuex';
 
 import Pagination from "@/components/base/pagination-v2/index";
@@ -50,7 +50,7 @@ export default {
                 res => {
                     console.log(res);
                     res.data.forEach(item => {
-                        item.createTime = moment(item.createTime).format('ddd,YY MMM Do');
+                        item.createTime = dayJS(item.createTime).format('ddd,YY MMM Do');
                     });
                     this.blogList = res.data;
                 }
@@ -77,7 +77,7 @@ export default {
         next();
     },
     beforeRouteLeave (to, from, next) {
-        this.setIsShowLoading(true);
+        // this.setIsShowLoading(true);
         next();
     },
     components: {

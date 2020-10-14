@@ -108,9 +108,30 @@ const removeClass = (dom,className) => {
     }
 };
 
+export const setItem = (key, obj) => {
+    let str;
+    if(obj !== null || typeof obj === 'object'){
+        str = JSON.stringify(obj);
+    }
+    else{
+        str = ''+obj
+    }
+    localStorage.setItem(key, str);
+}
+export const getItem = (key) => {
+    let result = localStorage.getItem(key);
+    try{
+        return JSON.parse(result);
+    }catch(e){
+        return result
+    }
+}
+
 export default {
     dateFormat,
     getStyle,
     addEvent,
-    removeEvent
+    removeEvent,
+    setItem,
+    getItem,
 };

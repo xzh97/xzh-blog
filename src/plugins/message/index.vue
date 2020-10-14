@@ -29,7 +29,7 @@ export default {
 
 <style lang='scss' scoped>
     .message-wrapper{
-        max-width: 200px;
+        max-width: 320px;
         min-height: 20px;
         line-height: 20px;
         padding: 10px 20px;

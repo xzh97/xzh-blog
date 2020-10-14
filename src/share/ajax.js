@@ -10,6 +10,7 @@
  * @param headers request headers参数
  * */
 import config from '@/config/index';
+import {getItem} from '@/share/utils'
 export default function ajax({url, method='GET', async=true, params, data, headers }){
     let xhr;
     return new Promise((resolve,reject) => {
@@ -19,6 +20,7 @@ export default function ajax({url, method='GET', async=true, params, data, heade
             console.log('求你升级下版本好不好');
             xhr = new ActiveXObject("Microsoft.XMLHTTP");
         }
+        let isTokenOrRegsiter = ['/api/token', '/api/register'].includes(url);
         let reqUrl = GetReqUrl(url,params,method);
 
         data = method === 'GET' ? null : data;
@@ -27,21 +29,28 @@ export default function ajax({url, method='GET', async=true, params, data, heade
 
         /* setRequestHeader 必须在open之后 send之前*/
         xhr.setRequestHeader('Access-Control-Allow-Origin',`${config.apiUrl}`);
+        if(!isTokenOrRegsiter){
+            let token = getItem('token').token;
+            console.log(token);
+            xhr.setRequestHeader('Authorization',`Bearer ${token}`);
+        }
 
         if(headers){
             for(let key in headers) xhr.setRequestHeader(key,headers[key]);
         }
 
+        console.log('ajax data', data);
         xhr.send(JSON.stringify(data));
 
         xhr.onreadystatechange = () => {
             if(xhr.readyState === 4){
+                let result = JSON.parse(xhr.responseText);
+
                 if(xhr.status >= 200 && xhr.status < 300 || xhr.status === 304){
-                    let result = JSON.parse(xhr.responseText);
                     resolve(result)
                 }
                 else{
-                    reject({
+                    reject(result || {
                         errMsg:'请求失败'
                     })
                 }
