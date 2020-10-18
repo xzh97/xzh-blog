@@ -116,14 +116,22 @@ export const setItem = (key, obj) => {
     else{
         str = ''+obj
     }
-    localStorage.setItem(key, str);
+    sessionStorage.setItem(key, str);
 }
 export const getItem = (key) => {
-    let result = localStorage.getItem(key);
+    let result = sessionStorage.getItem(key);
     try{
         return JSON.parse(result);
     }catch(e){
         return result
+    }
+}
+
+export const removeItem = key => {
+    try{
+        sessionStorage.removeItem(key)
+    }catch(e){
+        console.error(e);
     }
 }
 
