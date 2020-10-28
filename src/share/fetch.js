@@ -29,6 +29,7 @@ const fetch = (options) => {
         }).catch(err => {
             console.log(err.response);
             Vue.prototype.handleError(err.response);
+            reject(err.response);
         })
     })
 }
