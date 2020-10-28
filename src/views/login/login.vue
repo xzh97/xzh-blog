@@ -56,6 +56,11 @@ export default {
                     fill: false,
                 },
             ],
+            obj:{
+                a: 1,
+                b: '123',
+                c: true
+            }
         }
     },
     methods:{
@@ -128,12 +133,15 @@ export default {
                 type: 1 // 加密类型
             }
             getToken(params).then(res => {
-                console.log(res);
-                setItem('token', res);
-                this.setToken(res);
+                console.log(res.data);
+                setItem('token', res.data);
+                this.setToken(res.data);
                 this.$router.push({name: 'home'})
             })
         }
+    },
+    mounted(){
+        console.log(this.obj);
     },
     components:{
         Icon,
@@ -144,12 +152,12 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/mixin.scss';
 .form-item-wrapper{
+    margin-top: 16px;
     .form-item{
         width: 100%;
         height: 36px;
         line-height: 36px;
         border-radius: $border-radius-base;
-        margin-top: 16px;
         border: 1px solid $border-color-base;
         color: $text-color;
         text-indent: 10px;

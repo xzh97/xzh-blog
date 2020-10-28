@@ -9,6 +9,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w"
   },
   "dependencies": {
+    "axios": "^0.21.0",
     "canvas-nest.js": "^2.0.4",
     "core-js": "^2.6.5",
     "crypto-js": "^4.0.0",

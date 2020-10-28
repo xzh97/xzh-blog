@@ -49,10 +49,10 @@ export default {
             getBlogList({ page: 1, size: 8 }).then(
                 res => {
                     console.log(res);
-                    res.data.forEach(item => {
+                    res.data.data.forEach(item => {
                         item.createTime = dayJS(item.createTime).format('ddd,YY MMM Do');
                     });
-                    this.blogList = res.data;
+                    this.blogList = res.data.data;
                 }
             );
         },
@@ -70,7 +70,7 @@ export default {
     created() {
         this.getBlogList();
         getCategories().then(res => {
-            this.categoryList = res;
+            this.categoryList = res.data;
         });
     },
     beforeRouteEnter (to, from, next) {

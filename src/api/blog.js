@@ -8,9 +8,10 @@
  * Last modified  : 2019-07-15 22:05:03
  */
 import ajax from '../share/ajax';
+import fetch from '@/share/fetch';
 //获取文章列表
 export const getBlogList = (params) => {
-    return ajax({
+    return fetch({
         url:`/api/blog/list`,
         method:'GET',
         params
@@ -19,7 +20,7 @@ export const getBlogList = (params) => {
 
 //新建文章
 export const createNewBlog = (data) => {
-    return ajax({
+    return fetch({
         url:`/api/blog/create`,
         method:'POST',
         data
@@ -28,7 +29,7 @@ export const createNewBlog = (data) => {
 
 //获取文章详情
 export const getBlogDetail = (blogOid) => {
-    return ajax({
+    return fetch({
         url:`/api/blog/detail/${blogOid}`,
         method:'GET',
     });
@@ -36,7 +37,7 @@ export const getBlogDetail = (blogOid) => {
 
 //更新文章
 export const updateBlog = (data) => {
-    return ajax({
+    return fetch({
         url:`/api/blog/update`,
         method:'PUT',
         data
@@ -45,7 +46,7 @@ export const updateBlog = (data) => {
 
 //删除文章
 export const deleteBlog = (blogOid) => {
-    return ajax({
+    return fetch({
         url:`/api/blog/delete/${blogOid}`,
         method:'DELETE',
     });
@@ -54,7 +55,7 @@ export const deleteBlog = (blogOid) => {
 
 //获取文章分类列表
 export const getCategories = () => {
-    return ajax({
+    return fetch({
         url:`/api/blog/category/list`,
         method:'GET'
     });
@@ -62,7 +63,7 @@ export const getCategories = () => {
 
 //获取分类详情
 export const getCategoryDetail = (categoryOid) => {
-    return ajax({
+    return fetch({
         url:`/api/blog/category/detail/${categoryOid}`,
         method:'GET'
     });
@@ -70,7 +71,7 @@ export const getCategoryDetail = (categoryOid) => {
 
 //新建文章分类
 export const createCategory = (data) => {
-    return ajax({
+    return fetch({
         url:`/api/blog/category/create`,
         method:'POST',
         data
@@ -79,7 +80,7 @@ export const createCategory = (data) => {
 
 //更新文章分类
 export const updateCategory = (data) => {
-    return ajax({
+    return fetch({
         url:`/api/blog/category/update`,
         method:'PUT',
         data
@@ -88,7 +89,7 @@ export const updateCategory = (data) => {
 
 //更新文章分类
 export const deleteCategory = (categoryOid) => {
-    return ajax({
+    return fetch({
         url:`/api/blog/category/delete/${categoryOid}`,
         method:'DELETE',
     });
@@ -96,7 +97,7 @@ export const deleteCategory = (categoryOid) => {
 
 //添加文章评论
 export const addNewComment = (data) => {
-    return ajax({
+    return fetch({
         url:`/api/blog/comment/add`,
         method:'POST',
         data

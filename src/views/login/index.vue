@@ -138,17 +138,19 @@ export default {
         box-shadow: $box-shadow-base;
         .tab-list{
             @include fac;
+            box-sizing: border-box;
+
         }
         .tab-item{
-            padding: 0px 10px 6px;
-            line-height: 20px;
-            height: 20px;
+            line-height: 32px;
             text-align: center;
             cursor: pointer;
             color: $text-color;
+            flex: 1;
         }
         .active{
             color: $primary-color;
+            border-bottom: 1px solid $primary-color;
         }
     }
     

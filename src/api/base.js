@@ -9,8 +9,9 @@
  */
 
 import ajax from '@/share/ajax';
+import fetch from '@/share/fetch';
 export const getToken = (data) => {
-    return ajax({
+    return fetch({
         url:`/api/token`,
         method: 'POST',
         data,
@@ -18,7 +19,7 @@ export const getToken = (data) => {
 }
 
 export const register = (data) => {
-    return ajax({
+    return fetch({
         url:`/api/register`,
         method: 'POST',
         data,

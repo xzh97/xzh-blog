@@ -1,3 +1,4 @@
+import {getItem} from '@/share/utils';
 export default {
     isShowLoading(state){
         return state.isShowLoading;
@@ -5,4 +6,7 @@ export default {
     isLogin(state){
         return state.isLogin;
     },
+    getUserToken(state){
+        return state.token || getItem('token');
+    }
 }

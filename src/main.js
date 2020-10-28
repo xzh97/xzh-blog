@@ -15,6 +15,7 @@ import './share/prototype';
 import directives from './share/directive';
 import message from './plugins/message/index';
 import imgViewer from './plugins/image-viewer/index';
+import prototype from './share/prototype';
 
 Vue.config.productionTip = false
 Vue.use(message);
