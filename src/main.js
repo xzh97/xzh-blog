@@ -1,7 +1,8 @@
 import Vue from 'vue'
+import VueRouter from 'vue-router';
 import App from './App.vue'
 
-import router from './routes/index';
+import routes from './routes/index';
 import store from './vuex/index';
 
 // import './assets/iconfont/iconfont.css';
@@ -18,8 +19,12 @@ import imgViewer from './plugins/image-viewer/index';
 import prototype from './share/prototype';
 
 Vue.config.productionTip = false
+Vue.use(VueRouter);
 Vue.use(message);
 Vue.use(imgViewer);
+
+
+const router = new VueRouter({routes})
 directives(Vue);
 
 new Vue({
