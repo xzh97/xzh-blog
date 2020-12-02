@@ -11,14 +11,23 @@ const CryptoJSKeyMode = {
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7
 }
-
-export const encode = word => {
-    return CryptoJS.AES.encrypt(word, CryptoJSKey, CryptoJSKeyMode).toString();
+const encryptMap = {
+    1: CryptoJS.AES,
+    2: CryptoJS.MD5,
+    3: CryptoJS.SHA256,
+}
+export const encode = (word, type = 1) => {
+    if(type === 1) {
+        return CryptoJS.AES.encrypt(word, CryptoJSKey, CryptoJSKeyMode).toString();
+    }
 }
 
-export const decode = word => {
-    return CryptoJS.AES.decrypt(word, CryptoJSKey, CryptoJSKeyMode).toString(CryptoJS.enc.Utf8);
+export const decode = (word, type = 1) => {
+    if(type === 1) {
+        return CryptoJS.AES.decrypt(word, CryptoJSKey, CryptoJSKeyMode).toString(CryptoJS.enc.Utf8);
+    }
 }
+
 export default {
     encode,
     decode

@@ -153,7 +153,14 @@ export default {
             border-bottom: 1px solid $primary-color;
         }
     }
-    
+    .test-purgecss1{
+        width: 200px;
+        height: 200px;
+    }
+    .test-purgecss2{
+        width: 200px;
+        height: 200px;
+    }
 }
 
 
