@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
 
+const PurgecssPlugin = require('purgecss-webpack-plugin');
 // const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin');
 
 const dllJson = require('./public/static/dll/vue-manifest.json');
@@ -63,6 +64,17 @@ module.exports = {
             new ProgressBarPlugin({
                 // format: 'build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
                 // clear: false
+            }),
+
+            //! 去除无用css
+            new PurgecssPlugin({
+                content: [ `./public/**/*.html`, `./src/**/*.vue` ],
+                defaultExtractor (content) {
+                  const contentWithoutStyleBlocks = content.replace(/<style[^]+?<\/style>/gi, '')
+                  return contentWithoutStyleBlocks.match(/[A-Za-z0-9-_/:]*[A-Za-z0-9-_/]+/g) || []
+                },
+                whitelist: [],
+                whitelistPatterns: [ /-(leave|enter|appear)(|-(to|from|active))$/, /^(?!(|.*?:)cursor-move).+-move$/, /^router-link(|-exact)-active$/, /data-v-.*/ ],
             })
 
         ]
