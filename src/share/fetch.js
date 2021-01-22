@@ -2,7 +2,7 @@
 import axios from 'axios';
 import config from '@/config/index';
 import store from '@/vuex/index';
-import Vue from 'vue';
+// import Vue from 'vue';
 const instance = axios.create({
     baseURL: config.apiUrl,
     timeout: 10000,
@@ -27,8 +27,8 @@ const fetch = (options) => {
         instance(options).then(res => {
             resolve(res);
         }).catch(err => {
-            console.log(err.response);
-            Vue.prototype.handleError(err.response);
+            // console.log(err.response);
+            // Vue.prototype.handleError(err.response);
             reject(err.response);
         })
     })
