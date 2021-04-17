@@ -15,10 +15,10 @@
     "core-js": "^2.6.5",
     "crypto-js": "^4.0.0",
     "dayjs": "^1.9.3",
-    "vue": "^2.6.10",
+    "vue": "^3.0.11",
     "vue-quill-editor": "^3.0.6",
-    "vue-router": "^3.0.6",
-    "vuex": "^3.5.1"
+    "vue-router": "^4.0.6",
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.6.0",
