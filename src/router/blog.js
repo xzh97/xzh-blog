@@ -1,5 +1,5 @@
-const blogsList = () => import('@/views/blogs/list/index');
-const blogsDetail = () => import('@/views/blogs/detail/index');
+const blogsList = () => import('@/views/blogs/list');
+const blogsDetail = () => import('@/views/blogs/detail');
 const routes = [
     {
         path:'/blog/list/:categoryOid',

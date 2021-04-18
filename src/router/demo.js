@@ -1,4 +1,4 @@
-const demoComp = () => import('@/views/demo/index');
+const demoComp = () => import('@/views/demo');
 const virtualList = () => import('@/views/demo/virtualList');
 const routes = [
     {

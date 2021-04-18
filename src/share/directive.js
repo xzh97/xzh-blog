@@ -1,5 +1,5 @@
-export default (Vue) => {
-    Vue.directive('body', {
+export default (app) => {
+    app.directive('body', {
         inserted:function(el){
             document.body.appendChild(el);
         },

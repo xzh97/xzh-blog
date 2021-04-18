@@ -2,8 +2,10 @@ import Message from './index.vue';
 import {close} from '../pluginHelper';
 let $vm;
 const message = {
-    install(Vue,options){
-        const messagePlugin = Vue.extend(Message);
+    install(app,options){
+        console.log(app, options);
+        app.config.globalProperties
+        const messagePlugin = app.extend(Message);
         if(!$vm){
             $vm = new messagePlugin({
                 el:document.createElement('div')
@@ -12,7 +14,7 @@ const message = {
         }
         $vm.isShow = false;
 
-        Vue.prototype.$message = options => {
+        app.prototype.$message = options => {
             let durations = 1500;
             if(!options){return}
             else if(typeof options === 'string'){ //成功

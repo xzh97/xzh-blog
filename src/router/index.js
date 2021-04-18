@@ -1,19 +1,14 @@
-// import Vue from 'vue';
-// import vueRouter from 'vue-router';
+import {createRouter, createWebHashHistory} from 'vue-router';
 
 import blogsRoute from './blog';
-import pluginsRoute from './plugin';
 import demosRoute from './demo';
 
-// Vue.use(vueRouter);
-
-const home = () => import('@/views/home/index');
-const login = () => import('@/views/login/index');
+const home = () => import('@/views/home');
+const login = () => import('@/views/login');
 
 const routes = [
     {
         path: '/',
-        component: login,
         redirect: '/login',
         name:'index'
     },
@@ -29,10 +24,12 @@ const routes = [
     }
 ];
 routes.push(...blogsRoute);
-routes.push(...pluginsRoute);
 routes.push(...demosRoute);
 
-// const router = new vueRouter({routes});
+const router = createRouter({
+    history: createWebHashHistory,
+    routes,
+})
 
 // router.beforeEach((to, from, next) => {
 //     console.log('beforeEach', router.app.$store);
@@ -44,4 +41,4 @@ routes.push(...demosRoute);
 //     router.app.$store.commit('setIsShowLoading',false);
 // })
 
-export default routes;
+export default router;
