@@ -29,7 +29,6 @@
 <script>
 import AccountLogin from './login';
 import Register from './register';
-import CanvasNest from 'canvas-nest.js'
 
 
 import {login, register} from '@/api/base.js';
@@ -78,10 +77,6 @@ export default {
         },
     },
     methods:{
-        createCanvasNest(){
-            const el = document.querySelector('body');
-            this.cn = new CanvasNest(el,this.config)
-        },
         onTabsChange(tab){
             this.currentTab = tab.key;
             if(tab.key === 'register') this.handleFocus('normal');
@@ -93,9 +88,6 @@ export default {
             // console.log(type);
             this.currentLogo = type;
         }
-    },
-    mounted(){
-        this.createCanvasNest();
     },
     beforeDestroy () {
         this.cn.destroy()

@@ -10,7 +10,7 @@
  * @param headers request headers参数
  * */
 import config from '@/config/index';
-import {getItem} from '@/share/utils'
+import {getItem} from '@/utils/utils'
 export default function ajax({url, method='GET', async=true, params, data, headers }){
     let xhr;
     return new Promise((resolve,reject) => {

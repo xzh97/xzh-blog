@@ -1,4 +1,4 @@
-import {getItem} from '@/share/utils';
+import {getItem} from '@/utils/utils';
 export default {
     isShowLoading(state){
         return state.isShowLoading;

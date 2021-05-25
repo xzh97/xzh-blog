@@ -55,9 +55,9 @@ import comment from '@/components/base/comment/index';
 import defaultAvatar from '@/assets/images/default_avatar.jpg';
 import 'quill/dist/quill.snow.css';
 
-import util from '@/share/utils';
+import util from '@/utils/utils';
 import dayJS from 'dayjs'
-import {imgMixin} from '@/share/mixin';
+import {imgMixin} from '@/utils/mixin';
 import {getBlogDetail, addNewComment} from '@/api/blog';
 import {mapMutations} from 'vuex'
 

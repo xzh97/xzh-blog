@@ -5,6 +5,12 @@
 html{
 	font-size: $font-size-base;
 	height:100%;
+	font-size: 12px;
+    font-family: -apple-system,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial;
+    word-break: break-word;
+    text-rendering: optimizeLegibility;
+    color: $text-color;
+    background-color: #f4f5f5;
 }
 body{
 	min-height:100%;
@@ -26,7 +32,6 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-    color: $text-color;
 	font-weight: normal;
 	vertical-align: baseline;
 	font-family: 'Josefin Sans Light', -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "'Hiragino Sans GB", STHeiti, 
@@ -51,6 +56,13 @@ button{
 }
 textarea{
 	resize: none; //禁止拉伸
+}
+input[type="search"]::-webkit-search-cancel-button {
+	-webkit-appearance: none;
+	height: 16px;
+	width: 16px;
+	background: url(https://yxs-web.oss-cn-beijing.aliyuncs.com/328e4d97f9d0d68ea04e872f68e508e3.png) no-repeat;
+	background-size: contain;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 

@@ -1,6 +1,5 @@
 <template>
     <div class="blog-list-wrapper">
-        <logo></logo>
 
         <h3 class="category-title">Category:&nbsp;&nbsp;{{category.name}}</h3>
         <div class="blog-list-inner clearfix">
@@ -20,11 +19,10 @@
 
 <script>
 import Pagination from "@/components/base/pagination-v2/index";
-import Logo from "@/components/business/logo/index";
 
 import { getBlogList,getCategoryDetail } from "@/api/blog";
 
-import util from "@/share/utils";
+import util from "@/utils/utils";
 export default {
     name: "blog-list",
     data() {
@@ -95,7 +93,6 @@ export default {
     },
     components: {
         Pagination,
-        Logo
     }
 };
 </script>

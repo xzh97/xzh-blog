@@ -6,9 +6,9 @@ import store from './vuex/index';
 
 import './styles/animate.css';
 import './styles/common.scss';
-// import './share/prototype';
+// import './utils/prototype';
 
-import directives from './share/directive';
+import directives from './utils/directive';
 // import message from './plugins/message/index';
 // import imgViewer from './plugins/image-viewer/index';
 

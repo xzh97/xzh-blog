@@ -7,8 +7,8 @@
  * Created at     : 2019-04-23 15:48:22
  * Last modified  : 2019-07-15 22:05:03
  */
-import ajax from '../share/ajax';
-import fetch from '@/share/fetch';
+import ajax from '@/utils/ajax';
+import fetch from '@/utils/fetch';
 //获取文章列表
 export const getBlogList = (params) => {
     return fetch({

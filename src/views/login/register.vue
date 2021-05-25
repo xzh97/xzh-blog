@@ -21,7 +21,7 @@
 import xButton from '@/components/base/button';
 
 import {register} from '@/api/base';
-import {encode, decode} from '@/share/encrypt';
+import {encode, decode} from '@/utils/encrypt';
 export default {
     name: 'Register',
     data(){

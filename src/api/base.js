@@ -8,8 +8,8 @@
  * Last modified  : 2019-04-23 15:48:54
  */
 
-import ajax from '@/share/ajax';
-import fetch from '@/share/fetch';
+import ajax from '@/utils/ajax';
+import fetch from '@/utils/fetch';
 export const getToken = (data) => {
     return fetch({
         url:`/api/token`,

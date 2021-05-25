@@ -29,8 +29,8 @@ import Icon from '@/components/base/icon';
 import xButton from '@/components/base/button';
 
 import {getToken} from '@/api/base';
-import {encode, decode} from '@/share/encrypt';
-import {setItem} from '@/share/utils';
+import {encode, decode} from '@/utils/encrypt';
+import {setItem} from '@/utils/utils';
 import {mapMutations} from 'vuex';
 
 export default {
@@ -73,17 +73,17 @@ export default {
                 text: '第三方登录暂时不可用'
             });
             return;
-            switch(item.key){
-            case 'wechat':
-                break;
-            case 'qq':
-                break;
-            case 'weibo':
-                break;
-            default:
-                console.warn('可恶啊，选择一个第三方登录啊')
-                break;
-            }
+            // switch(item.key){
+            // case 'wechat':
+            //     break;
+            // case 'qq':
+            //     break;
+            // case 'weibo':
+            //     break;
+            // default:
+            //     console.warn('可恶啊，选择一个第三方登录啊')
+            //     break;
+            // }
         },
         handleFocus(type){
             this.$emit('on-focus', type)

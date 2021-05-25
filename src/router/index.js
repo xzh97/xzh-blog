@@ -9,11 +9,11 @@ const login = () => import('@/views/login');
 const routes = [
     {
         path: '/',
-        redirect: '/login',
+        redirect: '/index',
         name:'index'
     },
     {
-        path: '/home',
+        path: '/index',
         component: home,
         name:'home'
     },
@@ -27,7 +27,7 @@ routes.push(...blogsRoute);
 routes.push(...demosRoute);
 
 const router = createRouter({
-    history: createWebHashHistory,
+    history: createWebHashHistory(),
     routes,
 })
 

@@ -1,6 +1,5 @@
 <template>
     <div class="home-wrapper">
-        <logo />
 
         <div class="blog-list">
             <h4 class="list-tip">最近更新</h4>
@@ -31,7 +30,6 @@ import dayJS from 'dayjs';
 import {mapMutations} from 'vuex';
 
 import Pagination from "@/components/base/pagination-v2/index";
-import Logo from '@/components/business/logo/index';
 export default {
     name: "home",
     data() {
@@ -82,7 +80,6 @@ export default {
     },
     components: {
         Pagination,
-        Logo,
     }
 };
 </script>

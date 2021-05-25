@@ -34,7 +34,7 @@ export default {
         },
         showBorderBottom:{
             type: Boolean,
-            default: true,
+            default: false,
         }
     },
     data(){
@@ -44,11 +44,11 @@ export default {
     },
     computed:{
         activeClass(){
-            let { size, shape, showBorderBottom} = this;
+            let { size, shape} = this;
             return {
                 'default-size':size === 'default',
                 'small-size':size === 'small',
-                'big-size':size === 'big',
+                'large-size':size === 'large',
                 'square':shape !== 'circle',
             }
         }
@@ -62,7 +62,7 @@ export default {
     width: 100%;
     @include fsc;
     .avatar-inner{
-        padding: 16px;
+        padding: .2rem;
         box-sizing: content-box;
         img{
             display: block;
@@ -76,16 +76,16 @@ export default {
         font-size: .9em;
     }
     .default-size{
-        width: 40px;
-        height: 40px;
+        width: 2rem;
+        height: 2rem;
     }
     .small-size{
-        width: 20px;
-        height: 20px;
+        width: 1.6rem;
+        height: 1.6rem;
     }
-    .big-size{
-        width: 60px;
-        height: 60px;
+    .large-size{
+        width: 2.4rem;
+        height: 2.4rem;
     }
     .square{
         border-radius: 0;
