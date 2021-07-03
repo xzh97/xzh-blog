@@ -4,7 +4,9 @@
         <custom-header></custom-header>
         <div class="view-wrapper">
             <router-view class="router-view" v-slot="{ Component }">
-                <component :is="Component" />
+                <component :is="Component">
+                    
+                </component>
             </router-view>
         </div>
         <canvas id="live2d" width="280" height="250"></canvas>

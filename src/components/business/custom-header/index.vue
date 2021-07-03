@@ -1,44 +1,58 @@
 <template>
     <div class="custom-header-wrapper">
         <div class="custom-header-inner">
-            <div class="logo-wrapper">
-                <img :src="imgs.logoImg" alt="">
-            </div>
-            <nav class="main-nav-wrapper">
-                <ul class="nav-list">
-                    <li :class="['nav-item', {'active': navId === item.id}]" 
-                        :key="item.id"
-                        v-for="item in navList">
-                        {{item.name}}
-                    </li>
-                </ul>
-            </nav>
-            <div class="nav-right">
-                <div class="nav-right-item search-wrapper">
-                    <input
-                        type="search" 
-                        name="indexSearch" 
-                        id="search-input" 
-                        placeholder="请输入搜索内容"
-                        v-model="keywords">
+            <div class="custom-header-content">
+                <div class="logo-wrapper">
+                    <img :src="imgs.logoImg" alt="">
                 </div>
-                <div class="nav-right-item btn-wrapper">
-                    <button class="write-btn">写文章</button>
-                </div>
-                <div class="nav-right-item notification-wrapper">
-                    <Icon class="notification-icon" type="bell" fill></Icon>
-                </div>
-                <div class="nav-right-item avatar-wrapper">
-                    <avatar
-                        :avatar-img="avatarImg"
-                        :size="'large'"
-                    >
+                <nav class="main-nav-wrapper">
+                    <ul class="nav-list">
+                        <li :class="['nav-item', {'active': navId === item.id}]" 
+                            :key="item.id"
+                            v-for="item in navList">
+                            {{item.name}}
+                        </li>
+                    </ul>
+                </nav>
+                <div class="nav-right">
+                    <div class="nav-right-item search-wrapper">
+                        <input
+                            type="search" 
+                            name="indexSearch" 
+                            id="search-input" 
+                            placeholder="请输入搜索内容"
+                            v-model="keywords">
+                    </div>
+                    <div class="nav-right-item btn-wrapper">
+                        <button class="write-btn">写文章</button>
+                    </div>
+                    <div class="nav-right-item notification-wrapper">
+                        <Icon class="notification-icon" type="bell" fill></Icon>
+                    </div>
+                    <div class="nav-right-item avatar-wrapper">
+                        <avatar
+                            :avatar-img="avatarImg"
+                            :size="'large'"
+                        >
 
-                    </avatar>
+                        </avatar>
+                    </div>
                 </div>
             </div>
         </div>
         
+        <div class="view-nav-wrapper">
+            <ul class="nav-list">
+                <li 
+                    :class="['nav-item', {'active': nav.id === activeNav}]"
+                    v-for="nav in viewNavList"
+                    :key="nav.id"
+                    @click="handleClick(nav.id)"
+                >
+                    {{nav.text}}
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -88,11 +102,59 @@ export default {
             ],
             navId: 'index',
             keywords: "",
+            avatarImg: '',
+            activeNav: 'recommend',
+            viewNavList: [
+                {
+                    id: 'recommend',
+                    text: '推荐',
+                },
+                {
+                    id: 'frontend',
+                    text: '前端',
+                },
+                {
+                    id: 'backend',
+                    text: '后端',
+                },
+                {
+                    id: 'android',
+                    text: 'Android',
+                },
+                {
+                    id: 'ios',
+                    text: 'IOS',
+                },
+                {
+                    id: 'ai',
+                    text: '推荐',
+                },
+                {
+                    id: 'freebie',
+                    text: '开发工具',
+                },
+                {
+                    id: 'career',
+                    text: '代码人生',
+                },
+                {
+                    id: 'article',
+                    text: '阅读',
+                },
+            ]
         })
 
         return {
             ...state
         }
+    },
+    methods:{
+        handleClick(id){
+            this.activeNav = id;
+            this.$router.push({
+                path: `/index/${id}`
+            })
+        },
     }
 }
 </script>
@@ -105,6 +167,10 @@ export default {
     width: 100%;
 }
 .custom-header-inner{
+    width: 100%;
+    border-bottom: 1px solid #f1f1f1;
+}
+.custom-header-content{
     @include fbc();
     max-width: 960px;
     margin: 0 auto;
@@ -124,7 +190,7 @@ export default {
                 color: #71777c;
             }
             .nav-item.active,.nav-item:hover{
-                color: #007fff;
+                color: $primary-color;
             }
         }   
     }
@@ -145,19 +211,35 @@ export default {
             }
         }
         .search-wrapper.active{
-            border-color: #007fff;
+            border-color: $primary-color;
         }
         .write-btn{
             padding: 0 .9rem;
             color: #ffffff;
-            background: #007fff;
-            border: 1px solid #007fff;
+            background: $primary-color;
+            border: 1px solid $primary-color;
             border-radius: $border-radius-base;
             height: 2.667rem;
         }
         .notification-icon{
             font-size: 2rem;
-            color: #007fff
+            color: $primary-color
+        }
+    }
+}
+.view-nav-wrapper{
+    font-size: 1.16rem;
+    .nav-list{
+        max-width: 960px;
+        margin: 0 auto;
+        @include fsc;
+        .nav-item{
+            padding: 1rem;
+            color: #71777c;
+            cursor: pointer;
+        }
+        .nav-item.active,.nav-item:hover{
+            color: $primary-color;
         }
     }
 }

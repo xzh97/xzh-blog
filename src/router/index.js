@@ -9,11 +9,11 @@ const login = () => import('@/views/login');
 const routes = [
     {
         path: '/',
-        redirect: '/index',
+        redirect: '/index/index',
         name:'index'
     },
     {
-        path: '/index',
+        path: '/index/:navId',
         component: home,
         name:'home'
     },

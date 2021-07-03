@@ -1,76 +1,97 @@
 <template>
-    <div class="home-wrapper">
-
-        <div class="blog-list">
-            <h4 class="list-tip">最近更新</h4>
-            <dl class="blog-item" v-for="blog in blogList" :key="blog.blogOid">
-                <dt class="create-time">{{blog.createTime}}</dt>
-                <dd class="title" @click="goDetail(blog.blogOid)">{{blog.title}}</dd>
-                <dd class="blog-description one-line">{{blog.description}}</dd>
-            </dl>
+    <div class="blog-wrapper">
+        <div class="blog-tab">
+            <div 
+                v-for="tab in tabs" 
+                :key="tab.id"
+                :class="['tab-item', {'active': activeTab === tab.id}]"
+                @click="handleTabClick(tab.id)"
+                class="">
+            {{tab.name}}    
+            </div>
         </div>
+        <div class="blog-list-wrapper">
+            <list :data-source="blogList">
+                <li v-for="item in blogList"
+                    :key="item.blogOid"
+                >
+                    
 
-        <ul class="category-list">
-            <h4 class="list-tip">Category</h4>
-            <li
-                    class="category-item"
-                    v-for="(category,index) in categoryList"
-                    :key="category.categoryOid"
-            >
-                <span class="category-name" @click='goCategoryList(category)'>{{category.name}}</span>
-                <span v-if="index !== categoryList.length - 1" class="dot">·</span>
-            </li>
-        </ul>
+                </li>
+            </list>
+        </div>
     </div>
 </template>
 
 <script>
 import { getBlogList, getCategories } from "@/api/blog";
 import dayJS from 'dayjs';
-import {mapMutations} from 'vuex';
-
-import Pagination from "@/components/base/pagination-v2/index";
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayJS.extend(relativeTime);
+import Pagination from "@/components/base/pagination-v2";
+import List from '@/components/base/list'
+import {reactive, onMounted} from 'vue';
+import { useRoute, useRouter } from 'vue-router'
 export default {
     name: "home",
-    data() {
-        return {
-            blogList: [],
-            categoryList: [], //博客分类列表
-        };
+    components: {
+        Pagination,
+        List
     },
-    computed: {},
-    methods: {
-        ...mapMutations([
-            'setIsShowLoading'
-        ]),
-        getBlogList() {
+    setup(){
+        const route = useRoute();
+        const router = useRouter();
+        const state = reactive({
+            blogList: [],
+            activeTab: 'index',
+            tabs: [
+                {
+                    id: 'index',
+                    name: '热门'
+                },
+                {
+                    id: 'newest',
+                    name: '最新'
+                },
+                {
+                    id: 'threeDaysHottest',
+                    name: '热榜'
+                }
+            ]
+        })
+        const getBlogListData = () => {
             getBlogList({ page: 1, size: 8 }).then(
                 res => {
                     console.log(res);
-                    res.data.data.forEach(item => {
+                    res.data.forEach(item => {
+                        item.createTimeFromNow = dayJS(item.createTime).fromNow();
+
                         item.createTime = dayJS(item.createTime).format('ddd,YY MMM Do');
                     });
-                    this.blogList = res.data.data;
+                    state.blogList = res.data.data;
                 }
             );
-        },
-        goDetail(blogOid){
-            this.$router.push({
+        }
+        onMounted(getBlogListData);
+
+        const goDetail = blogOid => {
+            router.push({
                 path:`blog/detail/${blogOid}`
             })
-        },
-        goCategoryList(category){
-            this.$router.push({
-                path:`blog/list/${category.categoryOid}`
-            })
+        }
+
+        const handleTabClick = id => {
+            state.activeTab = id;
+        }
+
+        return {
+            ...state,
+            goDetail,
+            getBlogList,
+            handleTabClick,
         }
     },
-    created() {
-        this.getBlogList();
-        getCategories().then(res => {
-            this.categoryList = res.data;
-        });
-    },
+
     beforeRouteEnter (to, from, next) {
         next();
     },
@@ -78,60 +99,29 @@ export default {
         // this.setIsShowLoading(true);
         next();
     },
-    components: {
-        Pagination,
-    }
+    
 };
 </script>
 
 <style lang="scss" scoped>
 @import "@/styles/mixin.scss";
-.home-wrapper {
-    .list-tip{
-        font-size: 1.5em;
-    }
-    .blog-list {
-        width: 100%;
-        .blog-item {
-            text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
-            font-weight: 400;
-            line-height: 1.7;
-            margin-bottom: 30px;
-            .create-time {
-                float: left;
-                clear: left;
-                color: $title-color;
-                font-size: 1.25em;
-            }
-            .title {
-                cursor: pointer;
-                color: $title-color;
-                transition: all 0.2s;
-            }
-            .title:hover {
-                color: $link-color;
-                transition: all 0.2s;
-            }
+.blog-wrapper{
+    max-width: 700px;
+    background: #fff;
+    margin-top: 1.3rem;
+    .blog-tab{
+        @include fsc();
+        border: 1px solid #eeeeee;
+        .tab-item{
+            font-size: 1rem;
+            padding: 1.3rem 1rem;
         }
-    }
-    .category-list {
-        .category-item {
-            display: inline-block;
-            height: 30px;
-            line-height: 1.1;
-            .category-name {
-                color: $title-color;
-                cursor: pointer;
-                transition: all 0.2s;
-            }
-            .category-name:hover {
-                color: $link-color;
-                transition: all 0.2s;
-            }
-            .dot{
-                display: inline-block;
-                margin: 0 10px;
-            }
+        .tab-item.active{
+            color: $primary-color;
+        }
+        .tab-item:hover{
+            color: $primary-color;
+            cursor: pointer;
         }
     }
 }
