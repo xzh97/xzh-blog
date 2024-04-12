@@ -1,0 +1,29 @@
+.switch-wrapper {
+  display: inline-block;
+  .switch-box {
+      min-width: 44px;
+      height: 22px;
+      border: 1px solid transparent;
+      border-radius: 100px;
+
+      position: relative;
+      outline: none;
+      .switch-dot {
+          position: absolute;
+          top: 1px;
+          left: 1px;
+          width: 18px;
+          height: 18px;
+          background-color: #fff;
+          border-radius: 18px;
+          transition: left .36s;
+          cursor: pointer;
+      }
+  }
+  .switch-checked{
+      .switch-dot {
+          left: 22px;
+          transition: left .36s;
+      }
+  }
+}

@@ -24,3 +24,6 @@
 * 之前做这个项目的时候 ajax.js里的 全局xhr变量导致的ajax请求结果混乱
 * 突然回想了一下  发现以前学的很多东西都忘记了。 找个时间把之前的东西整理一下 按照 html,css,js,框架，node，webpack，优化方面。
 *
+
+## Refactor by Vite + React + TS + SWC + React-Router V6
+初始化

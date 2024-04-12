@@ -1,0 +1,23 @@
+.blog-list {
+  width: 100%;
+  margin: 0 auto;
+
+  .blog-list-item {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 2rem;
+    .blog-title {
+      flex: 1;
+    }
+    .blog-title:hover {
+      color: #2d96bd;
+      background-color: transparent;
+      cursor: pointer;
+    }
+    .blog-date {
+      color: #a9a9b3;
+    }
+  }
+}

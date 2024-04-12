@@ -1,0 +1,33 @@
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 8rem);
+  width: 100%;
+  .main {
+    margin-top: 40px;
+    .avatar-wrapper {
+      margin-bottom: 20px;
+      .avatar {
+        width: 128px;
+        height: auto;
+        min-height: 128px;
+        display: inline-block;
+        border-radius: 100%;
+        box-shadow: 0 0 0 0.3618em rgba(0, 0, 0, 0.05);
+        margin: 0 auto;
+        transition: all ease 0.4s;
+        cursor: pointer;
+      }
+      .avatar:hover {
+        position: relative;
+        transform: translateY(-0.75em);
+        cursor: pointer;
+      }
+    }
+    .nickname {
+      font-size: 2em;
+      font-weight: normal;
+    }
+  }
+}
