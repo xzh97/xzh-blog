@@ -1,0 +1,53 @@
+.pagination-wrapper {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  .page-list {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &-item.active {
+      color: #000;
+    }
+    &-item.active:before, &-item.active:after {
+      width: 50%;
+    }
+    &-item {
+      list-style-type: none;
+      cursor: pointer;
+      color: #bfbfbf;
+      font-size: 14px;
+      padding: 5px;
+      transition: .3s;
+      letter-spacing: 0.1em;
+      position: relative;
+      box-sizing: border-box;
+      margin: 0 20px;
+      font-weight: 700
+    }
+    &-item:before, &-item:after {
+      content: '';
+      position: absolute;
+      height: 2px;
+      background-color: #000000;
+      transition: .3s;
+      bottom: 0;
+      width: 0;
+    }
+    &-item:before {
+      left: 50%;
+    }
+    &-item:after {
+      right: 50%;
+    }
+    &-item:hover:before {
+      width: 50%;
+    }
+    &-item:hover:after {
+      width: 50%;
+    }
+  }
+}

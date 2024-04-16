@@ -1,1 +1,1 @@
-export { default } from './CustomHeader';
+export { default } from './customHeader';
