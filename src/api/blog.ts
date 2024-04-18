@@ -6,3 +6,7 @@ export const getBlogList = (params: Partial<BlogListQuery>) => {
     params,
   });
 };
+
+export const getBlogDetail = (id: string) => {
+  return request.get(`/api/blog/${id}`);
+};

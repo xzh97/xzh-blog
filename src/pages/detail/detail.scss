@@ -1,0 +1,39 @@
+.detail-header {
+  width: 100%;
+  margin: 0 auto;
+  .title {
+    font-size: 2em;
+    line-height: 1.5em;
+    margin: 0;
+  }
+  .meta {
+    color: rgba(85, 85, 85, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .author,
+    .create-time,
+    .categories {
+      color: #2d96bd;
+    }
+    .author:hover,
+    .create-time:hover,
+    .categories:hover {
+      color: #ef3982;
+      cursor: pointer;
+    }
+  }
+}
+.detail-content {
+  code {
+    background-color: #f7f7f7;
+    line-height: 1.7em;
+    padding: 4px 6px;
+    border-radius: 4px;
+    color: rgba(255, 82, 82, .8);
+  }
+  pre code.hljs{
+    // color: #383a42;
+    background-color: #fafafa;
+  }
+}

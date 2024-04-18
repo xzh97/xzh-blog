@@ -7,6 +7,7 @@ import CustomFooter from '@/components/customFooter';
 
 const Home = lazy(() => import('@/pages/home'));
 const Blog = lazy(() => import('@/pages/blog'));
+const Detail = lazy(() => import('@/pages/detail'));
 const Category = lazy(() => import('@/pages/category'));
 const About = lazy(() => import('@/pages/about'));
 const NotFound = lazy(() => import('@/pages/404'));
@@ -24,6 +25,10 @@ const routes: RouteObject[] = [
   {
     path: '/blog',
     element: lazyload(Blog),
+  },
+  {
+    path: '/detail/:id',
+    element: lazyload(Detail),
   },
   {
     path: '/category',
