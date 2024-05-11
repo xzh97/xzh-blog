@@ -19,7 +19,7 @@
     .author:hover,
     .create-time:hover,
     .categories:hover {
-      color: #ef3982;
+      color: rgba(255, 82, 82, 0.8);
       cursor: pointer;
     }
   }
@@ -30,9 +30,10 @@
     line-height: 1.7em;
     padding: 4px 6px;
     border-radius: 4px;
-    color: rgba(255, 82, 82, .8);
+    color: rgba(255, 82, 82, 0.8);
+    color: #2d96bd;
   }
-  pre code.hljs{
+  pre code.hljs {
     // color: #383a42;
     background-color: #fafafa;
   }

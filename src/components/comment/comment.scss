@@ -1,0 +1,44 @@
+.comment-list-wrapper {
+  width: 100%;
+  padding-top: 2em;
+  .comment-list {
+    width: 100%;
+    .comment-item {
+      width: 100%;
+      padding: 12px 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+
+      .comment-avatar {
+        width: 40px;
+        height: 40px;
+        .avatar-img {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+        }
+      }
+      .comment-wrapper {
+        flex: 1;
+        line-height: 1.5em;
+
+        .comment-action {
+          display: flex;
+          color: #999999;
+          font-size: 0.8em;
+          .action-date {
+            margin-right: 10px;
+          }
+          .action-reply {
+            padding: 0 8px;
+          }
+          .action-reply:hover {
+            color: #2d96bd;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

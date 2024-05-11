@@ -11,6 +11,7 @@ import { BlogEntity } from '@/types/blog';
 import { getBlogDetail } from '@/api/blog';
 import './detail.scss';
 import testmd from './test.md';
+import Comment from '@/components/comment/comment';
 
 const BlogDetail = () => {
   const [blog, setBlog] = useState<BlogEntity>();
@@ -37,7 +38,7 @@ const BlogDetail = () => {
           <div className="create-time">
             {dayjs(blog?.createTime).format('MMMM DD,YYYY HH:mm:ss')}
           </div>
-          &nbsp; Categories：<div className="categories">{blog?.category}</div>
+          &nbsp; Categories：<div className="categories">{blog?.category.name}</div>
         </div>
       </header>
     );
@@ -63,7 +64,11 @@ const BlogDetail = () => {
         return '<pre><code class="hljs">' + md.utils.escapeHtml(str) + '</code></pre>';
       },
     })
-      .use(anchor, { permalink: true, permalinkBefore: true, permalinkSymbol: '§' })
+      .use(anchor, {
+        permalink: anchor.permalink.headerLink(),
+        permalinkBefore: true,
+        permalinkSymbol: '§',
+      })
       .use(tocDoneRight);
     return (
       <div className="detail-content" dangerouslySetInnerHTML={{ __html: md.render(testmd) }} />
@@ -71,20 +76,28 @@ const BlogDetail = () => {
   };
 
   const renderFooter = () => {
+    const link = window.location.origin + window.location.pathname;
     return (
       <footer className="detail-copyright">
         <div className="copyright-item">Author: {blog?.author}</div>
         <div className="copyright-item">
-          Permalink: <a href={window.location.href}>{window.location.href}</a>
+          Permalink: <a href={link}>{link}</a>
           {}
         </div>
         <div className="copyright-item">
           License: Copyright (c) 2019{' '}
           <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE
         </div>
-        <div className="copyright-item">Slogan: 最是人间孤愤难平，直消得几回潮落又潮生！</div>
+        <div className="copyright-item">Slogan: 杂思沉潜下，时时可得！</div>
       </footer>
     );
+  };
+
+  const renderComment = () => {
+    if (blog) {
+      return <Comment list={blog.comments} />;
+    }
+    return null;
   };
 
   return (
@@ -92,6 +105,7 @@ const BlogDetail = () => {
       {renderHeader()}
       {renderContent()}
       {renderFooter()}
+      {renderComment()}
     </div>
   );
 };

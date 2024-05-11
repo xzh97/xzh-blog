@@ -18,7 +18,7 @@ export interface BlogEntity {
   poster?: string;
 
   /** 博客内容描述 */
-  description?: string;
+  description: string;
 
   /** 博客内容 */
   content: string;
@@ -30,14 +30,14 @@ export interface BlogEntity {
   updateTime?: number;
 
   /** 作者 */
-  author?: string;
+  author: string;
 
   /** 博客分类 */
-  category?: number;
-
-  /** 博客标签 */
-  tag?: number;
+  category: Category.Entity;
 
   /** 博客状态 */
   status: number;
+
+  /** 博客评论 */
+  comments: Comment.Entity[];
 }

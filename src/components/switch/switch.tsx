@@ -5,7 +5,7 @@ import './switch.scss';
 
 const Switch = (props: SwitchProps) => {
   const {
-    activeBg = '#1890ff',
+    activeBg = '#2d96bd',
     inactiveBg = 'rgba(0,0,0,0.25)',
     value,
     customClassNames,
