@@ -7,14 +7,14 @@ import tocDoneRight from 'markdown-it-toc-done-right';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-light.min.css';
 
-import { BlogEntity } from '@/types/blog';
 import { getBlogDetail } from '@/api/blog';
 import './detail.scss';
 import testmd from './test.md';
 import Comment from '@/components/comment/comment';
+import CommentInput from '@/components/commentInput';
 
 const BlogDetail = () => {
-  const [blog, setBlog] = useState<BlogEntity>();
+  const [blog, setBlog] = useState<Blog.Entity>();
   const { id } = useParams();
 
   const getDetail = () => {
@@ -95,7 +95,12 @@ const BlogDetail = () => {
 
   const renderComment = () => {
     if (blog) {
-      return <Comment list={blog.comments} />;
+      return (
+        <>
+          <CommentInput />
+          <Comment list={blog.comments} />
+        </>
+      );
     }
     return null;
   };

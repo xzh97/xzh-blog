@@ -13,6 +13,8 @@
     "lint": "lint-staged"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.26.22",
+    "@popperjs/core": "^2.11.8",
     "axios": "^1.6.8",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.10",
@@ -22,7 +24,8 @@
     "markdown-it-toc-done-right": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3"
+    "react-router-dom": "^6.22.3",
+    "unicode-emoji-json": "^0.6.0"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.1.0",

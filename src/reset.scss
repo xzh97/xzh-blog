@@ -1,18 +1,22 @@
 @font-face {
   font-family: DFDK;
-  src: url('./assets/fonts/Alimama/AlimamaDongFangDaKai-Regular.woff2') format('woff2'),
-  url('./assets/fonts/Alimama/AlimamaDongFangDaKai-Regular.woff') format('woff'),
-  url('./assets/fonts/Alimama/AlimamaDongFangDaKai-Regular.ttf') format('truetype'),
+  src:
+    url('./assets/fonts/Alimama/AlimamaDongFangDaKai-Regular.woff2') format('woff2'),
+    url('./assets/fonts/Alimama/AlimamaDongFangDaKai-Regular.woff') format('woff'),
+    url('./assets/fonts/Alimama/AlimamaDongFangDaKai-Regular.ttf') format('truetype');
 }
 
-html::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
-html::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   height: 40px;
   background-color: #eee;
   border-radius: 16px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 body {
   margin: 0;

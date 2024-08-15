@@ -18,7 +18,7 @@ declare namespace Comment {
     children?: Entity[];
   }
 
-  interface Props {
+  interface Props extends BaseProps {
     list: Entity[];
   }
 }

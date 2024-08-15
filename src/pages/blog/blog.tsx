@@ -2,19 +2,16 @@ import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
 import './blog.scss';
-import { BlogEntity } from '@/types/blog';
 import { getBlogList } from '@/api/blog';
-import { ListCommon } from '@/types/common';
-import { BlogListQuery } from '@/types/blog';
 import useSearch from '@/hooks/useSearch';
 import Pagination from '@/components/pagination';
 import List from '@/components/list';
 
 const Blog = () => {
   const navigate = useNavigate();
-  const [blogList, setBlogList] = useState<BlogEntity[]>([]);
+  const [blogList, setBlogList] = useState<Blog.Entity[]>([]);
   const [total, setTotal] = useState(0);
-  const { getList } = useSearch<BlogListQuery, ListCommon<BlogEntity>>({
+  const { getList } = useSearch<Blog.ListQuery, Common.ListApi<Blog.Entity>>({
     params: {},
     getMethod: getBlogList,
   });
@@ -32,7 +29,7 @@ const Blog = () => {
     navigate(`/detail/${id}`);
   };
 
-  const renderBlog = (item: BlogEntity) => {
+  const renderBlog = (item: Blog.Entity) => {
     return (
       <article key={item.id} className="blog-list-item">
         <div className="blog-title" onClick={() => goDetail(item.id)}>
@@ -45,7 +42,7 @@ const Blog = () => {
 
   return (
     <div className="container">
-      <List<BlogEntity> className="blog-list" list={blogList} renderItem={renderBlog} />
+      <List<Blog.Entity> className="blog-list" list={blogList} renderItem={renderBlog} />
       <Pagination showTotal total={total} />
     </div>
   );

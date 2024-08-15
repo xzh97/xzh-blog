@@ -1,0 +1,22 @@
+.emoji-list-wrapper {
+  width: 408px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 270px;
+  box-sizing: border-box;
+  margin: 12px 0 12px 4px;
+  font-size: 18px;
+
+  .emoji-item {
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.5;
+    }
+  }
+}
